@@ -3,216 +3,151 @@
 
   const config = window.CODECRAFT_CONFIG || {};
   const apiBase = String(config.API_BASE_URL || "http://localhost:8000").replace(/\/$/, "");
+  const lesson = (id, title, outcome, task) => ({ id, title, outcome, task, minutes: 20 });
+  const module = (title, summary, lessons) => ({ title, summary, lessons });
   const courses = [
-    { id: "python", label: "Python", eyebrow: "Суурь ойлголтууд", title: "Python-оо бодитоор ойлго", description: "Keyword бүрийг цээжлэх бус, кодын урсгалыг уншиж сэтгэх дадлыг бий болгоно.", lessons: "Python-ийн хичээлүүд", icon: "Py", next: "if ба нөхцөлийн дараалал", starter: "name = 'CodeCraft'\nprint(f'Сайн байна уу, {name}!')" },
-    { id: "html", label: "HTML", eyebrow: "Вэбийн бүтэц", title: "Вэбийн суурийг зөв байгуул", description: "Semantic бүтэц, accessibility болон бодит page бүтээнэ.", lessons: "HTML-ийн хичээлүүд", icon: "<>" , next: "Semantic HTML бүтэц", starter: "<main>\n  <h1>Миний анхны вэб</h1>\n  <p>HTML-ээр бүтэц үүсгэлээ.</p>\n</main>" },
-    { id: "css", label: "CSS", eyebrow: "Харагдацын систем", title: "Дизайныг код болгон бүтээ", description: "Layout, responsive систем, animation, design token-оор UI-г системтэй зурна.", lessons: "CSS-ийн хичээлүүд", icon: "#", next: "Flexbox card grid", starter: ".card {\n  padding: 24px;\n  border-radius: 16px;\n  color: #402080;\n  background: #f1edff;\n}" },
-    { id: "javascript", label: "JavaScript", eyebrow: "Вэбийн үйлдэл", title: "Интерактив вэбийг амилуул", description: "DOM, event, async/API, module болон жижиг бүтээгдэхүүнээр сурна.", lessons: "JavaScript-ийн хичээлүүд", icon: "JS", next: "Event listener ба UI state", starter: "const button = document.querySelector('button');\nbutton?.addEventListener('click', () => {\n  console.log('Товч дарагдлаа!');\n});\nconsole.log('JavaScript ажиллаж байна');" }
+    {
+      id: "python", label: "Python", icon: "Py", color: "purple", eyebrow: "Програмчлалын сэтгэлгээ", duration: "6 долоо хоног", level: "Анхан шат",
+      description: "Код хэрхэн ажилладгийг ойлгож, логик сэтгэлгээ болон асуудал задлах сууриа тавина.",
+      starter: "name = 'CodeCraft'\nfor step in range(1, 4):\n    print(f'{step}. Сайн уу, {name}!')",
+      modules: [
+        module("01 · Эхлэл", "Орчин, өгөгдөл, гаралт", [lesson("py-start", "Python гэж юу вэ?", "Код, програм, interpreter-ийн ялгааг ойлгоно.", "print() ашиглан анхны програмаа ажиллуул."), lesson("py-values", "Хувьсагч ба өгөгдлийн төрөл", "string, integer, float, boolean утгыг зөв сонгоно.", "Өөрийн танилцуулга хадгалах 4 хувьсагч үүсгэ."), lesson("py-input", "Оролт, гаралт", "input, print болон type conversion ашиглана.", "Нас асуугаад дараа жилийн насыг хэвлэ.")]),
+        module("02 · Логик", "Нөхцөл, давталт, алдаа", [lesson("py-if", "Нөхцөл шалгах", "if, elif, else ашиглан шийдвэр гаргана.", "Оноог үсгэн үнэлгээнд хөрвүүл."), lesson("py-loop", "for ба while", "Давтагдах ажлыг богино бичнэ.", "1–100 хоорондох тэгш тооны нийлбэрийг ол."), lesson("py-debug", "Алдаа уншиж засах", "Syntax, runtime, logic алдааг ялгана.", "Эвдэрхий тооны машинд 3 алдаа ол.")]),
+        module("03 · Өгөгдөл", "List, dictionary, function", [lesson("py-list", "List ба collection", "Олон утгыг хадгалж, шүүж, эрэмбэлнэ.", "Хичээлийн онооны дундаж бод."), lesson("py-dict", "Dictionary", "key/value өгөгдлийг загварчилна.", "Сурагчийн profile dictionary үүсгэ."), lesson("py-function", "Function", "Параметр, return ашиглан кодоо хэсэгчлэнэ.", "Хөнгөлөлт боддог function бич.")]),
+        module("04 · Мини төсөл", "CLI бүтээгдэхүүн", [lesson("py-files", "Файлтай ажиллах", "Текст өгөгдөл уншиж, хадгална.", "Тэмдэглэлээ файлд хадгал."), lesson("py-project", "Төсөл: Task tracker", "Бүх ойлголтоо нэг урсгалд нэгтгэнэ.", "Нэмэх, харах, дуусгах CLI app бүтээ."), lesson("py-review", "Шалгалт ба рефактор", "Кодоо уншигдахуйц болгож edge case шалгана.", "Төслөө function-уудаар хуваа.")])
+      ]
+    },
+    {
+      id: "html", label: "HTML", icon: "<>", color: "orange", eyebrow: "Вэбийн утга ба бүтэц", duration: "4 долоо хоног", level: "Анхан шат",
+      description: "Хүртээмжтэй, хайлтын системд ойлгомжтой веб хуудсыг зөв бүтцээр байгуулна.",
+      starter: "<main>\n  <h1>Миний анхны вэб</h1>\n  <p>Би semantic HTML ашиглаж байна.</p>\n  <button>Эхлэх</button>\n</main>",
+      modules: [
+        module("01 · Вэбийн суурь", "Browser ба document", [lesson("html-web", "Вэб хэрхэн ажилладаг вэ?", "Browser, server, URL, request-ийн үүргийг ойлгоно.", "Нэг web request-ийн урсгалыг зур."), lesson("html-doc", "HTML document", "doctype, head, body, metadata-г зөв бичнэ.", "Стандарт хангасан page үүсгэ."), lesson("html-text", "Текст ба холбоос", "Heading, paragraph, list, link ашиглана.", "Хувийн танилцуулга хий.")]),
+        module("02 · Semantic HTML", "Утгатай бүтэц", [lesson("html-semantic", "Page landmark", "header, nav, main, section, footer сонгоно.", "Div page-ийг semantic болго."), lesson("html-media", "Зураг ба медиа", "Responsive image, figure, alt ашиглана.", "Тайлбартай gallery хий."), lesson("html-table", "Хүснэгт", "caption, scope бүхий table байгуулна.", "7 хоногийн хуваарь хий.")]),
+        module("03 · Form ба accessibility", "Оролт, keyboard, screen reader", [lesson("html-form", "Form-ийн үндэс", "label, input, textarea, button холбоно.", "Бүртгэлийн form үүсгэ."), lesson("html-validation", "Browser validation", "Input type, required, constraint ашиглана.", "Алдааны төлөвүүдийг шалга."), lesson("html-a11y", "Accessibility", "Keyboard ба accessible name шалгана.", "Mouse-гүйгээр page-аа турш.")]),
+        module("04 · Төсөл", "Portfolio бүтэц", [lesson("html-plan", "Контент төлөвлөх", "Wireframe-ийг outline болгоно.", "Landing page heading map гарга."), lesson("html-build", "Төсөл: Portfolio", "Бодит portfolio-ийн контентыг тэмдэглэнэ.", "Hero, work, about, contact хий."), lesson("html-audit", "HTML аудит", "Semantic ба accessibility алдааг засна.", "Checklist-ээр төслөө шалга.")])
+      ]
+    },
+    {
+      id: "css", label: "CSS", icon: "#", color: "blue", eyebrow: "Харагдац ба layout", duration: "7 долоо хоног", level: "Анхан → дунд",
+      description: "Design token-оос responsive layout хүртэл бодит интерфэйсийг системтэй загварчилна.",
+      starter: ":root {\n  --brand: #7c3aed;\n}\n.card {\n  padding: 24px;\n  border-radius: 18px;\n  color: white;\n  background: var(--brand);\n}",
+      modules: [
+        module("01 · CSS хэл", "Selector, cascade, box model", [lesson("css-start", "Selector", "Element, class, state-ийг зөв онилно.", "Profile card-ын selector бич."), lesson("css-cascade", "Cascade ба specificity", "Яагаад style үйлчилж байгааг тайлбарлана.", "Зөрчилтэй declaration цэгцэл."), lesson("css-box", "Box model", "Padding, border, margin-ийг тооцно.", "Card spacing тааруул.")]),
+        module("02 · Layout", "Flexbox, Grid, position", [lesson("css-flex", "Flexbox", "Alignment ба wrapping хийнэ.", "Responsive navbar хий."), lesson("css-grid", "CSS Grid", "Хоёр хэмжээст layout байгуулна.", "Dashboard grid бүтээ."), lesson("css-position", "Position ба stacking", "Sticky, z-index-ийг ойлгоно.", "Sticky header хий.")]),
+        module("03 · Responsive UI", "Mobile-first ба fluid type", [lesson("css-responsive", "Mobile-first", "Контентоор breakpoint сонгоно.", "Portfolio-г 3 дэлгэцэд тохируул."), lesson("css-fluid", "Fluid хэмжээ", "clamp, minmax, relative unit ашиглана.", "Heading ба grid fluid болго."), lesson("css-query", "Container query", "Орчиндоо дасан зохицох component хийнэ.", "Responsive card хий.")]),
+        module("04 · Design system", "Token, component, state", [lesson("css-token", "Design token", "Өнгө, spacing, type-ээ variable болгоно.", "Theme token set үүсгэ."), lesson("css-component", "Component style", "Variant, size, state загварчилна.", "Button-ийн 3 variant хий."), lesson("css-motion", "Animation", "Transition, keyframe зорилготой ашиглана.", "Reduced-motion animation хий.")]),
+        module("05 · Төсөл", "Responsive бүтээгдэхүүн", [lesson("css-figma", "Дизайнаас код руу", "Spacing, type, color хэмжинэ.", "Mockup hero-г кодло."), lesson("css-project", "Төсөл: SaaS landing", "Production responsive page бүтээнэ.", "6 section, nav, pricing хий."), lesson("css-audit", "Visual QA", "Overflow, contrast, edge case засна.", "320–1440px шалга.")])
+      ]
+    },
+    {
+      id: "javascript", label: "JavaScript", icon: "JS", color: "yellow", eyebrow: "Вэбийн логик ба үйлдэл", duration: "10 долоо хоног", level: "Анхан → дунд",
+      description: "DOM, state, API, async урсгалаар интерактив frontend бүтээгдэхүүн бүтээнэ.",
+      starter: "const button = document.querySelector('button');\nlet count = 0;\nbutton?.addEventListener('click', () => {\n  count += 1;\n  button.textContent = `Даралт: ${count}`;\n});",
+      modules: [
+        module("01 · JavaScript суурь", "Утга, operator, control flow", [lesson("js-values", "Утга ба хувьсагч", "const, let, primitive type хэрэглэнэ.", "Сагсны нийт үнэ бод."), lesson("js-logic", "Нөхцөл ба давталт", "Control flow ашиглана.", "Password strength шалга."), lesson("js-function", "Function", "Input/output-той function зохионо.", "Үнэ форматлах function бич.")]),
+        module("02 · Modern JS", "Array, object, module", [lesson("js-array", "Array method", "map, filter, find, reduce сонгоно.", "Product list шүү."), lesson("js-object", "Object", "UI data-г загварчилна.", "Course card render хий."), lesson("js-module", "Module", "Export/import-аар хариуцлага салгана.", "Utility ба UI module болго.")]),
+        module("03 · DOM ба state", "Event, render, form", [lesson("js-dom", "DOM", "Node-ийг аюулгүй шинэчилнэ.", "Todo item render хий."), lesson("js-event", "Event", "Propagation, delegation ашиглана.", "Dynamic delete холбо."), lesson("js-state", "UI state", "Нэг source of truth-оос render хийнэ.", "Filter-тэй task app хий."), lesson("js-form", "Form validation", "Submit ба error feedback хийнэ.", "Signup form бүтээ.")]),
+        module("04 · Async ба API", "Promise, fetch, UI state", [lesson("js-async", "Async/await", "Асинхрон failure удирдана.", "Хоёр request нэгтгэ."), lesson("js-fetch", "REST API", "Status, JSON боловсруулна.", "API card list харуул."), lesson("js-ui", "Loading, empty, error", "UI бүх төлөвийг харуулна.", "Retry flow нэм."), lesson("js-storage", "Local storage", "Browser-д өгөгдөл хадгална.", "Task app persist хий.")]),
+        module("05 · Frontend capstone", "Architecture, test, deploy", [lesson("js-architecture", "Architecture", "Feature data flow зурна.", "Capstone plan гарга."), lesson("js-project", "Төсөл: Dashboard", "API, filter, modal бүхий app бүтээнэ.", "MVP хэрэгжүүл."), lesson("js-quality", "Test ба performance", "DevTools-аар алдаа олно.", "Smoke test нэм."), lesson("js-deploy", "Deploy ба portfolio", "Production demo бэлдэнэ.", "Case study нийтэл.")])
+      ]
+    }
   ];
 
-  const state = {
-    user: null,
-    session: null,
-    progress: {},
-    activeCourse: new URLSearchParams(location.search).get("course") || "python",
-    workspaceLanguage: new URLSearchParams(location.search).get("course") || "python"
-  };
-
-  const supabaseClient = window.supabase && config.SUPABASE_URL && config.SUPABASE_ANON_KEY
-    ? window.supabase.createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY)
-    : null;
-
-  const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
-  const currentCourse = () => courses.find((course) => course.id === state.activeCourse) || courses[0];
-  const currentUserName = () => state.user?.user_metadata?.display_name || state.user?.user_metadata?.full_name || state.user?.email?.split("@")[0] || "суралцагч";
+  const state = { user: null, session: null, progress: {}, completed: JSON.parse(localStorage.getItem("codecraft-completed") || "{}") };
+  const client = window.supabase && config.SUPABASE_URL && config.SUPABASE_ANON_KEY ? window.supabase.createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY) : null;
+  const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
+  const getCourse = (id) => courses.find((course) => course.id === id) || courses[0];
+  const getLessons = (course) => course.modules.flatMap((item) => item.lessons);
+  const doneFor = (id) => new Set(state.completed[id] || []);
+  const progressFor = (course) => Math.max(Math.round(doneFor(course.id).size / getLessons(course).length * 100), Number(state.progress[course.id] || 0));
+  const userName = () => state.user?.user_metadata?.display_name || state.user?.email?.split("@")[0] || "суралцагч";
 
   async function api(path, options = {}) {
     const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
-    const token = state.session?.access_token;
-    if (token) headers.Authorization = `Bearer ${token}`;
+    if (state.session?.access_token) headers.Authorization = `Bearer ${state.session.access_token}`;
     const response = await fetch(`${apiBase}${path}`, { ...options, headers });
-    if (!response.ok) {
-      const detail = await response.text();
-      throw new Error(detail || `API error ${response.status}`);
-    }
-    return response.status === 204 ? null : response.json();
+    if (!response.ok) throw new Error(await response.text());
+    return response.json();
   }
-
   async function loadProgress() {
-    try {
-      const rows = await api("/api/progress");
-      state.progress = Object.fromEntries((rows || []).map((row) => [row.course_id || row.courseId, Number(row.progress_percent ?? row.progressPercent ?? 0)]));
-    } catch {
-      state.progress = JSON.parse(localStorage.getItem("codecraft-progress") || "{}");
-    }
+    if (!state.session) { state.progress = JSON.parse(localStorage.getItem("codecraft-progress") || "{}"); return; }
+    try { const rows = await api("/api/progress"); state.progress = Object.fromEntries(rows.map((r) => [r.course_id, Number(r.progress_percent)])); }
+    catch { state.progress = JSON.parse(localStorage.getItem("codecraft-progress") || "{}"); }
   }
-
-  async function updateProgress(courseId, value) {
-    state.progress[courseId] = Math.max(0, Math.min(100, Number(value)));
-    localStorage.setItem("codecraft-progress", JSON.stringify(state.progress));
-    try { await api("/api/progress", { method: "POST", body: JSON.stringify({ course_id: courseId, progress_percent: state.progress[courseId] }) }); } catch { /* local progress remains usable without a configured API */ }
+  async function saveProgress(course, value) {
+    state.progress[course.id] = value; localStorage.setItem("codecraft-progress", JSON.stringify(state.progress));
+    if (!state.session) return;
+    try { await api("/api/progress", { method: "POST", body: JSON.stringify({ course_id: course.id, progress_percent: value }) }); } catch { /* offline-first */ }
   }
-
-  function showToast(message) {
-    const existing = document.querySelector(".cc-toast");
-    if (existing) existing.remove();
-    const toast = document.createElement("div");
-    toast.className = "cc-toast";
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    window.setTimeout(() => toast.remove(), 3200);
+  function toast(message) {
+    document.querySelector(".cc-toast")?.remove(); const el = document.createElement("div"); el.className = "cc-toast"; el.role = "status"; el.textContent = message; document.body.appendChild(el); setTimeout(() => el.remove(), 3000);
   }
-
-  function header(active = "home") {
-    const name = currentUserName();
-    const initial = esc(name.slice(0, 1).toUpperCase());
-    return `<header class="cc-header"><div class="cc-header-inner">
-      <a class="cc-brand" href="/"><span class="cc-brand-mark">&gt;_</span><span>CodeCraft<small>Academy</small></span></a>
-      <nav class="cc-nav" aria-label="Үндсэн цэс">
-        <a class="${active === "home" ? "is-active" : ""}" href="/">Миний замнал</a>
-        <a class="${active === "curriculum" ? "is-active" : ""}" href="/curriculum">Хичээлүүд</a>
-        <a class="${active === "workspace" ? "is-active" : ""}" href="/workspace">Кодын орчин</a>
-        <a class="${active === "profile" ? "is-active" : ""}" href="/profile">Профайл</a>
-      </nav>
-      <div class="cc-header-actions">
-        <button class="cc-menu" id="mobile-menu" aria-label="Цэс нээх">☰</button>
-        ${state.user ? `<a class="cc-profile" href="/profile"><span class="cc-profile-copy">${esc(name)}</span><span class="cc-avatar">${initial}</span></a>` : `<button class="cc-login" id="login-button">Нэвтрэх</button>`}
-      </div>
-    </div></header>`;
+  function header(active) {
+    return `<header class="cc-header"><div class="cc-header-inner"><a class="cc-brand" href="/"><span class="cc-brand-mark">C</span><span>CodeCraft<small>Academy</small></span></a><nav class="cc-nav" id="main-nav" aria-label="Үндсэн цэс"><a class="${active === "home" ? "is-active" : ""}" href="/">Нүүр</a><a class="${active === "curriculum" ? "is-active" : ""}" href="/curriculum">Сурах зам</a><a class="${active === "workspace" ? "is-active" : ""}" href="/workspace">Кодын орчин</a><a class="${active === "profile" ? "is-active" : ""}" href="/profile">Миний ахиц</a></nav><div class="cc-header-actions"><button class="cc-menu" aria-label="Цэс нээх" aria-expanded="false">☰</button>${state.user ? `<a class="cc-profile" href="/profile">${esc(userName())}<span class="cc-avatar">${esc(userName()[0].toUpperCase())}</span></a>` : `<button class="cc-login">Нэвтрэх</button>`}</div></div></header>`;
   }
-
-  function footer() { return `<footer class="cc-footer">CodeCraft Academy · Python, HTML, CSS, JavaScript · FastAPI + Supabase</footer>`; }
-
-  function page(content, active) {
-    document.querySelector("#app").innerHTML = `<div class="cc-app">${header(active)}<main class="cc-main">${content}</main>${footer()}</div>`;
-    wireGlobalEvents();
+  const footer = () => `<footer class="cc-footer"><div><strong>CodeCraft Academy</strong><p>Монгол хэлээр · Эхнээс нь · Бүтээж сурна.</p></div><div><a href="/curriculum">Сурах зам</a><a href="/workspace">Кодын орчин</a><span>© 2026</span></div></footer>`;
+  function page(html, active) {
+    document.querySelector("#app").innerHTML = `<div class="cc-app">${header(active)}<main class="cc-main">${html}</main>${footer()}</div>`;
+    document.querySelector(".cc-menu")?.addEventListener("click", (event) => { const open = document.querySelector(".cc-nav").classList.toggle("is-open"); event.currentTarget.setAttribute("aria-expanded", String(open)); });
+    document.querySelector(".cc-login")?.addEventListener("click", signIn);
+    scrollTo({ top: 0, behavior: "instant" });
   }
-
-  function wireGlobalEvents() {
-    document.querySelector("#login-button")?.addEventListener("click", signIn);
-    document.querySelector("#mobile-menu")?.addEventListener("click", () => showToast("Мобайл цэсийг дэлгэцийн өргөн багасахад ашиглана уу."));
-    document.querySelectorAll("[data-course]").forEach((button) => button.addEventListener("click", () => {
-      state.activeCourse = button.dataset.course;
-      renderHome();
-    }));
-    document.querySelectorAll("[data-action='start-workspace']").forEach((button) => button.addEventListener("click", () => navigate(`/workspace?course=${encodeURIComponent(state.activeCourse)}`)));
-  }
-
   async function signIn() {
-    if (!supabaseClient) {
-      showToast("Supabase тохиргоо алга. frontend/config.js файлд URL болон anon key оруулна уу.");
-      return;
-    }
-    const email = window.prompt("Нэвтрэх email хаягаа оруулна уу:");
-    if (!email) return;
-    const { error } = await supabaseClient.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.origin } });
-    if (error) showToast(error.message); else showToast("Нэвтрэх холбоос таны email рүү илгээгдлээ.");
+    if (!client) return toast("Demo горим идэвхтэй. Supabase тохируулсны дараа нэвтэрнэ.");
+    const email = prompt("Email хаягаа оруулна уу:"); if (!email) return;
+    const { error } = await client.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin } }); toast(error ? error.message : "Нэвтрэх холбоос илгээгдлээ.");
   }
-
-  async function signOut() {
-    if (supabaseClient) await supabaseClient.auth.signOut();
-    state.user = null; state.session = null; renderHome();
+  function backendCard() {
+    return `<section class="cc-backend"><div><span class="cc-premium">PREMIUM · COMING SOON</span><p class="cc-eyebrow">Дараагийн шат</p><h2>Backend developer замнал</h2><p>Python API, FastAPI, PostgreSQL, authentication, deployment-ийг frontend замналаа дуусгасны дараа үргэлжлүүлнэ.</p><div class="cc-tags"><span>FastAPI</span><span>PostgreSQL</span><span>Auth</span><span>Deploy</span></div></div><button data-waitlist>Нээгдэхэд мэдэгдэл авах</button></section>`;
   }
-
-  function courseCard(course) {
-    const progress = Number(state.progress[course.id] || 0);
-    return `<article class="cc-course ${state.activeCourse === course.id ? "is-selected" : ""}">
-      <button data-course="${course.id}" style="display:block;width:100%;border:0;background:none;padding:0;text-align:left">
-        <div class="cc-course-top"><span class="cc-course-icon ${course.id}">${course.icon}</span><span class="cc-free">ҮНЭГҮЙ</span></div>
-        <h3>${esc(course.label)} <span>/ ${esc(course.title)}</span></h3>
-        <p>${esc(course.description)}</p>
-        <div class="cc-course-meta"><span>${esc(course.lessons)}</span><span>${progress}%</span></div>
-        <div class="cc-progress" aria-label="${progress}% ахиц"><span style="width:${progress}%"></span></div>
-      </button>
-      <div class="cc-course-actions"><a href="/curriculum?course=${course.id}">Хөтөлбөр</a><a href="/workspace?course=${course.id}">Код бичих</a></div>
-    </article>`;
+  function card(course, index) {
+    const p = progressFor(course); return `<article class="cc-course cc-reveal" style="--delay:${index * 70}ms"><div class="cc-course-top"><span class="cc-course-icon ${course.color}">${esc(course.icon)}</span><span class="cc-free">ҮНЭГҮЙ</span></div><p class="cc-kicker">${esc(course.eyebrow)}</p><h3>${course.label}</h3><p>${esc(course.description)}</p><div class="cc-course-meta"><span>${course.modules.length} модуль · ${getLessons(course).length} хичээл</span><span>${p}%</span></div><div class="cc-progress"><span style="width:${p}%"></span></div><a class="cc-card-link" href="/course?course=${course.id}">${p ? "Үргэлжлүүлэх" : "Хичээлээ үзэх"}<span>→</span></a></article>`;
   }
-
   function renderHome() {
-    const course = currentCourse();
-    const overall = Math.round(courses.reduce((sum, item) => sum + Number(state.progress[item.id] || 0), 0) / courses.length);
-    const name = esc(currentUserName().split(" ")[0]);
-    page(`<section class="cc-hero">
-      <div>
-        <p class="cc-eyebrow">${state.user ? `Сайн байна уу, ${name}` : "CodeCraft Academy"}</p>
-        <h1 class="cc-title">Өнөөдөр юу бүтээх вэ?</h1>
-        <p class="cc-lede">${state.user ? "Сурах замналаа хадгалагдсан бодит ахицаар үргэлжлүүлээрэй." : "Нэвтэрч орсноор ахиц, амжилтын тэмдэг, сертификатаа хадгалж эхлээрэй."}</p>
-        <div class="cc-lab" style="margin-top:28px"><p class="cc-kicker" style="color:#c4b5fd">${state.user ? "ТАНЫ ДАРААГИЙН ХИЧЭЭЛ" : "СУРГАЛТЫН ЗАМНАЛ"}</p><h2>${esc(course.label)}-ийн<br>${esc(course.next)}.</h2><p>Жишээ кодоо кодын орчинд ажиллуулаад, гацсан үедээ алхамчилсан чиглэл аваарай.</p><div class="cc-lab-actions"><button class="cc-primary" data-action="start-workspace">▶ Кодын орчин нээх</button><a class="cc-lab-link" href="/curriculum">Хичээлийн хөтөлбөр →</a></div></div>
-      </div>
-      <aside class="cc-side-card"><p class="cc-kicker">Таны ахиц</p><h3>${overall}% дууссан</h3><p>Дөрвөн суурь технологийг сууриас бодит төсөл хүртэл судлаарай.</p><div class="cc-progress"><span style="width:${overall}%"></span></div><div class="cc-progress-meta"><span>Эхлэл</span><span>${overall}%</span><span>Бүтээгч</span></div><hr style="border:0;border-top:1px solid var(--line);margin:24px 0"><p class="cc-kicker">Хурдан холбоос</p><a class="cc-secondary" style="display:inline-block;margin-top:3px" href="/workspace">Кодын орчин руу очих</a></aside>
-    </section>
-    <section class="cc-section"><div class="cc-section-head"><div><h2>Сургалтын замнал <span class="cc-free" style="vertical-align:middle">4 КУРС · ҮНЭГҮЙ</span></h2><p class="cc-section-intro">Python, HTML, CSS, JavaScript — сууриас бодит төсөл хүртэл бүрэн нээлттэй.</p></div><a class="cc-secondary" href="/curriculum">Бүгдийг харах</a></div><div class="cc-courses">${courses.map(courseCard).join("")}</div></section>`, "home");
+    const count = courses.reduce((sum, c) => sum + getLessons(c).length, 0);
+    const path = [["01", "Кодын суурь", "Python-оор логик сэтгэлгээ, асуудал задлах сууриа тавина.", "python"], ["02", "Вэбийн бүтэц", "HTML-ээр утгатай, хүртээмжтэй document байгуулна.", "html"], ["03", "Responsive интерфэйс", "CSS-ээр бүх дэлгэцэд ажиллах UI бүтээнэ.", "css"], ["04", "Бодит frontend app", "JavaScript, DOM, API, state-аар бүтээгдэхүүн гаргана.", "javascript"]];
+    page(`<section class="cc-hero-home"><div class="cc-hero-copy cc-reveal"><span class="cc-pill"><i></i> Монгол хэл дээрх кодын академи</span><h1>Кодыг цээжлэхгүй.<br><em>Бүтээж</em> сурна.</h1><p>Тэгээс эхлээд HTML, CSS, JavaScript-ийг бүрэн эзэмшиж, ажилд орох portfolio бүхий frontend developer болоорой. Python суурь ч үнэгүй.</p><div class="cc-hero-actions"><a class="cc-primary cc-primary-lg" href="/curriculum">Үнэгүй эхлэх →</a><a class="cc-text-link" href="#roadmap">Сурах замыг харах ↓</a></div><div class="cc-proof"><span><strong>${count}</strong> хичээл</span><span><strong>4</strong> бодит төсөл</span><span><strong>₮0</strong> frontend замнал</span></div></div><div class="cc-code-card cc-reveal"><div class="cc-window-bar"><span></span><span></span><span></span><small>first-project.js</small></div><pre><code><b>const</b> learner = {\n  name: <i>"Чи"</i>,\n  level: <i>"beginner"</i>,\n  goal: <i>"frontend developer"</i>\n};\n\n<b>function</b> <strong>startJourney</strong>(student) {\n  student.level = <i>"builder"</i>;\n  <mark>return</mark> <i>"Өнөөдөр эхэлье 🚀"</i>;\n}</code></pre><div class="cc-terminal">› Таны эхний төсөл эндээс эхэлнэ.</div></div></section><section class="cc-trust"><span>Сууриас нь</span><b>→</b><span>Алхам алхмаар</span><b>→</b><span>Бодит дадлагаар</span><b>→</b><span>Portfolio-той</span></section><section class="cc-section" id="roadmap"><div class="cc-section-head"><div><p class="cc-eyebrow">Таны замнал</p><h2>Frontend developer болох 4 шат</h2></div><a class="cc-text-link" href="/curriculum">Бүрэн хөтөлбөр →</a></div><div class="cc-roadmap">${path.map((s) => `<a href="/course?course=${s[3]}" class="cc-roadmap-step"><span>${s[0]}</span><div><h3>${s[1]}</h3><p>${s[2]}</p></div></a>`).join("")}</div></section><section class="cc-section"><div class="cc-section-head"><div><p class="cc-eyebrow">Үнэгүй сургалтууд</p><h2>Хэл бүрийг эхнээс нь бүрэн сур</h2></div><span class="cc-section-note">Өөрийн хурдаар · Монгол хэлээр</span></div><div class="cc-courses">${courses.map(card).join("")}</div></section><section class="cc-project-strip"><div><p class="cc-eyebrow">Зөвхөн үзэх биш</p><h2>4 portfolio төсөл бүтээнэ</h2></div><div><span>01 · CLI Task Tracker</span><span>02 · Semantic Portfolio</span><span>03 · SaaS Landing Page</span><span>04 · Learning Dashboard</span></div></section>${backendCard()}`, "home");
+    document.querySelector("[data-waitlist]")?.addEventListener("click", () => toast("Backend premium хөтөлбөр одоогоор бэлтгэгдэж байна."));
   }
-
   function renderCurriculum() {
-    page(`<section class="cc-page-card"><p class="cc-eyebrow">Сургалтын каталог</p><h1>Сууриас бүтээл хүртэл</h1><p>Дөрвөн курсийг дарааллаар эсвэл өөрийн сонирхсон хэлээр эхлүүлээрэй. Хичээл бүр кодын жишээ, дадлага, жижиг төсөлтэй.</p><div class="cc-course-list">${courses.map((course) => `<div class="cc-course-row"><div><strong>${course.icon} ${esc(course.label)}</strong><span>${esc(course.description)}</span></div><a class="cc-primary" href="/workspace?course=${course.id}">Эхлэх</a></div>`).join("")}</div></section>`, "curriculum");
+    const total = courses.reduce((sum, c) => sum + getLessons(c).length, 0);
+    page(`<section class="cc-page-hero"><div><p class="cc-eyebrow">Бүрэн curriculum</p><h1>Тэгээс frontend developer хүртэл.</h1><p>4 шат, ${courses.reduce((s, c) => s + c.modules.length, 0)} модуль, ${total} алхамчилсан хичээл. Дарааллын дагуу эсвэл хэрэгтэй хэлээсээ эхэл.</p></div><div class="cc-mini-stat"><strong>100%</strong><span>Frontend замнал<br>үнэгүй</span></div></section><section class="cc-path-list">${courses.map((course, i) => `<article class="cc-path-course"><div class="cc-path-number">0${i + 1}</div><div class="cc-path-main"><div class="cc-path-heading"><span class="cc-course-icon ${course.color}">${esc(course.icon)}</span><div><p class="cc-kicker">${esc(course.eyebrow)}</p><h2>${course.label}</h2></div><span class="cc-path-duration">${course.duration}</span></div><p>${esc(course.description)}</p><div class="cc-module-pills">${course.modules.map((m) => `<span>${esc(m.title.replace(/^\d+ · /, ""))}</span>`).join("")}</div><div class="cc-path-footer"><span>${course.modules.length} модуль · ${getLessons(course).length} хичээл · ${course.level}</span><a class="cc-primary" href="/course?course=${course.id}">Хөтөлбөр нээх →</a></div></div></article>`).join("")}</section>${backendCard()}`, "curriculum");
+    document.querySelector("[data-waitlist]")?.addEventListener("click", () => toast("Backend хөтөлбөр coming soon."));
   }
-
-  function buildPreview(language, code) {
-    const course = courses.find((item) => item.id === language) || courses[0];
-    const htmlStarter = courses.find((item) => item.id === "html").starter;
-    const cssStarter = courses.find((item) => item.id === "css").starter;
-    const escaped = String(code).replace(/<\/script/gi, "<\\/script");
-    if (language === "html") return `<style>${cssStarter}</style>${escaped}`;
-    if (language === "css") return `<style>${escaped}</style>${htmlStarter}`;
-    if (language === "javascript") return `<main style="padding:20px;font-family:system-ui"><h2>JavaScript output</h2><pre id="out"></pre></main><script>const out=document.getElementById('out');console.log=(...args)=>out.textContent+=args.join(' ')+'\\n';window.onerror=(message)=>out.textContent+='JavaScript error: '+message;try{${escaped}}catch(error){out.textContent+='JavaScript error: '+error.message}</script>`;
-    const pythonCode = JSON.stringify(code);
-    const workerSource = `importScripts('https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js');let ready=loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/'});self.onmessage=async()=>{try{const pyodide=await ready;const wrapped=${JSON.stringify("import io, contextlib\n_output=io.StringIO()\nwith contextlib.redirect_stdout(_output):\n    exec(" + pythonCode + ", globals())\n_output.getvalue()")};const result=await pyodide.runPythonAsync(wrapped);self.postMessage({ok:true,result:String(result??'')});}catch(error){self.postMessage({ok:false,error:String(error?.message||error)});}};`;
-    return `<main style="padding:20px;font-family:system-ui"><h2>Python output</h2><pre id="out">Python runtime ачаалж байна...</pre></main><script>(()=>{const out=document.getElementById('out');try{const worker=new Worker(URL.createObjectURL(new Blob([${JSON.stringify(workerSource)}],{type:'text/javascript'})));worker.onmessage=(event)=>{out.textContent=event.data.ok?event.data.result:('Python error: '+event.data.error);worker.terminate()};worker.onerror=(event)=>{out.textContent='Python error: '+event.message;worker.terminate()};worker.postMessage(null)}catch(error){out.textContent='Python error: '+error.message}})()</script>`;
+  function renderCourse() {
+    const course = getCourse(new URLSearchParams(location.search).get("course")); const done = doneFor(course.id); const p = progressFor(course);
+    page(`<a class="cc-back-link" href="/curriculum">← Бүх сургалт</a><section class="cc-course-hero"><div><span class="cc-course-icon ${course.color}">${esc(course.icon)}</span><p class="cc-eyebrow">${esc(course.eyebrow)}</p><h1>${course.label}-ийг сууриас нь</h1><p>${esc(course.description)}</p><div class="cc-hero-actions"><a class="cc-primary cc-primary-lg" href="/lesson?course=${course.id}&lesson=${getLessons(course)[0].id}">${p ? "Үргэлжлүүлэн сурах" : "Эхний хичээлээ эхлэх"} →</a><a class="cc-secondary" href="/workspace?course=${course.id}">Код турших</a></div></div><aside><span>${course.level}</span><strong>${getLessons(course).length}</strong><small>хичээл</small><div class="cc-progress"><span style="width:${p}%"></span></div><p>${done.size} хичээл дууссан · ${p}%</p></aside></section><section class="cc-syllabus"><div class="cc-section-head"><div><p class="cc-eyebrow">Хөтөлбөр</p><h2>${course.modules.length} модуль · Алхам бүр тодорхой</h2></div><span>${course.duration}</span></div>${course.modules.map((m, mi) => `<article class="cc-module"><button class="cc-module-toggle" aria-expanded="${mi === 0}"><span class="cc-module-index">${String(mi + 1).padStart(2, "0")}</span><span><strong>${esc(m.title.replace(/^\d+ · /, ""))}</strong><small>${esc(m.summary)} · ${m.lessons.length} хичээл</small></span><span>⌄</span></button><div class="cc-lesson-list ${mi === 0 ? "is-open" : ""}">${m.lessons.map((l, li) => `<a href="/lesson?course=${course.id}&lesson=${l.id}" class="cc-lesson-row"><span class="cc-lesson-status ${done.has(l.id) ? "is-done" : ""}">${done.has(l.id) ? "✓" : `${mi + 1}.${li + 1}`}</span><span><strong>${esc(l.title)}</strong><small>${esc(l.outcome)}</small></span><time>${l.minutes} мин</time><b>→</b></a>`).join("")}</div></article>`).join("")}</section>`, "curriculum");
+    document.querySelectorAll(".cc-module-toggle").forEach((b) => b.addEventListener("click", () => { const list = b.nextElementSibling; const open = list.classList.toggle("is-open"); b.setAttribute("aria-expanded", String(open)); }));
   }
-
+  function renderLesson() {
+    const q = new URLSearchParams(location.search); const course = getCourse(q.get("course")); const lessons = getLessons(course); const index = Math.max(0, lessons.findIndex((l) => l.id === q.get("lesson"))); const current = lessons[index]; const parent = course.modules.find((m) => m.lessons.includes(current)); const examples = { python: "topic = 'practice'\nminutes = 20\nprint(f'{topic}: {minutes} minutes')", html: "<section aria-labelledby=\"title\">\n  <h2 id=\"title\">Өнөөдрийн хичээл</h2>\n  <p>Утгатай бүтэц.</p>\n</section>", css: ".lesson-card {\n  display: grid;\n  gap: 1rem;\n  padding: clamp(1rem, 3vw, 2rem);\n}", javascript: "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);" };
+    page(`<section class="cc-lesson-shell"><aside class="cc-lesson-sidebar"><a class="cc-back-link" href="/course?course=${course.id}">← ${course.label} хөтөлбөр</a><div class="cc-lesson-course"><span class="cc-course-icon ${course.color}">${esc(course.icon)}</span><div><strong>${course.label}</strong><small>${progressFor(course)}% дууссан</small></div></div><div class="cc-progress"><span style="width:${progressFor(course)}%"></span></div><nav>${course.modules.map((m) => `<div><p>${esc(m.title)}</p>${m.lessons.map((l) => `<a class="${l.id === current.id ? "is-active" : ""} ${doneFor(course.id).has(l.id) ? "is-done" : ""}" href="/lesson?course=${course.id}&lesson=${l.id}"><span>${doneFor(course.id).has(l.id) ? "✓" : "○"}</span>${esc(l.title)}</a>`).join("")}</div>`).join("")}</nav></aside><article class="cc-lesson-content"><p class="cc-eyebrow">${esc(parent.title)} · ${current.minutes} минут</p><h1>${esc(current.title)}</h1><p class="cc-lesson-lede">${esc(current.outcome)}</p><div class="cc-learn-box"><strong>Энэ хичээлийн дараа</strong><ul><li>${esc(current.outcome)}</li><li>Жишээг өөрчилж өөрийн хувилбарыг ажиллуулна.</li><li>Жижиг даалгавраар ойлголтоо бататгана.</li></ul></div><h2>1. Ойлголтоо зураглая</h2><p>Шинэ ойлголтыг жижиг хэсэг болгон задал. Мөр бүр ямар оролт авч, ямар өөрчлөлт хийж, юу буцааж байгааг тайлбарлаарай. Ингэвэл syntax цээжлэхээс илүү кодын урсгалыг ойлгодог болно.</p><h2>2. Жишээг ажиллуулъя</h2><div class="cc-code-example"><div><span>${course.label.toLowerCase()}</span><button data-copy>Хуулах</button></div><pre><code>${esc(examples[course.id])}</code></pre></div><a class="cc-secondary cc-open-lab" href="/workspace?course=${course.id}">Кодын орчинд турших →</a><h2>3. Өөрөө хий</h2><div class="cc-task"><span>ДАДЛАГА</span><strong>${esc(current.task)}</strong><p>Алдаа гарвал: алдааны мөр → хувьсагчийн утга → хүлээсэн үр дүн гэсэн дарааллаар шалга.</p></div><div class="cc-lesson-nav">${lessons[index - 1] ? `<a href="/lesson?course=${course.id}&lesson=${lessons[index - 1].id}">← Өмнөх</a>` : "<span></span>"}<button id="complete-lesson" class="${doneFor(course.id).has(current.id) ? "is-done" : ""}">${doneFor(course.id).has(current.id) ? "✓ Дууссан" : "Хичээл дуусгах"}</button>${lessons[index + 1] ? `<a href="/lesson?course=${course.id}&lesson=${lessons[index + 1].id}">Дараах →</a>` : `<a href="/course?course=${course.id}">Хөтөлбөр →</a>`}</div></article></section>`, "curriculum");
+    document.querySelector("[data-copy]")?.addEventListener("click", async () => { try { await navigator.clipboard.writeText(examples[course.id]); toast("Код хуулагдлаа."); } catch { toast("Кодыг гараар хуулна уу."); } });
+    document.querySelector("#complete-lesson")?.addEventListener("click", async (event) => { const button = event.currentTarget; const set = doneFor(course.id); set.has(current.id) ? set.delete(current.id) : set.add(current.id); state.completed[course.id] = [...set]; localStorage.setItem("codecraft-completed", JSON.stringify(state.completed)); button.classList.toggle("is-done", set.has(current.id)); button.textContent = set.has(current.id) ? "✓ Дууссан" : "Хичээл дуусгах"; toast("Ахиц хадгалагдлаа."); await saveProgress(course, Math.round(set.size / lessons.length * 100)); });
+  }
+  function preview(language, code) {
+    const safe = String(code).replace(/<\/script/gi, "<\\/script");
+    if (language === "html") return `<style>body{font-family:system-ui;padding:24px}</style>${safe}`;
+    if (language === "css") return `<style>body{font-family:system-ui;padding:24px}${safe}</style>${getCourse("html").starter}`;
+    if (language === "javascript") return `<main style="font-family:system-ui;padding:24px"><button>Намайг дар</button><h3>Console</h3><pre id="out"></pre></main><script>const out=document.getElementById('out');console.log=(...a)=>out.textContent+=a.join(' ')+'\\n';try{${safe}}catch(e){out.textContent=e.message}</script>`;
+    return `<main style="font-family:system-ui;padding:24px"><h3>Python output</h3><pre id="out">Python runtime ачаалж байна...</pre></main><script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"><\/script><script>const out=document.getElementById('out');loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.26.2/full/'}).then(async(py)=>{out.textContent='';py.setStdout({batched:(text)=>out.textContent+=text+'\\n'});await py.runPythonAsync(${JSON.stringify(code)})}).catch((error)=>out.textContent='Python error: '+error.message)<\/script>`;
+  }
   function renderWorkspace() {
-    const course = courses.find((item) => item.id === state.workspaceLanguage) || courses[0];
-    const saved = localStorage.getItem(`codecraft-code-${course.id}`) || course.starter;
-    page(`<section><p class="cc-eyebrow">Интерактив кодын лаборатори</p><h1 class="cc-title" style="font-size:clamp(32px,4vw,48px)">${esc(course.label)}-ээр туршиж үзье</h1><p class="cc-lede">Кодоо ажиллуулаад гаралт эсвэл live preview-г баруун талд хараарай. Python нь Pyodide worker дотор тусгаарлагдана.</p><div class="cc-workspace"><aside class="cc-panel"><h2>Хэл сонгох</h2><div class="cc-language-tabs" style="margin-top:16px">${courses.map((item) => `<button class="cc-language-tab ${item.id === course.id ? "is-active" : ""}" data-language="${item.id}">${item.icon} ${item.label}</button>`).join("")}</div><label for="lesson-progress">Хичээлийн ахиц</label><input id="lesson-progress" class="cc-field" type="range" min="0" max="100" value="${state.progress[course.id] || 0}"><div class="cc-progress-meta"><span>Ахиц</span><strong id="progress-value">${state.progress[course.id] || 0}%</strong></div></aside><section class="cc-panel"><div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><h2>Код засварлагч</h2><button class="cc-primary" id="run-code">▶ Ажиллуулах</button></div><textarea id="code-editor" class="cc-editor" spellcheck="false" aria-label="Код засварлагч">${esc(saved)}</textarea><p id="editor-status" style="margin:10px 0 0;color:var(--muted);font-size:12px">${state.user ? "Таны ахиц FastAPI + Supabase руу хадгалагдана." : "Нэвтрээгүй үед код localStorage-д хадгалагдана."}</p></section><section class="cc-panel cc-preview-panel"><h2>Үр дүн</h2><iframe id="preview" class="cc-preview" sandbox="allow-scripts" title="Кодын preview"></iframe><pre id="fallback-output" class="cc-output" hidden></pre></section></div></section>`, "workspace");
-    const editor = document.querySelector("#code-editor");
-    const preview = document.querySelector("#preview");
-    const progress = document.querySelector("#lesson-progress");
-    const progressValue = document.querySelector("#progress-value");
-    const render = () => { preview.srcdoc = buildPreview(course.id, editor.value); localStorage.setItem(`codecraft-code-${course.id}`, editor.value); };
-    render();
-    document.querySelectorAll("[data-language]").forEach((button) => button.addEventListener("click", () => { state.workspaceLanguage = button.dataset.language; navigate(`/workspace?course=${button.dataset.language}`); }));
-    document.querySelector("#run-code").addEventListener("click", () => { render(); showToast(`${course.label} код ажиллууллаа.`); });
-    editor.addEventListener("input", () => localStorage.setItem(`codecraft-code-${course.id}`, editor.value));
-    progress.addEventListener("input", async () => { progressValue.textContent = `${progress.value}%`; await updateProgress(course.id, progress.value); });
+    const course = getCourse(new URLSearchParams(location.search).get("course") || "html"); const saved = localStorage.getItem(`codecraft-code-${course.id}`) || course.starter;
+    page(`<section class="cc-workspace-head"><div><p class="cc-eyebrow">Интерактив лаборатори</p><h1>Кодоо бич. Шууд үр дүнг хар.</h1><p>Алдаа гаргах нь суралцах үйл явцын нэг хэсэг.</p></div><a class="cc-secondary" href="/course?course=${course.id}">${course.label} хөтөлбөр →</a></section><div class="cc-language-tabs">${courses.map((c) => `<button class="cc-language-tab ${c.id === course.id ? "is-active" : ""}" data-language="${c.id}"><span class="cc-course-icon ${c.color}">${esc(c.icon)}</span>${c.label}</button>`).join("")}</div><section class="cc-workspace"><div class="cc-editor-panel"><div class="cc-panel-bar"><span>${course.label.toLowerCase()} · playground</span><button class="cc-run">▶ Ажиллуулах</button></div><textarea id="code-editor" class="cc-editor" spellcheck="false">${esc(saved)}</textarea><div class="cc-editor-foot"><span>Автоматаар хадгална</span><button data-reset>Жишээ сэргээх</button></div></div><div class="cc-preview-panel"><div class="cc-panel-bar"><span>Үр дүн</span><span class="cc-live-dot">LIVE</span></div><iframe class="cc-preview" sandbox="allow-scripts" title="Кодын үр дүн"></iframe></div></section>`, "workspace");
+    const editor = document.querySelector("#code-editor"), frame = document.querySelector(".cc-preview"); const run = () => { frame.srcdoc = preview(course.id, editor.value); localStorage.setItem(`codecraft-code-${course.id}`, editor.value); }; run();
+    document.querySelectorAll("[data-language]").forEach((b) => b.addEventListener("click", () => navigate(`/workspace?course=${b.dataset.language}`))); document.querySelector(".cc-run").addEventListener("click", () => { run(); toast("Код ажиллалаа."); }); document.querySelector("[data-reset]").addEventListener("click", () => { editor.value = course.starter; run(); }); editor.addEventListener("input", () => localStorage.setItem(`codecraft-code-${course.id}`, editor.value));
   }
-
   function renderProfile() {
-    const name = currentUserName();
-    page(`<section class="cc-page-card"><p class="cc-eyebrow">Суралцагчийн профайл</p><h1>${esc(name)}</h1><p>${state.user ? esc(state.user.email || "Supabase хэрэглэгч") : "Нэвтрээгүй зочин"}</p><div class="cc-course-list">${courses.map((course) => `<div class="cc-course-row"><div><strong>${course.label}</strong><span>Хадгалсан ахиц</span></div><strong>${Number(state.progress[course.id] || 0)}%</strong></div>`).join("")}</div>${state.user ? `<button class="cc-secondary" id="sign-out" style="margin-top:20px">Гарах</button>` : `<button class="cc-primary" id="profile-login" style="margin-top:20px">Нэвтрэх</button>`}</section>`, "profile");
-    document.querySelector("#sign-out")?.addEventListener("click", signOut);
-    document.querySelector("#profile-login")?.addEventListener("click", signIn);
+    const total = Math.round(courses.reduce((sum, c) => sum + progressFor(c), 0) / courses.length);
+    page(`<section class="cc-profile-hero"><div class="cc-avatar cc-avatar-lg">${esc(userName()[0].toUpperCase())}</div><div><p class="cc-eyebrow">Миний сурах замнал</p><h1>${esc(userName())}</h1><p>${state.user ? esc(state.user.email) : "Demo горим · Ахиц энэ төхөөрөмжид хадгалагдана"}</p></div><div class="cc-profile-score"><strong>${total}%</strong><span>нийт ахиц</span></div></section><section class="cc-profile-grid">${courses.map((c) => `<a href="/course?course=${c.id}" class="cc-progress-card"><span class="cc-course-icon ${c.color}">${esc(c.icon)}</span><div><strong>${c.label}</strong><small>${doneFor(c.id).size} / ${getLessons(c).length} хичээл</small><div class="cc-progress"><span style="width:${progressFor(c)}%"></span></div></div><b>${progressFor(c)}%</b></a>`).join("")}</section>`, "profile");
   }
-
-  function renderNotFound() { page(`<section class="cc-page-card"><p class="cc-eyebrow">404</p><h1>Энэ хуудас олдсонгүй.</h1><p>CodeCraft Academy-ийн нүүр хуудас руу буцаж очно уу.</p><a class="cc-primary" style="display:inline-block;margin-top:10px" href="/">Нүүр хуудас</a></section>`, ""); }
-
-  function navigate(path) { history.pushState({}, "", path); renderRoute(); }
-  function renderRoute() {
-    const path = window.location.pathname;
-    if (path === "/" || path === "") return renderHome();
-    if (path === "/curriculum") return renderCurriculum();
-    if (path === "/workspace") return renderWorkspace();
-    if (path === "/profile") return renderProfile();
-    return renderNotFound();
+  function navigate(path) { history.pushState({}, "", path); route(); }
+  function route() { const path = location.pathname.replace(/\/$/, "") || "/"; ({ "/": renderHome, "/curriculum": renderCurriculum, "/course": renderCourse, "/lesson": renderLesson, "/workspace": renderWorkspace, "/profile": renderProfile }[path] || renderHome)(); }
+  async function boot() {
+    if (client) { const { data } = await client.auth.getSession(); state.session = data.session; state.user = data.session?.user || null; client.auth.onAuthStateChange((_e, s) => { state.session = s; state.user = s?.user || null; route(); }); }
+    await loadProgress(); addEventListener("popstate", route); document.addEventListener("click", (event) => { const a = event.target.closest("a[href]"); if (!a || a.origin !== location.origin || a.getAttribute("href").startsWith("#")) return; event.preventDefault(); navigate(a.getAttribute("href")); }); route();
   }
-
-  async function bootstrap() {
-    if (supabaseClient) {
-      const { data } = await supabaseClient.auth.getSession();
-      state.session = data.session;
-      state.user = data.session?.user || null;
-      supabaseClient.auth.onAuthStateChange((_event, session) => { state.session = session; state.user = session?.user || null; renderRoute(); });
-    }
-    await loadProgress();
-    window.addEventListener("popstate", renderRoute);
-    document.addEventListener("click", (event) => {
-      const link = event.target.closest("a[href]");
-      if (!link || link.origin !== window.location.origin || link.target === "_blank" || link.getAttribute("href").startsWith("#")) return;
-      event.preventDefault(); navigate(link.getAttribute("href"));
-    });
-    renderRoute();
-  }
-
-  bootstrap().catch((error) => { document.querySelector("#app").innerHTML = `<main class="cc-main"><section class="cc-page-card"><h1>Ачааллахад алдаа гарлаа</h1><p>${esc(error.message)}</p></section></main>`; });
+  boot().catch((error) => { document.querySelector("#app").innerHTML = `<main class="cc-main"><h1>Алдаа гарлаа</h1><p>${esc(error.message)}</p></main>`; });
 })();
-
