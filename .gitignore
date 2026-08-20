@@ -106,6 +106,14 @@ temp/
 *.sqlite
 *.sqlite3
 
+# Python development artifacts
+**/.venv/
+**/__pycache__/
+*.py[cod]
+
+# Local frontend configuration
+frontend/config.local.js
+
 # Webdev artifacts (checkpoint zips, migrations, etc.)
 .webdev/
 

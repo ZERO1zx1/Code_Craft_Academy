@@ -4,6 +4,26 @@
 
 Энэ repository нь CodeCraft Academy-ийн frontend, backend, өгөгдлийн загвар, тест, Mongolian operational documentation-ийг агуулна. Одоогийн бодлогоор **Python, HTML, CSS, JavaScript** дөрвөн чиглэл нь суралцагчдад бүрэн үнэгүй нээлттэй. Дараа нэмэх бусад програмчлалын хэлүүдийг төлбөртэй каталогт тусад нь харуулдаг боловч төлбөрийн систем хараахан идэвхжээгүй тул худалдан авалтын хоосон урсгал байхгүй.
 
+## Requested HTML/CSS/JavaScript + Python/FastAPI + Supabase stack
+
+The framework-free migration is available in `frontend/`, `backend/`, and `supabase/`. The new entry points are `frontend/index.html`, `frontend/assets/css/styles.css`, `frontend/assets/js/app.js`, `backend/app/main.py`, and `supabase/migrations/001_codecraft_core.sql`. The existing TypeScript application remains in `client/`, `server/`, `shared/`, and `drizzle/` so the legacy behavior can be compared or migrated feature by feature without an uncontrolled destructive rewrite.
+
+```bash
+# Terminal 1: FastAPI
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn app.main:app --reload --port 8000
+
+# Terminal 2: vanilla frontend
+cd frontend
+python3 -m http.server 5500
+```
+
+Apply `supabase/migrations/001_codecraft_core.sql` in the Supabase SQL Editor, then set the public URL and anon key in `frontend/config.js`. Keep `SUPABASE_SERVICE_ROLE_KEY` only in `backend/.env`; never expose or commit it.
+
 ## 1. Платформыг хэрхэн ашиглах вэ?
 
 Эхлээд нүүр хуудасны **“Нэвтрэх”** үйлдлээр нэвтэрнэ. Нэвтэрсний дараа сонгосон хичээл, явц, шалгалтын оролдлого, төсөл, тэмдэг, мэдэгдэл нь таны бүртгэлд хадгалагдана. Нүүр хуудасны дөрвөн үнэгүй курсийн карт бүр хөтөлбөр, кодын орчин, төсөл, шалгалт руу шууд холбогддог.
