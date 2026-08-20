@@ -9,6 +9,7 @@ from .core.config import get_settings
 from .core.supabase_client import SupabaseNotConfigured, get_current_user, get_supabase
 from .models.schemas import (
     Course,
+    AIStatus,
     LessonProgressRow,
     LessonProgressUpsert,
     PreferencesUpdate,
@@ -60,6 +61,12 @@ def public_config() -> PublicConfig:
     if not settings.supabase_url or not settings.public_supabase_key:
         raise HTTPException(status_code=503, detail="Supabase public configuration is unavailable")
     return PublicConfig(supabase_url=settings.supabase_url, supabase_publishable_key=settings.public_supabase_key)
+
+
+@app.get("/api/ai/status", response_model=AIStatus)
+def ai_status() -> AIStatus:
+    """Expose readiness only; the API key must never leave the server."""
+    return AIStatus(provider=settings.ai_provider, model=settings.ai_model, configured=settings.ai_enabled)
 
 
 @app.get("/api/courses", response_model=list[Course])

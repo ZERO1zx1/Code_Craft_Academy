@@ -14,6 +14,13 @@ class Settings(BaseSettings):
     supabase_anon_key: str = ""
     supabase_key: str = ""
     supabase_service_role_key: str = ""
+    ai_provider: str = "openai"
+    ai_api_key: str = ""
+    ai_model: str = "gpt-4.1-mini"
+
+    @property
+    def ai_enabled(self) -> bool:
+        return bool(self.ai_api_key.strip())
 
     @property
     def public_supabase_key(self) -> str:

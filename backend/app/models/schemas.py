@@ -53,6 +53,12 @@ class PublicConfig(BaseModel):
     supabase_publishable_key: str
 
 
+class AIStatus(BaseModel):
+    provider: str
+    model: str
+    configured: bool
+
+
 class PreferencesUpdate(BaseModel):
     locale: Literal["mn", "en"] | None = None
     theme: Literal["light", "dark", "system"] | None = None

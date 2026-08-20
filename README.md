@@ -67,6 +67,7 @@ The API provides the following routes:
 |---|---|
 | `GET /api/health` | Service health check |
 | `GET /api/courses` | Course catalog |
+| `GET /api/ai/status` | AI mentor readiness only; never exposes the API key |
 | `GET /api/profile` | Authenticated profile |
 | `GET /api/progress` | Authenticated course progress |
 | `POST /api/progress` | Save authenticated course progress |
