@@ -53,16 +53,9 @@ cp .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
 
-### 2. Frontend
+### 2. Open the website
 
-In another terminal:
-
-```bash
-cd frontend
-python3 -m http.server 5500
-```
-
-Open `http://localhost:5500`. FastAPI documentation is available at `http://localhost:8000/docs`.
+FastAPI also serves the frontend application, including an SPA fallback for copied course links and browser refreshes. Open `http://localhost:8000`. FastAPI documentation is available at `http://localhost:8000/docs`.
 
 ## Supabase setup
 

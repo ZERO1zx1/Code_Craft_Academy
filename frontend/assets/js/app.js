@@ -54,14 +54,34 @@
     }
   ];
 
-  const state = { user: null, session: null, progress: {}, completed: JSON.parse(localStorage.getItem("codecraft-completed") || "{}") };
-  const client = window.supabase && config.SUPABASE_URL && config.SUPABASE_ANON_KEY ? window.supabase.createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY) : null;
+  const translations = {
+    mn: { home: "Нүүр", curriculum: "Сурах зам", workspace: "Кодын орчин", progress: "Миний ахиц", login: "Нэвтрэх", language: "Хэл", theme: "Загвар", light: "Гэрэлтэй", dark: "Бараан", system: "Системийн", menu: "Цэс", skip: "Үндсэн агуулга руу очих", synced: "Realtime ахиц шинэчлэгдлээ." },
+    en: { home: "Home", curriculum: "Learning path", workspace: "Code lab", progress: "My progress", login: "Sign in", language: "Language", theme: "Theme", light: "Light", dark: "Dark", system: "System", menu: "Menu", skip: "Skip to main content", synced: "Progress updated in real time." }
+  };
+  const state = { user: null, session: null, progress: {}, completed: JSON.parse(localStorage.getItem("codecraft-completed") || "{}"), preferences: JSON.parse(localStorage.getItem("codecraft-preferences") || '{"locale":"mn","theme":"system"}'), realtimeChannel: null };
+  let client = window.supabase && config.SUPABASE_URL && config.SUPABASE_ANON_KEY ? window.supabase.createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY) : null;
   const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
   const getCourse = (id) => courses.find((course) => course.id === id) || courses[0];
   const getLessons = (course) => course.modules.flatMap((item) => item.lessons);
   const doneFor = (id) => new Set(state.completed[id] || []);
   const progressFor = (course) => Math.max(Math.round(doneFor(course.id).size / getLessons(course).length * 100), Number(state.progress[course.id] || 0));
   const userName = () => state.user?.user_metadata?.display_name || state.user?.email?.split("@")[0] || "суралцагч";
+  const t = (key) => translations[state.preferences.locale]?.[key] || translations.mn[key] || key;
+
+  function applyPreferences() {
+    const systemDark = matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = state.preferences.theme === "system" ? (systemDark ? "dark" : "light") : state.preferences.theme;
+    document.documentElement.lang = state.preferences.locale;
+    localStorage.setItem("codecraft-preferences", JSON.stringify(state.preferences));
+  }
+
+  async function initialiseSupabase() {
+    if (client || !window.supabase) return;
+    try {
+      const publicConfig = await api("/api/public-config");
+      client = window.supabase.createClient(publicConfig.supabase_url, publicConfig.supabase_publishable_key);
+    } catch { /* The academy remains usable offline when the API is not running. */ }
+  }
 
   async function api(path, options = {}) {
     const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
@@ -75,22 +95,71 @@
     try { const rows = await api("/api/progress"); state.progress = Object.fromEntries(rows.map((r) => [r.course_id, Number(r.progress_percent)])); }
     catch { state.progress = JSON.parse(localStorage.getItem("codecraft-progress") || "{}"); }
   }
+  async function loadLessonProgress() {
+    if (!state.session) return;
+    try {
+      const rows = await api("/api/lesson-progress");
+      const completed = {};
+      rows.forEach((row) => { (completed[row.course_id] ||= []).push(row.lesson_id); });
+      state.completed = completed;
+      localStorage.setItem("codecraft-completed", JSON.stringify(completed));
+    } catch { /* Keep local progress available if the API is temporarily unreachable. */ }
+  }
   async function saveProgress(course, value) {
     state.progress[course.id] = value; localStorage.setItem("codecraft-progress", JSON.stringify(state.progress));
     if (!state.session) return;
     try { await api("/api/progress", { method: "POST", body: JSON.stringify({ course_id: course.id, progress_percent: value }) }); } catch { /* offline-first */ }
   }
+  async function saveLessonProgress(course, lessonId, completed) {
+    if (!state.session) return;
+    try { await api("/api/lesson-progress", { method: "POST", body: JSON.stringify({ course_id: course.id, lesson_id: lessonId, completed }) }); } catch { toast("Ахиц локал төхөөрөмж дээр хадгалагдлаа."); }
+  }
+  async function loadPreferences() {
+    if (!state.session) return;
+    try {
+      const profile = await api("/api/profile");
+      state.preferences = { locale: profile.locale || "mn", theme: profile.theme || "system" };
+      applyPreferences();
+    } catch { /* Preferences remain local when profile sync is unavailable. */ }
+  }
+  async function savePreferences() {
+    applyPreferences();
+    if (!state.session) return;
+    try { await api("/api/preferences", { method: "POST", body: JSON.stringify(state.preferences) }); } catch { toast("Тохиргоо локал төхөөрөмж дээр хадгалагдлаа."); }
+  }
+  function subscribeRealtime() {
+    if (!client || !state.session || !state.user) return;
+    if (state.realtimeChannel) client.removeChannel(state.realtimeChannel);
+    client.realtime.setAuth(state.session.access_token);
+    const userFilter = `user_id=eq.${state.user.id}`;
+    state.realtimeChannel = client.channel(`codecraft-progress-${state.user.id}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "course_progress", filter: userFilter }, (payload) => {
+        const row = payload.new;
+        if (row?.course_id) { state.progress[row.course_id] = Number(row.progress_percent || 0); route(); toast(t("synced")); }
+      })
+      .on("postgres_changes", { event: "*", schema: "public", table: "lesson_progress", filter: userFilter }, (payload) => {
+        const row = payload.new?.lesson_id ? payload.new : payload.old;
+        if (!row?.course_id || !row?.lesson_id) return;
+        const set = doneFor(row.course_id);
+        if (payload.eventType === "DELETE") set.delete(row.lesson_id); else set.add(row.lesson_id);
+        state.completed[row.course_id] = [...set];
+        localStorage.setItem("codecraft-completed", JSON.stringify(state.completed));
+        route(); toast(t("synced"));
+      }).subscribe();
+  }
   function toast(message) {
     document.querySelector(".cc-toast")?.remove(); const el = document.createElement("div"); el.className = "cc-toast"; el.role = "status"; el.textContent = message; document.body.appendChild(el); setTimeout(() => el.remove(), 3000);
   }
   function header(active) {
-    return `<header class="cc-header"><div class="cc-header-inner"><a class="cc-brand" href="/"><span class="cc-brand-mark">C</span><span>CodeCraft<small>Academy</small></span></a><nav class="cc-nav" id="main-nav" aria-label="Үндсэн цэс"><a class="${active === "home" ? "is-active" : ""}" href="/">Нүүр</a><a class="${active === "curriculum" ? "is-active" : ""}" href="/curriculum">Сурах зам</a><a class="${active === "workspace" ? "is-active" : ""}" href="/workspace">Кодын орчин</a><a class="${active === "profile" ? "is-active" : ""}" href="/profile">Миний ахиц</a></nav><div class="cc-header-actions"><button class="cc-menu" aria-label="Цэс нээх" aria-expanded="false">☰</button>${state.user ? `<a class="cc-profile" href="/profile">${esc(userName())}<span class="cc-avatar">${esc(userName()[0].toUpperCase())}</span></a>` : `<button class="cc-login">Нэвтрэх</button>`}</div></div></header>`;
+    return `<a class="cc-skip-link" href="#main-content">${t("skip")}</a><header class="cc-header"><div class="cc-header-inner"><a class="cc-brand" href="/" aria-label="CodeCraft Academy ${t("home")}"><span class="cc-brand-mark">C</span><span>CodeCraft<small>Academy</small></span></a><nav class="cc-nav" id="main-nav" aria-label="${t("menu")}"><a class="${active === "home" ? "is-active" : ""}" href="/">${t("home")}</a><a class="${active === "curriculum" ? "is-active" : ""}" href="/curriculum">${t("curriculum")}</a><a class="${active === "workspace" ? "is-active" : ""}" href="/workspace">${t("workspace")}</a><a class="${active === "profile" ? "is-active" : ""}" href="/profile">${t("progress")}</a></nav><div class="cc-header-actions"><label class="cc-select cc-language-select"><span>${t("language")}</span><select id="language-select" aria-label="${t("language")}"><option value="mn" ${state.preferences.locale === "mn" ? "selected" : ""}>Монгол</option><option value="en" ${state.preferences.locale === "en" ? "selected" : ""}>English</option></select></label><label class="cc-select cc-theme-select"><span>${t("theme")}</span><select id="theme-select" aria-label="${t("theme")}"><option value="system" ${state.preferences.theme === "system" ? "selected" : ""}>${t("system")}</option><option value="light" ${state.preferences.theme === "light" ? "selected" : ""}>${t("light")}</option><option value="dark" ${state.preferences.theme === "dark" ? "selected" : ""}>${t("dark")}</option></select></label><button class="cc-menu" aria-label="${t("menu")}" aria-controls="main-nav" aria-expanded="false"><span aria-hidden="true">☰</span><span>${t("menu")}</span></button>${state.user ? `<a class="cc-profile" href="/profile">${esc(userName())}<span class="cc-avatar">${esc(userName()[0].toUpperCase())}</span></a>` : `<button class="cc-login">${t("login")}</button>`}</div></div></header>`;
   }
   const footer = () => `<footer class="cc-footer"><div><strong>CodeCraft Academy</strong><p>Монгол хэлээр · Эхнээс нь · Бүтээж сурна.</p></div><div><a href="/curriculum">Сурах зам</a><a href="/workspace">Кодын орчин</a><span>© 2026</span></div></footer>`;
   function page(html, active) {
-    document.querySelector("#app").innerHTML = `<div class="cc-app">${header(active)}<main class="cc-main">${html}</main>${footer()}</div>`;
+    document.querySelector("#app").innerHTML = `<div class="cc-app">${header(active)}<main id="main-content" class="cc-main" tabindex="-1">${html}</main>${footer()}</div>`;
     document.querySelector(".cc-menu")?.addEventListener("click", (event) => { const open = document.querySelector(".cc-nav").classList.toggle("is-open"); event.currentTarget.setAttribute("aria-expanded", String(open)); });
     document.querySelector(".cc-login")?.addEventListener("click", signIn);
+    document.querySelector("#language-select")?.addEventListener("change", async (event) => { state.preferences.locale = event.currentTarget.value; await savePreferences(); route(); });
+    document.querySelector("#theme-select")?.addEventListener("change", async (event) => { state.preferences.theme = event.currentTarget.value; await savePreferences(); });
     scrollTo({ top: 0, behavior: "instant" });
   }
   async function signIn() {
@@ -124,7 +193,7 @@
     const q = new URLSearchParams(location.search); const course = getCourse(q.get("course")); const lessons = getLessons(course); const index = Math.max(0, lessons.findIndex((l) => l.id === q.get("lesson"))); const current = lessons[index]; const parent = course.modules.find((m) => m.lessons.includes(current)); const examples = { python: "topic = 'practice'\nminutes = 20\nprint(f'{topic}: {minutes} minutes')", html: "<section aria-labelledby=\"title\">\n  <h2 id=\"title\">Өнөөдрийн хичээл</h2>\n  <p>Утгатай бүтэц.</p>\n</section>", css: ".lesson-card {\n  display: grid;\n  gap: 1rem;\n  padding: clamp(1rem, 3vw, 2rem);\n}", javascript: "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);" };
     page(`<section class="cc-lesson-shell"><aside class="cc-lesson-sidebar"><a class="cc-back-link" href="/course?course=${course.id}">← ${course.label} хөтөлбөр</a><div class="cc-lesson-course"><span class="cc-course-icon ${course.color}">${esc(course.icon)}</span><div><strong>${course.label}</strong><small>${progressFor(course)}% дууссан</small></div></div><div class="cc-progress"><span style="width:${progressFor(course)}%"></span></div><nav>${course.modules.map((m) => `<div><p>${esc(m.title)}</p>${m.lessons.map((l) => `<a class="${l.id === current.id ? "is-active" : ""} ${doneFor(course.id).has(l.id) ? "is-done" : ""}" href="/lesson?course=${course.id}&lesson=${l.id}"><span>${doneFor(course.id).has(l.id) ? "✓" : "○"}</span>${esc(l.title)}</a>`).join("")}</div>`).join("")}</nav></aside><article class="cc-lesson-content"><p class="cc-eyebrow">${esc(parent.title)} · ${current.minutes} минут</p><h1>${esc(current.title)}</h1><p class="cc-lesson-lede">${esc(current.outcome)}</p><div class="cc-learn-box"><strong>Энэ хичээлийн дараа</strong><ul><li>${esc(current.outcome)}</li><li>Жишээг өөрчилж өөрийн хувилбарыг ажиллуулна.</li><li>Жижиг даалгавраар ойлголтоо бататгана.</li></ul></div><h2>1. Ойлголтоо зураглая</h2><p>Шинэ ойлголтыг жижиг хэсэг болгон задал. Мөр бүр ямар оролт авч, ямар өөрчлөлт хийж, юу буцааж байгааг тайлбарлаарай. Ингэвэл syntax цээжлэхээс илүү кодын урсгалыг ойлгодог болно.</p><h2>2. Жишээг ажиллуулъя</h2><div class="cc-code-example"><div><span>${course.label.toLowerCase()}</span><button data-copy>Хуулах</button></div><pre><code>${esc(examples[course.id])}</code></pre></div><a class="cc-secondary cc-open-lab" href="/workspace?course=${course.id}">Кодын орчинд турших →</a><h2>3. Өөрөө хий</h2><div class="cc-task"><span>ДАДЛАГА</span><strong>${esc(current.task)}</strong><p>Алдаа гарвал: алдааны мөр → хувьсагчийн утга → хүлээсэн үр дүн гэсэн дарааллаар шалга.</p></div><div class="cc-lesson-nav">${lessons[index - 1] ? `<a href="/lesson?course=${course.id}&lesson=${lessons[index - 1].id}">← Өмнөх</a>` : "<span></span>"}<button id="complete-lesson" class="${doneFor(course.id).has(current.id) ? "is-done" : ""}">${doneFor(course.id).has(current.id) ? "✓ Дууссан" : "Хичээл дуусгах"}</button>${lessons[index + 1] ? `<a href="/lesson?course=${course.id}&lesson=${lessons[index + 1].id}">Дараах →</a>` : `<a href="/course?course=${course.id}">Хөтөлбөр →</a>`}</div></article></section>`, "curriculum");
     document.querySelector("[data-copy]")?.addEventListener("click", async () => { try { await navigator.clipboard.writeText(examples[course.id]); toast("Код хуулагдлаа."); } catch { toast("Кодыг гараар хуулна уу."); } });
-    document.querySelector("#complete-lesson")?.addEventListener("click", async (event) => { const button = event.currentTarget; const set = doneFor(course.id); set.has(current.id) ? set.delete(current.id) : set.add(current.id); state.completed[course.id] = [...set]; localStorage.setItem("codecraft-completed", JSON.stringify(state.completed)); button.classList.toggle("is-done", set.has(current.id)); button.textContent = set.has(current.id) ? "✓ Дууссан" : "Хичээл дуусгах"; toast("Ахиц хадгалагдлаа."); await saveProgress(course, Math.round(set.size / lessons.length * 100)); });
+    document.querySelector("#complete-lesson")?.addEventListener("click", async (event) => { const button = event.currentTarget; const set = doneFor(course.id); set.has(current.id) ? set.delete(current.id) : set.add(current.id); state.completed[course.id] = [...set]; localStorage.setItem("codecraft-completed", JSON.stringify(state.completed)); button.classList.toggle("is-done", set.has(current.id)); button.textContent = set.has(current.id) ? "✓ Дууссан" : "Хичээл дуусгах"; toast("Ахиц хадгалагдлаа."); await Promise.all([saveLessonProgress(course, current.id, set.has(current.id)), saveProgress(course, Math.round(set.size / lessons.length * 100))]); });
   }
   function preview(language, code) {
     const safe = String(code).replace(/<\/script/gi, "<\\/script");
@@ -146,8 +215,25 @@
   function navigate(path) { history.pushState({}, "", path); route(); }
   function route() { const path = location.pathname.replace(/\/$/, "") || "/"; ({ "/": renderHome, "/curriculum": renderCurriculum, "/course": renderCourse, "/lesson": renderLesson, "/workspace": renderWorkspace, "/profile": renderProfile }[path] || renderHome)(); }
   async function boot() {
-    if (client) { const { data } = await client.auth.getSession(); state.session = data.session; state.user = data.session?.user || null; client.auth.onAuthStateChange((_e, s) => { state.session = s; state.user = s?.user || null; route(); }); }
-    await loadProgress(); addEventListener("popstate", route); document.addEventListener("click", (event) => { const a = event.target.closest("a[href]"); if (!a || a.origin !== location.origin || a.getAttribute("href").startsWith("#")) return; event.preventDefault(); navigate(a.getAttribute("href")); }); route();
+    applyPreferences();
+    await initialiseSupabase();
+    if (client) {
+      const { data } = await client.auth.getSession();
+      state.session = data.session;
+      state.user = data.session?.user || null;
+      if (state.session) { await Promise.all([loadProgress(), loadLessonProgress(), loadPreferences()]); subscribeRealtime(); }
+      client.auth.onAuthStateChange(async (_event, session) => {
+        state.session = session;
+        state.user = session?.user || null;
+        if (session) { await Promise.all([loadProgress(), loadLessonProgress(), loadPreferences()]); subscribeRealtime(); }
+        else if (state.realtimeChannel) { client.removeChannel(state.realtimeChannel); state.realtimeChannel = null; }
+        route();
+      });
+    } else await loadProgress();
+    addEventListener("popstate", route);
+    addEventListener("beforeunload", () => { if (client && state.realtimeChannel) client.removeChannel(state.realtimeChannel); });
+    document.addEventListener("click", (event) => { const a = event.target.closest("a[href]"); if (!a || a.origin !== location.origin || a.getAttribute("href").startsWith("#")) return; event.preventDefault(); navigate(a.getAttribute("href")); });
+    route();
   }
-  boot().catch((error) => { document.querySelector("#app").innerHTML = `<main class="cc-main"><h1>Алдаа гарлаа</h1><p>${esc(error.message)}</p></main>`; });
+  boot().catch(() => { document.querySelector("#app").innerHTML = `<main id="main-content" class="cc-main" tabindex="-1"><h1>Хуудас ачаалагдсангүй</h1><p>Сүлжээгээ шалгаад дахин оролдоно уу.</p><button class="cc-primary" onclick="location.reload()">Дахин ачаалах</button></main>`; });
 })();
