@@ -53,6 +53,8 @@ alter table public.quiz_attempts enable row level security;
 
 drop policy if exists "Users can view their own profile" on public.profiles;
 create policy "Users can view their own profile" on public.profiles for select using (auth.uid() = id);
+drop policy if exists "Users can create their own profile" on public.profiles;
+create policy "Users can create their own profile" on public.profiles for insert to authenticated with check ((select auth.uid()) = id);
 drop policy if exists "Users can update their own profile" on public.profiles;
 create policy "Users can update their own profile" on public.profiles for update using (auth.uid() = id) with check (auth.uid() = id);
 
@@ -83,4 +85,49 @@ $$;
 
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created after insert on auth.users for each row execute procedure public.handle_new_user();
+
+-- Learning progress is intentionally isolated from the project's other public tables.
+-- A learner can only read or mutate their own records.
+alter table public.profiles add column if not exists locale text not null default 'mn' check (locale in ('mn', 'en'));
+alter table public.profiles add column if not exists theme text not null default 'system' check (theme in ('light', 'dark', 'system'));
+
+create table if not exists public.lesson_progress (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  course_id text not null check (course_id in ('python', 'html', 'css', 'javascript')),
+  lesson_id text not null check (char_length(lesson_id) between 1 and 96),
+  completed_at timestamptz not null default timezone('utc', now()),
+  primary key (user_id, course_id, lesson_id)
+);
+
+create index if not exists lesson_progress_user_idx on public.lesson_progress(user_id, completed_at desc);
+
+alter table public.lesson_progress enable row level security;
+
+drop policy if exists "Users can view their own lesson progress" on public.lesson_progress;
+create policy "Users can view their own lesson progress" on public.lesson_progress for select to authenticated using ((select auth.uid()) = user_id);
+drop policy if exists "Users can create their own lesson progress" on public.lesson_progress;
+create policy "Users can create their own lesson progress" on public.lesson_progress for insert to authenticated with check ((select auth.uid()) = user_id);
+drop policy if exists "Users can update their own lesson progress" on public.lesson_progress;
+create policy "Users can update their own lesson progress" on public.lesson_progress for update to authenticated using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
+drop policy if exists "Users can delete their own lesson progress" on public.lesson_progress;
+create policy "Users can delete their own lesson progress" on public.lesson_progress for delete to authenticated using ((select auth.uid()) = user_id);
+
+grant select, insert, update, delete on public.profiles, public.course_progress, public.lesson_progress, public.quiz_attempts to authenticated;
+
+-- Postgres Changes keeps signed-in browser sessions in sync across tabs/devices.
+do $$
+begin
+  alter publication supabase_realtime add table public.course_progress;
+exception when duplicate_object then null;
+end;
+$$;
+
+do $$
+begin
+  alter publication supabase_realtime add table public.lesson_progress;
+exception when duplicate_object then null;
+end;
+$$;
+
+revoke execute on function public.handle_new_user() from public;
 

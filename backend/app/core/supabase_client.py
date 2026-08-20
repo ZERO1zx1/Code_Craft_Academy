@@ -10,9 +10,9 @@ class SupabaseNotConfigured(RuntimeError):
 
 def get_supabase(access_token: str | None = None) -> Client:
     settings = get_settings()
-    api_key = settings.supabase_service_role_key or settings.supabase_anon_key
+    api_key = settings.supabase_service_role_key or settings.public_supabase_key
     if not settings.supabase_url or not api_key:
-        raise SupabaseNotConfigured("SUPABASE_URL and SUPABASE_ANON_KEY are required")
+        raise SupabaseNotConfigured("SUPABASE_URL and a Supabase publishable key are required")
     client = create_client(settings.supabase_url, api_key)
     if access_token:
         client.postgrest.auth(access_token)
