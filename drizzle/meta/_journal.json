@@ -1,0 +1,76 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1786943977209,
+      "tag": "0000_swift_daredevil",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1786944501873,
+      "tag": "0001_happy_mongu",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786948608946,
+      "tag": "0002_gifted_marvel_zombies",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1786950637181,
+      "tag": "0003_tiny_eternals",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1786951889464,
+      "tag": "0004_busy_catseye",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1787019042352,
+      "tag": "0005_nasty_oracle",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1787027333156,
+      "tag": "0006_fast_zeigeist",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1787033069830,
+      "tag": "0007_harsh_veda",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1787115048210,
+      "tag": "0008_plain_supernaut",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1787115089248,
+      "tag": "0009_opposite_pet_avengers",
+      "breakpoints": true
+    }
+  ]
+}
