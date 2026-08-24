@@ -1,2 +1,0 @@
-"""CodeCraft Academy FastAPI application."""
-
