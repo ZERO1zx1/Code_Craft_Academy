@@ -1,0 +1,34 @@
+{
+  "slug": "css-position",
+  "title": "Position ба stacking",
+  "position": 2,
+  "minutes": 20,
+  "module": {
+    "position": 1,
+    "title": "02 · Layout",
+    "summary": "Flexbox, Grid, position"
+  },
+  "outcome": "Sticky, z-index-ийг ойлгоно.",
+  "task": "Sticky header хий.",
+  "explanation": "position нь элементийг байршуулна: relative (өөрийн байрлалаас), absolute (эцэгээс), fixed (дэлгэцээс), sticky (скролл үед наалдана). z-index нь давхцсан элементүүдийн дарааллыг шийднэ.",
+  "example": ".lesson-card {\n  display: grid;\n  gap: 1rem;\n  padding: clamp(1rem, 3vw, 2rem);\n}",
+  "exercise": "Sticky header хийж, z-index-ээр давхцлыг удирд.",
+  "project": "Мини төсөл: Sticky navbar + модал window (overlay) бүхий хуудас хий.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "css",
+    "position",
+    "sticky",
+    "z-index"
+  ],
+  "keywords": [
+    "relative",
+    "absolute",
+    "fixed",
+    "sticky",
+    "z-index",
+    "top/left"
+  ],
+  "quiz": []
+}

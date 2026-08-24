@@ -1,0 +1,34 @@
+{
+  "slug": "py-dict",
+  "title": "Dictionary",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 2,
+    "title": "03 · Өгөгдөл",
+    "summary": "List, dictionary, function"
+  },
+  "outcome": "key/value өгөгдлийг загварчилна.",
+  "task": "Сурагчийн profile dictionary үүсгэ.",
+  "explanation": "Dictionary нь key → value хосоор өгөгдлийг хадгална. Хүснэгт/профиль шиг бүтэцэд тохиромжтой. Оноог key-ээр нь ханддаг: profile['name']. get() нь key байхгүй үед төгсгөлгүй утга буцаана.",
+  "example": "topic = 'practice'\nminutes = 20\nprint(f'{topic}: {minutes} minutes')",
+  "exercise": "Сурагчийн profile dictionary үүсгээд нэр, нас, хот, дуртай хичээлээ оруул.",
+  "project": "Мини төсөл: Хичээл бүрт өгсөн оноог dictionary-д хадгалж, дундаж үнэлгээ тооцоол.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "python",
+    "dictionary",
+    "key",
+    "value"
+  ],
+  "keywords": [
+    "dict",
+    "key-value",
+    "get()",
+    "keys()",
+    "values()",
+    "items()"
+  ],
+  "quiz": []
+}

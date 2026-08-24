@@ -1,0 +1,36 @@
+{
+  "slug": "html-doc",
+  "title": "HTML document",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 0,
+    "title": "01 · Вэбийн суурь",
+    "summary": "Browser ба document"
+  },
+  "outcome": "doctype, head, body, metadata-г зөв бичнэ.",
+  "task": "Стандарт хангасан page үүсгэ.",
+  "explanation": "HTML документ нь !DOCTYPE, html, head, body гэсэн стандарт бүтэцтэй. head хэсэгт meta өгөгдөл (charset, description, title) байрлана, body хэсэгт харагдах агуулга орно. Зөв бүтэц нь хөтөч, хайлтын систем зөв ойлгох нөхцөл.",
+  "example": "<section aria-labelledby=\"title\">\n  <h2 id=\"title\">Өнөөдрийн хичээл</h2>\n  <p>Утгатай бүтэц.</p>\n</section>",
+  "exercise": "Стандарт хангасан, charset болон title бүхий HTML page үүсгэ.",
+  "project": "Мини төсөл: 'Миний анхны вэб хуудас' гэсэн, зөв бүтэцтэй page-ээ байгуул.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "html",
+    "doctype",
+    "head",
+    "body",
+    "meta"
+  ],
+  "keywords": [
+    "doctype",
+    "html",
+    "head",
+    "body",
+    "meta",
+    "charset",
+    "title"
+  ],
+  "quiz": []
+}

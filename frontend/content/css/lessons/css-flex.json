@@ -1,0 +1,33 @@
+{
+  "slug": "css-flex",
+  "title": "Flexbox",
+  "position": 0,
+  "minutes": 20,
+  "module": {
+    "position": 1,
+    "title": "02 · Layout",
+    "summary": "Flexbox, Grid, position"
+  },
+  "outcome": "Alignment ба wrapping хийнэ.",
+  "task": "Responsive navbar хий.",
+  "explanation": "Flexbox нь нэг хэмжээст layout-ийг хялбар болгоно. display:flex-ээр эхэлж, justify-content (хэвтээ), align-items (босоо) тохируулна. Navbar, товч багц, зэрэгцүүлэлтэд тохиромжтой.",
+  "example": ".lesson-card {\n  display: grid;\n  gap: 1rem;\n  padding: clamp(1rem, 3vw, 2rem);\n}",
+  "exercise": "Responsive navbar-ыг flex ашиглан хий.",
+  "project": "Мини төсөл: Товч багц, зэрэгцүүлсэн feature блокуудыг flex-ээр бүтээ.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "css",
+    "flexbox",
+    "layout",
+    "navbar"
+  ],
+  "keywords": [
+    "display:flex",
+    "justify-content",
+    "align-items",
+    "flex-wrap",
+    "gap"
+  ],
+  "quiz": []
+}

@@ -1,0 +1,37 @@
+{
+  "slug": "py-values",
+  "title": "Хувьсагч ба өгөгдлийн төрөл",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 0,
+    "title": "01 · Эхлэл",
+    "summary": "Орчин, өгөгдөл, гаралт"
+  },
+  "outcome": "string, integer, float, boolean утгыг зөв сонгоно.",
+  "task": "Өөрийн танилцуулга хадгалах 4 хувьсагч үүсгэ.",
+  "explanation": "Хувьсагч нь өгөгдлийг нэрлээд санаж байх сав юм. Python-д төрөл зааж өгөх шаардлагагүй — утга өгөхөд төрөл автоматаар тодорхойлогдоно. String (текст), integer (бүхэл тоо), float (бутархай), boolean (үнэн/худал) гэсэн үндсэн төрлүүд байдаг.",
+  "example": "topic = 'practice'\nminutes = 20\nprint(f'{topic}: {minutes} minutes')",
+  "exercise": "Нэр, нас, өндөр, сурдаг эсэх гэсэн 4 хувьсагч үүсгэж, төрөл бүрийн утга өг.",
+  "project": "Мини төсөл: Хувьсагч ашиглан зочилсон улсуудын жагсаалтыг хадгалж, тоог нь тооцоол.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "python",
+    "хувьсагч",
+    "төрөл",
+    "string",
+    "integer",
+    "boolean"
+  ],
+  "keywords": [
+    "variable",
+    "assignment",
+    "string",
+    "integer",
+    "float",
+    "boolean",
+    "type"
+  ],
+  "quiz": []
+}

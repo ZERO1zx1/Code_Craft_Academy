@@ -1,0 +1,33 @@
+{
+  "slug": "py-debug",
+  "title": "Алдаа уншиж засах",
+  "position": 2,
+  "minutes": 20,
+  "module": {
+    "position": 1,
+    "title": "02 · Логик",
+    "summary": "Нөхцөл, давталт, алдаа"
+  },
+  "outcome": "Syntax, runtime, logic алдааг ялгана.",
+  "task": "Эвдэрхий тооны машинд 3 алдаа ол.",
+  "explanation": "Алдааг гурван төрөлд ялгадаг: SyntaxError (хэлний дүрэм зөрчсөн), RuntimeError (ажиллах үед гарах), LogicError (код ажиллана, гэвч үр дүн буруу). Алдааны traceback-ийн хамгийн сүүлчийн мөр шалтгааныг заана.",
+  "example": "topic = 'practice'\nminutes = 20\nprint(f'{topic}: {minutes} minutes')",
+  "exercise": "Өгөгдсөн 3 алдаатай кодны алдааг олж, зөв үр дүн гартал зас.",
+  "project": "Мини төсөл: Өөрийн бичсэн кодыг traceback уншиж, алдааны төрөл бүрийг тэмдэглэсэн 'Алдааны журнал' хөтөл.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "python",
+    "алдаа",
+    "debug",
+    "синтакс"
+  ],
+  "keywords": [
+    "SyntaxError",
+    "NameError",
+    "TypeError",
+    "debugging",
+    "traceback"
+  ],
+  "quiz": []
+}

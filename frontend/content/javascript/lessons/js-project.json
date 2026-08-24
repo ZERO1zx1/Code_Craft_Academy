@@ -1,0 +1,32 @@
+{
+  "slug": "js-project",
+  "title": "Төсөл: Dashboard",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 4,
+    "title": "05 · Frontend capstone",
+    "summary": "Architecture, test, deploy"
+  },
+  "outcome": "API, filter, modal бүхий app бүтээнэ.",
+  "task": "MVP хэрэгжүүл.",
+  "explanation": "Frontend capstone: API, filter, modal бүхий dashboard app бүтээнэ. MVP-ээ эхлээд, дараа нь өргөжүүлнэ. State, module, async, event бүх ойлголтыг нэг бүтээгдэхүүнд нэгтгэнэ.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "API, filter, modal бүхий dashboard app-ийн MVP хэрэгжүүл.",
+  "project": "Төсөл: Dashboard app-ээ бүрэн ажиллагаатай болгож, өгөгдлийг API-аас татаж, хэрэглэгчийн үйлдлээр filter хий.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "төсөл",
+    "dashboard"
+  ],
+  "keywords": [
+    "dashboard",
+    "API",
+    "filter",
+    "modal",
+    "MVP"
+  ],
+  "quiz": []
+}
