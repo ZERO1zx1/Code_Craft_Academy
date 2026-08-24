@@ -73,7 +73,7 @@
     try {
       return raw ? JSON.parse(raw) : {};
     } catch {
-      return {error: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).`};
+      return { error: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).` };
     }
   };
 
@@ -100,7 +100,7 @@
       if (backendEnabled) {
         const response = await fetch('/api/admin/content', {
           method: 'POST', credentials: 'same-origin',
-          headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload),
+          headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
         });
         const result = await readPayload(response);
         if (!response.ok) throw new Error(result.error?.message_mn || result.error || 'Content хадгалах боломжгүй байна.');

@@ -48,7 +48,7 @@
     try {
       return raw ? JSON.parse(raw) : {};
     } catch {
-      return {error: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).`};
+      return { error: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).` };
     }
   };
 
@@ -79,7 +79,7 @@
       if (window.CODECRAFT_CONFIG.backendEnabled && active?.dataset.id) {
         const response = await fetch(`${window.CODECRAFT_CONFIG.apiBase}/api/submissions/run`, {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
+          headers: { 'Content-Type': 'application/json' },
           credentials: 'same-origin',
           body: JSON.stringify({
             challenge_id: active?.dataset.id,
@@ -117,9 +117,9 @@
     try {
       const response = await fetch(`${window.CODECRAFT_CONFIG.apiBase}/api/submissions/catalog`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'same-origin',
-        body: JSON.stringify({challenge_id: active.dataset.id, language: language.value, code: editor.value}),
+        body: JSON.stringify({ challenge_id: active.dataset.id, language: language.value, code: editor.value }),
       });
       const payload = await readPayload(response);
       if (!response.ok) throw new Error(payload.error?.message_mn || payload.error || 'Шалгалт хийх боломжгүй байна.');

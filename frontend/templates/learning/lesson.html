@@ -3,9 +3,12 @@
 {% block title %}{{ lesson.title }} — CodeCraft Academy{% endblock %}
 
 {% block content %}
-<section class="lesson-shell container-wide" data-lesson-page data-course-slug="{{ course.id }}" data-lesson-slug="{{ lesson.id }}" data-login-url="{{ url_for('frontend_page', page='auth') }}?mode=login">
+<section class="lesson-shell container-wide" data-lesson-page data-course-slug="{{ course.id }}"
+  data-lesson-slug="{{ lesson.id }}" data-login-url="{{ url_for('frontend_page', page='auth') }}?mode=login">
   <div class="lesson-breadcrumb">
-    <a href="{{ url_for('frontend_page', page='curriculum') }}">Сурах зам</a><span>/</span><a href="{{ url_for('frontend_page', page='course') }}?id={{ course.id }}">{{ course.title }}</a><span>/</span><strong>Хичээл</strong>
+    <a href="{{ url_for('frontend_page', page='curriculum') }}">Сурах зам</a><span>/</span><a
+      href="{{ url_for('frontend_page', page='course') }}?id={{ course.id }}">{{ course.title
+      }}</a><span>/</span><strong>Хичээл</strong>
   </div>
   <div class="lesson-layout">
     <article class="lesson-content">
@@ -68,7 +71,9 @@
           <p class="quiz-question">{{ lesson.quiz.question }}</p>
           <form class="quiz-check" data-quiz-form data-course-slug="{{ course.id }}" data-lesson-slug="{{ lesson.id }}">
             <label for="quiz-answer">Өөрийн хариуг бич</label>
-            <div class="quiz-answer-row"><input id="quiz-answer" name="answer" type="text" required maxlength="500" autocomplete="off" placeholder="Хариугаа энд бич…"><button class="button button-dark button-small" type="submit">Шалгах</button></div>
+            <div class="quiz-answer-row"><input id="quiz-answer" name="answer" type="text" required maxlength="500"
+                autocomplete="off" placeholder="Хариугаа энд бич…"><button class="button button-dark button-small"
+                type="submit">Шалгах</button></div>
             <p class="form-message" data-quiz-feedback role="status" aria-live="polite"></p>
           </form>
           <details class="quiz-answer">
@@ -82,17 +87,34 @@
       <div class="lesson-task" id="practice">
         <span class="task-number">MINI PRACTICE</span>
         <h2>{{ lesson.task }}</h2>
-        <p>Кодын лабораторид ороод өөрийн шийдлийг бич. Дууссаны дараа ахицдаа тэмдэглэвэл CodeCraft-ийн өөрийн бүртгэлтэй холбогдон найдвартай хадгалагдана.</p>
+        <p>Кодын лабораторид ороод өөрийн шийдлийг бич. Дууссаны дараа ахицдаа тэмдэглэвэл CodeCraft-ийн өөрийн
+          бүртгэлтэй холбогдон найдвартай хадгалагдана.</p>
         <div class="button-row">
-          <a class="button button-primary" href="{{ url_for('frontend_page', page='workspace') }}?course={{ course.id }}&lesson={{ lesson.id }}">Лабораторид нээх <span>→</span></a>
+          <a class="button button-primary"
+            href="{{ url_for('frontend_page', page='workspace') }}?course={{ course.id }}&lesson={{ lesson.id }}">Лабораторид
+            нээх <span>→</span></a>
           <button class="button button-ghost" type="button" data-completion-button>Дууссанд тооцох</button>
         </div>
       </div>
 
       {% if lesson_challenges %}
       <div class="lesson-section lesson-challenge-section" id="challenges">
-        <div class="section-heading compact"><div><span class="eyebrow">PRACTICE SET</span><h2>Ойлгосноо кодоор батал.</h2></div><span class="course-status">{{ lesson_challenges|length }} дасгал</span></div>
-        <div class="lesson-challenge-list">{% for challenge in lesson_challenges %}<article class="lesson-challenge-card"><div><span class="status-badge">{{ challenge.type|replace('_', ' ')|title }}</span><h3>{{ challenge.title }}</h3><p>{{ challenge.description }}</p></div><div class="lesson-challenge-footer"><span>+{{ challenge.xp }} XP · Hint-тэй</span><a class="button button-dark button-small" href="{{ url_for('frontend_page', page='workspace') }}?challenge={{ challenge.id }}">Эхлэх <span>→</span></a></div></article>{% endfor %}</div>
+        <div class="section-heading compact">
+          <div><span class="eyebrow">PRACTICE SET</span>
+            <h2>Ойлгосноо кодоор батал.</h2>
+          </div><span class="course-status">{{ lesson_challenges|length }} дасгал</span>
+        </div>
+        <div class="lesson-challenge-list">{% for challenge in lesson_challenges %}<article
+            class="lesson-challenge-card">
+            <div><span class="status-badge">{{ challenge.type|replace('_', ' ')|title }}</span>
+              <h3>{{ challenge.title }}</h3>
+              <p>{{ challenge.description }}</p>
+            </div>
+            <div class="lesson-challenge-footer"><span>+{{ challenge.xp }} XP · Hint-тэй</span><a
+                class="button button-dark button-small"
+                href="{{ url_for('frontend_page', page='workspace') }}?challenge={{ challenge.id }}">Эхлэх
+                <span>→</span></a></div>
+          </article>{% endfor %}</div>
       </div>
       {% endif %}
     </article>

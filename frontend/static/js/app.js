@@ -10,7 +10,7 @@
     if (save && theme) localStorage.setItem('codecraft_theme', theme);
   };
   applyTheme(storedTheme || 'system', false);
-  
+
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     if (!localStorage.getItem('codecraft_theme') || localStorage.getItem('codecraft_theme') === 'system') {
       applyTheme('system', false);
@@ -43,7 +43,7 @@
     window.__toastTimer = window.setTimeout(() => toast.classList.remove('is-visible'), 3200);
   };
   window.codecraftApi = async (path, options = {}) => {
-    const headers = {'Content-Type': 'application/json', ...(options.headers || {})};
+    const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) };
     const response = await fetch(`${config.apiBase || ''}${path}`, {
       ...options,
       credentials: 'same-origin',
@@ -54,7 +54,7 @@
     try {
       payload = raw ? JSON.parse(raw) : {};
     } catch {
-      payload = {message_mn: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).`};
+      payload = { message_mn: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).` };
     }
     if (!response.ok) {
       const error = new Error(payload.message_mn || payload.error?.message_mn || payload.error || 'Хүсэлтийг гүйцэтгэх боломжгүй байна.');

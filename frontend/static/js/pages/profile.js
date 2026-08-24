@@ -80,7 +80,7 @@
   };
 
   page.querySelector('[data-logout]')?.addEventListener('click', async () => {
-    try { await fetch(`${window.CODECRAFT_CONFIG.apiBase}/api/auth/logout`, { method: 'POST', credentials: 'same-origin' }); } catch (_) {}
+    try { await fetch(`${window.CODECRAFT_CONFIG.apiBase}/api/auth/logout`, { method: 'POST', credentials: 'same-origin' }); } catch (_) { }
     window.localStorage.removeItem('codecraft_user');
     window.location.href = page.dataset.homeUrl || '/';
   });

@@ -34,7 +34,7 @@
 
   async function readPayload(response) {
     const raw = await response.text();
-    try { return raw ? JSON.parse(raw) : {}; } catch { return {error: {message_mn: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).`}}; }
+    try { return raw ? JSON.parse(raw) : {}; } catch { return { error: { message_mn: `Сервер JSON биш response буцаалаа (HTTP ${response.status}).` } }; }
   }
 
   function backendUnavailable() {
@@ -57,7 +57,7 @@
       return;
     }
     try {
-      const response = await fetch('/api/auth/google/start', {credentials: 'same-origin'});
+      const response = await fetch('/api/auth/google/start', { credentials: 'same-origin' });
       const payload = await readPayload(response);
       if (!response.ok) throw new Error(payload.error?.message_mn || 'Google login тохиргоо бэлэн биш байна.');
       window.location.assign(payload.url);
@@ -83,7 +83,7 @@
     }
     try {
       const response = await fetch(`/api/auth/${mode === 'register' ? 'register' : 'login'}`, {
-        method: 'POST', credentials: 'same-origin', headers: {'Content-Type': 'application/json'},
+        method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
       });
       const payload = await readPayload(response);
@@ -104,8 +104,8 @@
     try {
       const email = String(new FormData(otpRequestForm).get('email') || '').trim().toLowerCase();
       const response = await fetch('/api/auth/otp/request', {
-        method: 'POST', credentials: 'same-origin', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email}),
+        method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
       });
       const payload = await readPayload(response);
       if (!response.ok) throw new Error(payload.error?.message_mn || payload.error?.message || 'Security code илгээгдсэнгүй.');
@@ -129,8 +129,8 @@
     try {
       const code = String(new FormData(otpVerifyForm).get('code') || '').trim();
       const response = await fetch('/api/auth/otp/verify', {
-        method: 'POST', credentials: 'same-origin', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email: otpAddress, challenge: otpChallenge, code}),
+        method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: otpAddress, challenge: otpChallenge, code }),
       });
       const payload = await readPayload(response);
       if (!response.ok) throw new Error(payload.error?.message_mn || payload.error?.message || 'Security code буруу байна.');
