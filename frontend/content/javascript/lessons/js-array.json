@@ -1,0 +1,36 @@
+{
+  "slug": "js-array",
+  "title": "Array method",
+  "position": 0,
+  "minutes": 20,
+  "module": {
+    "position": 1,
+    "title": "02 · Modern JS",
+    "summary": "Array, object, module"
+  },
+  "outcome": "map, filter, find, reduce сонгоно.",
+  "task": "Product list шүү.",
+  "explanation": "Array method нь collection-ыг функциональ аргаар боловсруулна: map (хувиргах), filter (шүүх), find (олох), reduce (хураах). Тэдгээр нь шинэ array буцааж, анхны өгөгдлийг өөрчлөхгүй.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "Product list-ээ үнэ, категориар шүүж, map/filter ашиглан үзүүл.",
+  "project": "Мини төсөл: Төсвийн зарцуулалтыг reduce ашиглан дүнлэдэг скрипт бич.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "array",
+    "map",
+    "filter",
+    "reduce"
+  ],
+  "keywords": [
+    "map",
+    "filter",
+    "find",
+    "reduce",
+    "forEach",
+    "spread",
+    "destructure"
+  ],
+  "quiz": []
+}

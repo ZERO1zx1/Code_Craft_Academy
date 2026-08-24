@@ -1,0 +1,34 @@
+{
+  "slug": "css-figma",
+  "title": "Дизайнаас код руу",
+  "position": 0,
+  "minutes": 20,
+  "module": {
+    "position": 4,
+    "title": "05 · Төсөл",
+    "summary": "Responsive бүтээгдэхүүн"
+  },
+  "outcome": "Spacing, type, color хэмжинэ.",
+  "task": "Mockup hero-г кодло.",
+  "explanation": "Дизайнаас код руу: mockup-ын spacing, type, color-ийг хэмжиж, токенуудтай холбоно. Энэ урсгал дизайнер ба хөгжүүлэгчийн ажлыг холбоно. Үнэн зөв хэмжилт нь дизайнтай таарсан UI өгнө.",
+  "example": ".lesson-card {\n  display: grid;\n  gap: 1rem;\n  padding: clamp(1rem, 3vw, 2rem);\n}",
+  "exercise": "Mockup hero-г хэмжиж, токенуудаараа кодло.",
+  "project": "Мини төсөл: Өөрийн сонгосон landing mockup-ыг бүрэн кодлож, дизайнтай нь жиш.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "css",
+    "дизайн",
+    "mockup",
+    "код"
+  ],
+  "keywords": [
+    "mockup",
+    "spacing",
+    "type scale",
+    "color",
+    "measure",
+    "design to code"
+  ],
+  "quiz": []
+}

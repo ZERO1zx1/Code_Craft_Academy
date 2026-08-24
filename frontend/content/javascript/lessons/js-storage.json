@@ -1,0 +1,32 @@
+{
+  "slug": "js-storage",
+  "title": "Local storage",
+  "position": 3,
+  "minutes": 20,
+  "module": {
+    "position": 3,
+    "title": "04 · Async ба API",
+    "summary": "Promise, fetch, UI state"
+  },
+  "outcome": "Browser-д өгөгдөл хадгална.",
+  "task": "Task app persist хий.",
+  "explanation": "localStorage нь өгөгдлийг хөтөчид байнгын хадгална. Зөвхөн текст хадгалдаг тул object-ийг JSON.stringify/parse-аар хөрвүүлнэ. Энэ нь app-ийн төлөвийг дахин ачаалласны дараа хадгална.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "Task app-ийн төлөвийг localStorage-д хадгалж, дахин ачааллахад сэргээ.",
+  "project": "Мини төсөл: Persist хийдэг task app-ээ filter-тэй болгон өргөжүүл.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "localstorage",
+    "persist"
+  ],
+  "keywords": [
+    "localStorage",
+    "sessionStorage",
+    "JSON.stringify",
+    "JSON.parse",
+    "persist"
+  ],
+  "quiz": []
+}

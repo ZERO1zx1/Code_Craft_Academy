@@ -1,0 +1,35 @@
+{
+  "slug": "js-values",
+  "title": "Утга ба хувьсагч",
+  "position": 0,
+  "minutes": 20,
+  "module": {
+    "position": 0,
+    "title": "01 · JavaScript суурь",
+    "summary": "Утга, operator, control flow"
+  },
+  "outcome": "const, let, primitive type хэрэглэнэ.",
+  "task": "Сагсны нийт үнэ бод.",
+  "explanation": "JavaScript-д хувьсагчийг const (өөрчлөгдөхгүй) болон let (өөрчлөгддөг) гэж зарлана. Primitive төрлүүд: number, string, boolean, null, undefined, symbol. Төрөл динамик бөгөөд хадгалагдсан утгаар тодорхойлогдоно.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "Сагсны барааны нэр, үнэ, тоо хэмжээг хувьсагчид хадгалж нийт үнэ бод.",
+  "project": "Мини төсөл: const/let зөв ашигласан 'Сагс' тооцооллын жижиг скрипт бич.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "хувьсагч",
+    "const",
+    "let"
+  ],
+  "keywords": [
+    "const",
+    "let",
+    "var",
+    "primitive",
+    "number",
+    "string",
+    "boolean"
+  ],
+  "quiz": []
+}

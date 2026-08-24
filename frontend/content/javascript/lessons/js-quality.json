@@ -1,0 +1,34 @@
+{
+  "slug": "js-quality",
+  "title": "Test ба performance",
+  "position": 2,
+  "minutes": 20,
+  "module": {
+    "position": 4,
+    "title": "05 · Frontend capstone",
+    "summary": "Architecture, test, deploy"
+  },
+  "outcome": "DevTools-аар алдаа олно.",
+  "task": "Smoke test нэм.",
+  "explanation": "Quality нь DevTools-аар алдаа олж, гүйцэтгэл ба ашиглалтыг шалгана. Console, Network, Performance табуудыг ашиглаж, smoke test (гол урсгалын шалгалт)-ээр бүтээгдэхүүний бэлэн байдлыг баталгаажуулна.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "DevTools-аар консол алдаа, network хариуг шалгаж, smoke test нэм.",
+  "project": "Мини төсөл: Dashboard-оо тест хийж, олдсон бүх алдааг засаж v2 гарга.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "test",
+    "performance",
+    "qa"
+  ],
+  "keywords": [
+    "devtools",
+    "console",
+    "network",
+    "performance",
+    "smoke test",
+    "debug"
+  ],
+  "quiz": []
+}

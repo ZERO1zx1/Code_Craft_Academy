@@ -1,0 +1,384 @@
+{
+  "slug": "css",
+  "label": "CSS",
+  "icon": "#",
+  "color": "blue",
+  "eyebrow": "Харагдац ба layout",
+  "duration": "7 долоо хоног",
+  "level": "Анхан → дунд",
+  "description": "Design token-оос responsive layout хүртэл бодит интерфэйсийг системтэй загварчилна.",
+  "starter": ":root {\n  --brand: #7c3aed;\n}\n.card {\n  padding: 24px;\n  border-radius: 18px;\n  color: white;\n  background: var(--brand);\n}",
+  "status": "published",
+  "sort_order": 3,
+  "modules": [
+    {
+      "position": 0,
+      "title": "01 · CSS хэл",
+      "summary": "Selector, cascade, box model",
+      "lessons": [
+        {
+          "slug": "css-start",
+          "position": 0,
+          "title": "Selector",
+          "outcome": "Element, class, state-ийг зөв онилно.",
+          "task": "Profile card-ын selector бич.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "selector",
+            "style"
+          ],
+          "keywords": [
+            "selector",
+            "class",
+            "id",
+            "element",
+            "declaration",
+            "property"
+          ]
+        },
+        {
+          "slug": "css-cascade",
+          "position": 1,
+          "title": "Cascade ба specificity",
+          "outcome": "Яагаад style үйлчилж байгааг тайлбарлана.",
+          "task": "Зөрчилтэй declaration цэгцэл.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "cascade",
+            "specificity"
+          ],
+          "keywords": [
+            "cascade",
+            "specificity",
+            "inheritance",
+            "order",
+            "importance"
+          ]
+        },
+        {
+          "slug": "css-box",
+          "position": 2,
+          "title": "Box model",
+          "outcome": "Padding, border, margin-ийг тооцно.",
+          "task": "Card spacing тааруул.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "box model",
+            "padding",
+            "margin"
+          ],
+          "keywords": [
+            "content",
+            "padding",
+            "border",
+            "margin",
+            "box-sizing",
+            "width"
+          ]
+        }
+      ]
+    },
+    {
+      "position": 1,
+      "title": "02 · Layout",
+      "summary": "Flexbox, Grid, position",
+      "lessons": [
+        {
+          "slug": "css-flex",
+          "position": 0,
+          "title": "Flexbox",
+          "outcome": "Alignment ба wrapping хийнэ.",
+          "task": "Responsive navbar хий.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "flexbox",
+            "layout",
+            "navbar"
+          ],
+          "keywords": [
+            "display:flex",
+            "justify-content",
+            "align-items",
+            "flex-wrap",
+            "gap"
+          ]
+        },
+        {
+          "slug": "css-grid",
+          "position": 1,
+          "title": "CSS Grid",
+          "outcome": "Хоёр хэмжээст layout байгуулна.",
+          "task": "Dashboard grid бүтээ.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "grid",
+            "layout",
+            "dashboard"
+          ],
+          "keywords": [
+            "display:grid",
+            "grid-template-columns",
+            "grid-template-rows",
+            "gap",
+            "auto-fit"
+          ]
+        },
+        {
+          "slug": "css-position",
+          "position": 2,
+          "title": "Position ба stacking",
+          "outcome": "Sticky, z-index-ийг ойлгоно.",
+          "task": "Sticky header хий.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "position",
+            "sticky",
+            "z-index"
+          ],
+          "keywords": [
+            "relative",
+            "absolute",
+            "fixed",
+            "sticky",
+            "z-index",
+            "top/left"
+          ]
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "title": "03 · Responsive UI",
+      "summary": "Mobile-first ба fluid type",
+      "lessons": [
+        {
+          "slug": "css-responsive",
+          "position": 0,
+          "title": "Mobile-first",
+          "outcome": "Контентоор breakpoint сонгоно.",
+          "task": "Portfolio-г 3 дэлгэцэд тохируул.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "responsive",
+            "mobile",
+            "media query"
+          ],
+          "keywords": [
+            "media query",
+            "viewport",
+            "breakpoint",
+            "mobile-first",
+            "min-width"
+          ]
+        },
+        {
+          "slug": "css-fluid",
+          "position": 1,
+          "title": "Fluid хэмжээ",
+          "outcome": "clamp, minmax, relative unit ашиглана.",
+          "task": "Heading ба grid fluid болго.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "fluid",
+            "clamp",
+            "unit"
+          ],
+          "keywords": [
+            "clamp()",
+            "minmax()",
+            "vw",
+            "em",
+            "rem",
+            "relative unit"
+          ]
+        },
+        {
+          "slug": "css-query",
+          "position": 2,
+          "title": "Container query",
+          "outcome": "Орчиндоо дасан зохицох component хийнэ.",
+          "task": "Responsive card хий.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "container query",
+            "component"
+          ],
+          "keywords": [
+            "container-type",
+            "container queries",
+            "@container",
+            "size query"
+          ]
+        }
+      ]
+    },
+    {
+      "position": 3,
+      "title": "04 · Design system",
+      "summary": "Token, component, state",
+      "lessons": [
+        {
+          "slug": "css-token",
+          "position": 0,
+          "title": "Design token",
+          "outcome": "Өнгө, spacing, type-ээ variable болгоно.",
+          "task": "Theme token set үүсгэ.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "design token",
+            "variable",
+            "theme"
+          ],
+          "keywords": [
+            "custom property",
+            "CSS variable",
+            ":root",
+            "color",
+            "spacing",
+            "type scale"
+          ]
+        },
+        {
+          "slug": "css-component",
+          "position": 1,
+          "title": "Component style",
+          "outcome": "Variant, size, state загварчилна.",
+          "task": "Button-ийн 3 variant хий.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "component",
+            "button",
+            "variant"
+          ],
+          "keywords": [
+            "variant",
+            "state",
+            "hover",
+            "focus",
+            "disabled",
+            "BEM"
+          ]
+        },
+        {
+          "slug": "css-motion",
+          "position": 2,
+          "title": "Animation",
+          "outcome": "Transition, keyframe зорилготой ашиглана.",
+          "task": "Reduced-motion animation хий.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "animation",
+            "transition",
+            "motion"
+          ],
+          "keywords": [
+            "transition",
+            "animation",
+            "@keyframes",
+            "transform",
+            "reduced-motion"
+          ]
+        }
+      ]
+    },
+    {
+      "position": 4,
+      "title": "05 · Төсөл",
+      "summary": "Responsive бүтээгдэхүүн",
+      "lessons": [
+        {
+          "slug": "css-figma",
+          "position": 0,
+          "title": "Дизайнаас код руу",
+          "outcome": "Spacing, type, color хэмжинэ.",
+          "task": "Mockup hero-г кодло.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "дизайн",
+            "mockup",
+            "код"
+          ],
+          "keywords": [
+            "mockup",
+            "spacing",
+            "type scale",
+            "color",
+            "measure",
+            "design to code"
+          ]
+        },
+        {
+          "slug": "css-project",
+          "position": 1,
+          "title": "Төсөл: SaaS landing",
+          "outcome": "Production responsive page бүтээнэ.",
+          "task": "6 section, nav, pricing хий.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "төсөл",
+            "saas",
+            "landing"
+          ],
+          "keywords": [
+            "production",
+            "landing page",
+            "nav",
+            "pricing",
+            "responsive",
+            "section"
+          ]
+        },
+        {
+          "slug": "css-audit",
+          "position": 2,
+          "title": "Visual QA",
+          "outcome": "Overflow, contrast, edge case засна.",
+          "task": "320–1440px шалга.",
+          "minutes": 20,
+          "pdf_url": "",
+          "tags": [
+            "css",
+            "аудит",
+            "visual qa",
+            "qa"
+          ],
+          "keywords": [
+            "overflow",
+            "contrast",
+            "edge case",
+            "validation",
+            "performance"
+          ]
+        }
+      ]
+    }
+  ]
+}

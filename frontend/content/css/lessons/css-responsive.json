@@ -1,0 +1,33 @@
+{
+  "slug": "css-responsive",
+  "title": "Mobile-first",
+  "position": 0,
+  "minutes": 20,
+  "module": {
+    "position": 2,
+    "title": "03 · Responsive UI",
+    "summary": "Mobile-first ба fluid type"
+  },
+  "outcome": "Контентоор breakpoint сонгоно.",
+  "task": "Portfolio-г 3 дэлгэцэд тохируул.",
+  "explanation": "Responsive гэдэг нь бүх дэлгэцэнд тохирох явдал. Mobile-first аргаар эхлээд жижиг дэлгэцэд зохиож, media query (min-width)-аар томд нь нэмнэ. Breakpoint-ийг контентоосоо хамааруулж сонгоно.",
+  "example": ".lesson-card {\n  display: grid;\n  gap: 1rem;\n  padding: clamp(1rem, 3vw, 2rem);\n}",
+  "exercise": "Portfolio-г 3 дэлгэцийн хэмжээнд (mobile, tablet, desktop) тохируул.",
+  "project": "Мини төсөл: Өөрийн page-ийг 320–1440px хүртэл responsive болго.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "css",
+    "responsive",
+    "mobile",
+    "media query"
+  ],
+  "keywords": [
+    "media query",
+    "viewport",
+    "breakpoint",
+    "mobile-first",
+    "min-width"
+  ],
+  "quiz": []
+}

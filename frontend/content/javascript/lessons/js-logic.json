@@ -1,0 +1,35 @@
+{
+  "slug": "js-logic",
+  "title": "Нөхцөл ба давталт",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 0,
+    "title": "01 · JavaScript суурь",
+    "summary": "Утга, operator, control flow"
+  },
+  "outcome": "Control flow ашиглана.",
+  "task": "Password strength шалга.",
+  "explanation": "Control flow нь програмын гүйлтийг шийдвэрлүүлнэ. if/else нь нөхцөлөөр, for/while нь давталтаар ажиллана. === нь төрөл ба утгыг чанга шалгана, логик операторууд (&&, ||) нь нөхцөлийг нэгтгэнэ.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "Password strength-ийг урт, цифр, тэмдэгтээр нь шалгадаг функц бич.",
+  "project": "Мини төсөл: Оноо → үсгэн үнэлгээ хөрвүүлдэг шалгалтын скрипт хий.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "нөхцөл",
+    "loop",
+    "control flow"
+  ],
+  "keywords": [
+    "if",
+    "else",
+    "switch",
+    "for",
+    "while",
+    "comparison",
+    "logical operator"
+  ],
+  "quiz": []
+}

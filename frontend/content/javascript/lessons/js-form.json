@@ -1,0 +1,32 @@
+{
+  "slug": "js-form",
+  "title": "Form validation",
+  "position": 3,
+  "minutes": 20,
+  "module": {
+    "position": 2,
+    "title": "03 · DOM ба state",
+    "summary": "Event, render, form"
+  },
+  "outcome": "Submit ба error feedback хийнэ.",
+  "task": "Signup form бүтээ.",
+  "explanation": "Form-ийн submit-ийг зогсоож (preventDefault), өгөгдлийг шалгаад боловсруулна. FormData-аар оролтыг цуглуулна. Алдааг талбар дээр ойлгомжтой харуулж, амжилтын feedback өгнө.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "Signup form-ийг submit ба error feedback-тэй бүтээ.",
+  "project": "Мини төсөл: Email, password, confirm гэсэн 3 талбартай, бүрэн validate хийдэг form хий.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "form",
+    "validation"
+  ],
+  "keywords": [
+    "submit",
+    "preventDefault",
+    "FormData",
+    "error feedback",
+    "validate"
+  ],
+  "quiz": []
+}

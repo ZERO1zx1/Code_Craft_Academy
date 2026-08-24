@@ -1,0 +1,33 @@
+{
+  "slug": "css-grid",
+  "title": "CSS Grid",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 1,
+    "title": "02 · Layout",
+    "summary": "Flexbox, Grid, position"
+  },
+  "outcome": "Хоёр хэмжээст layout байгуулна.",
+  "task": "Dashboard grid бүтээ.",
+  "explanation": "CSS Grid нь хоёр хэмжээст (мөр, багана) layout үүсгэнэ. grid-template-columns-оор багануудыг тодорхойлно. Dashboard, gallery, картын сүлжээнд Flexbox-оос хүчтэй.",
+  "example": ".lesson-card {\n  display: grid;\n  gap: 1rem;\n  padding: clamp(1rem, 3vw, 2rem);\n}",
+  "exercise": "Dashboard grid-ийг grid-template-columns ашиглан бүтээ.",
+  "project": "Мини төсөл: auto-fit/minmax ашигласан responsive картын сүлжээ хий.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "css",
+    "grid",
+    "layout",
+    "dashboard"
+  ],
+  "keywords": [
+    "display:grid",
+    "grid-template-columns",
+    "grid-template-rows",
+    "gap",
+    "auto-fit"
+  ],
+  "quiz": []
+}

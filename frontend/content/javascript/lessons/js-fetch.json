@@ -1,0 +1,34 @@
+{
+  "slug": "js-fetch",
+  "title": "REST API",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 3,
+    "title": "04 · Async ба API",
+    "summary": "Promise, fetch, UI state"
+  },
+  "outcome": "Status, JSON боловсруулна.",
+  "task": "API card list харуул.",
+  "explanation": "fetch() нь сүлжээний хүсэлт илгээж Promise буцаана. response.ok ба status-ээр амжилтыг шалгаж, response.json()-оор өгөгдлийг задална. REST API-аас өгөгдөл авч UI-д үзүүлнэ.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "API-аас card list татаж, loading/error төлөвтэй харуул.",
+  "project": "Мини төсөл: Нийтийн API (жишээ нь сагс/хэрэглэгч) ашиглан бодит list app хий.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "fetch",
+    "rest api",
+    "json"
+  ],
+  "keywords": [
+    "fetch",
+    "REST",
+    "GET",
+    "JSON",
+    "response.ok",
+    "status"
+  ],
+  "quiz": []
+}

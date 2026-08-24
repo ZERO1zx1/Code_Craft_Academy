@@ -1,0 +1,32 @@
+{
+  "slug": "js-architecture",
+  "title": "Architecture",
+  "position": 0,
+  "minutes": 20,
+  "module": {
+    "position": 4,
+    "title": "05 · Frontend capstone",
+    "summary": "Architecture, test, deploy"
+  },
+  "outcome": "Feature data flow зурна.",
+  "task": "Capstone plan гарга.",
+  "explanation": "Төслийн архитектур нь өгөгдлийн урсгал, модулийн хуваарилалт, state-ийн зохион байгуулалтыг тодорхойлно. Эхлээд data flow зурж, дараа нь кодлох нь төсвийг багасгана. Capstone төслийн төлөвлөгөө гаргана.",
+  "example": "const lesson = { completed: false };\nlesson.completed = true;\nconsole.log(lesson);",
+  "exercise": "Capstone төслийнхөө feature data flow-г зур.",
+  "project": "Мини төсөл: Dashboard app-ийн бүрэн төлөвлөгөө (хуудас, state, модуль) бич.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "javascript",
+    "architecture",
+    "төлөвлөлт"
+  ],
+  "keywords": [
+    "architecture",
+    "data flow",
+    "modules",
+    "planning",
+    "capstone"
+  ],
+  "quiz": []
+}

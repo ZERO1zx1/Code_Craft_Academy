@@ -1,0 +1,34 @@
+{
+  "slug": "py-loop",
+  "title": "for ба while",
+  "position": 1,
+  "minutes": 20,
+  "module": {
+    "position": 1,
+    "title": "02 · Логик",
+    "summary": "Нөхцөл, давталт, алдаа"
+  },
+  "outcome": "Давтагдах ажлыг богино бичнэ.",
+  "task": "1–100 хоорондох тэгш тооны нийлбэрийг ол.",
+  "explanation": "for нь жагсаалт эсвэл range()-ийн элементүүдийг дараалан ажиллуулна. while нь нөхцөл үнэн байхад давтагдана. Давталт нь давтагдах ажлыг богино, алдаагүй бичих арга бөгөөд break давталтыг зогсооно.",
+  "example": "topic = 'practice'\nminutes = 20\nprint(f'{topic}: {minutes} minutes')",
+  "exercise": "for давталт ашиглан 1–100 хоорондын тэгш тоонуудын нийлбэрийг ол.",
+  "project": "Мини төсөл: Хэрэглэгч зөв тоог таах хүртэл асуудаг 'Тоо таадаг' тоглоом while-оор бич.",
+  "pdf_url": "",
+  "status": "published",
+  "tags": [
+    "python",
+    "давталт",
+    "for",
+    "while"
+  ],
+  "keywords": [
+    "for loop",
+    "while loop",
+    "range()",
+    "iteration",
+    "break",
+    "continue"
+  ],
+  "quiz": []
+}
