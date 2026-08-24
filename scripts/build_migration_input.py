@@ -1,6 +1,6 @@
 """Build a JSON request file for the reviewed CodeCraft Supabase migration."""
-from pathlib import Path
 import json
+from pathlib import Path
 
 project_root = Path(__file__).resolve().parents[1]
 sql_path = project_root / "supabase" / "migrations" / "20260821_codecraft_auth_progress.sql"

@@ -50,3 +50,15 @@ def test_frontend_only_mode_keeps_health_endpoint(frontend_app):
 
     assert response.status_code == 200
     assert response.get_json()['status'] == 'healthy'
+
+
+def test_workspace_separates_real_challenges_from_lesson_examples(frontend_app):
+    client = frontend_app.test_client()
+
+    response = client.get('/workspace')
+
+    assert response.status_code == 200
+    assert response.data.count(b'data-kind="challenge"') == 35
+    assert b'lesson-challenge' not in response.data
+    assert b'data-id="lesson-' not in response.data
+    assert response.data.count(b'workspace-course-group') == 4

@@ -7,8 +7,7 @@ from flask import Blueprint, request
 from backend.api.auth import token_required
 from backend.db import db
 from backend.rbac import error_response
-from course_data import COURSE_CATALOG
-
+from content.courses import COURSE_CATALOG
 
 progress_bp = Blueprint("progress", __name__)
 

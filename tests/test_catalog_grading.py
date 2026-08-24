@@ -88,6 +88,8 @@ def test_catalog_challenge_submit_persists_and_rewards(monkeypatch):
 
 def test_catalog_challenge_run_supports_static_html(monkeypatch):
     client = make_client(monkeypatch)
+    monkeypatch.delenv("SANDBOX_URL", raising=False)
+    monkeypatch.delenv("ALLOW_LOCAL_DOCKER_SANDBOX", raising=False)
 
     response = client.post(
         "/api/submissions/run",
@@ -99,3 +101,4 @@ def test_catalog_challenge_run_supports_static_html(monkeypatch):
     assert payload["mode"] == "catalog"
     assert payload["language_seen"] == "html"
     assert payload["total_tests"] == 1
+    assert payload["status"] == "accepted"

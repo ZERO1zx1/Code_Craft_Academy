@@ -1,8 +1,8 @@
-from types import SimpleNamespace
+
+from urllib.parse import parse_qs, urlparse
 
 import jwt
 from flask import Flask
-from urllib.parse import parse_qs, urlparse
 
 import backend.api.auth as auth_module
 from backend.api.auth import auth_bp

@@ -26,5 +26,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Prepare non-secret Compose environment
+        run: cp .env.example .env
       - run: docker compose --env-file .env.example config --no-env-resolution --quiet
       - run: docker build --tag codecraft-academy:ci .
+      - run: docker build --tag codehaven-sandbox:ci ./sandbox

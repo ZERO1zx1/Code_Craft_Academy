@@ -15,6 +15,49 @@ CodeCraft Academy нь Монгол хэл дээрх Flask + Jinja олон х�
 - Redis queue болон тусгаарласан Docker sandbox; байхгүй үед execute API аюулгүйгаар `503` буцаана
 - Pytest, Ruff, Bandit, pip-audit, Docker build бүхий CI
 
+## Folder ба file бүтэц
+
+```text
+Code_Craft_Academy/
+├── run.py, app.py, config.py       # Flask application entry ба тохиргоо
+├── content/                         # Сургалтын catalog, lesson, challenge, project data
+│   ├── courses.py
+│   ├── curriculum_extensions.py
+│   ├── experiences.py
+│   └── experience_extensions.py
+├── backend/
+│   ├── api/                         # Flask API route-ууд
+│   ├── services/                    # Executor, evaluator, queue, XP/streak service
+│   ├── db.py                        # Database gateway
+│   ├── db/migrations/               # Database schema migration
+│   ├── email_service.py             # Gmail SMTP security code
+│   ├── rbac.py                      # Role-based access control
+│   └── legacy/fastapi_app/          # Ажиллахгүй хуучин reference code; runtime-д холбогдоогүй
+├── frontend/
+│   ├── templates/
+│   │   ├── layouts/                 # Base layout
+│   │   ├── account/                 # Login/Register
+│   │   ├── learning/                # Curriculum, course, lesson, workspace
+│   │   ├── admin/                   # Content Studio
+│   │   ├── components/              # Дахин ашиглах Jinja component
+│   │   └── pages/                   # Public page
+│   └── static/
+│       ├── css/                     # tokens, base, components, learning, admin
+│       └── js/
+│           ├── core/                # config, theme
+│           ├── pages/               # Page-specific JavaScript
+│           ├── adapters/            # API adapter
+│           └── data/                # Frontend static data
+├── sandbox/                         # Тусгаарлагдсан Python/JavaScript runner
+├── tests/                           # Backend болон frontend regression tests
+├── scripts/                         # Smoke/integration/validation scripts
+├── tools/                           # Catalog болон asset build tools
+├── docs/                            # Architecture/runbook documentation
+└── supabase/                        # Supabase migration/check files
+```
+
+HTML template дотор CSS, JavaScript код бичихгүй. Page script нь `frontend/static/js/pages/`, shared behavior нь `frontend/static/js/core/`, stylesheet нь `frontend/static/css/` дотор байна. Built-in lesson/challenge data нь `content/` дотор, active Flask runtime нь `app.py`, `backend/api/`, `backend/services/` дээр төвлөрнө.
+
 ## Local ажиллуулах
 
 Python 3.12+ болон Git шаардлагатай. Windows дээр Python суулгасны дараа `py --version` командаар шалгана.

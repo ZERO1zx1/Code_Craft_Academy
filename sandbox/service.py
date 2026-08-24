@@ -10,7 +10,6 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 from runner import CodeRunner
 
-
 SUPPORTED_LANGUAGES = {"python", "javascript"}
 MAX_CODE_LENGTH = 100_000
 MIN_TIMEOUT = 1

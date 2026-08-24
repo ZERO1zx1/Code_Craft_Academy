@@ -90,9 +90,7 @@
         <p>Кодын лабораторид ороод өөрийн шийдлийг бич. Дууссаны дараа ахицдаа тэмдэглэвэл CodeCraft-ийн өөрийн
           бүртгэлтэй холбогдон найдвартай хадгалагдана.</p>
         <div class="button-row">
-          <a class="button button-primary"
-            href="{{ url_for('frontend_page', page='workspace') }}?course={{ course.id }}&lesson={{ lesson.id }}">Лабораторид
-            нээх <span>→</span></a>
+          <a class="button button-primary" href="{{ url_for('frontend_page', page='workspace') }}?{% if lesson_challenges %}challenge={{ lesson_challenges[0].id }}{% else %}course={{ course.id }}{% endif %}">Лабораторид нээх <span>→</span></a>
           <button class="button button-ghost" type="button" data-completion-button>Дууссанд тооцох</button>
         </div>
       </div>

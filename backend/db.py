@@ -5,8 +5,9 @@ Supabase Database Client
 import os
 from uuid import uuid4
 
-from supabase import Client, create_client
 from werkzeug.security import check_password_hash, generate_password_hash
+
+from supabase import Client, create_client
 
 
 class SupabaseDB:
@@ -187,7 +188,7 @@ class SupabaseDB:
             'theme': profile.get('theme', 'system'),
         }
 
-    def get_profile(self, user_id: str, access_token: str):
+    def get_profile_with_token(self, user_id: str, access_token: str):
         """Read the authenticated learner's own CodeCraft profile through RLS."""
         result = self.user_client(access_token).table('profiles').select('*').eq('id', str(user_id)).limit(1).execute().data
         return result[0] if result else None
@@ -196,9 +197,9 @@ class SupabaseDB:
         """Update only presentation preferences for the authenticated learner under RLS."""
         allowed = {key: value for key, value in preferences.items() if key in {'display_name', 'locale', 'theme'}}
         if not allowed:
-            return self.get_profile(user_id, access_token)
+            return self.get_profile_with_token(user_id, access_token)
         result = self.user_client(access_token).table('profiles').update(allowed).eq('id', str(user_id)).execute().data
-        return result[0] if result else self.get_profile(user_id, access_token)
+        return result[0] if result else self.get_profile_with_token(user_id, access_token)
 
     def get_lesson_progress(self, user_id: str, access_token: str):
         """Return only the authenticated learner's completed lesson records under RLS."""

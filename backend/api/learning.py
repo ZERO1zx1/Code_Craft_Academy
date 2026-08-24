@@ -7,9 +7,9 @@ from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from backend.api.auth import token_required
 from backend.db import db
-from backend.services.gamification import get_summary
 from backend.rbac import error_response
-from course_data import COURSE_CATALOG
+from backend.services.gamification import get_summary
+from content.courses import COURSE_CATALOG
 
 learning_bp = Blueprint("learning", __name__)
 

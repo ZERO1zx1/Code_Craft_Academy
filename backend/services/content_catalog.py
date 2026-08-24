@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-
 _CONTENT_TYPES = {"lesson", "exercise", "bug_lab", "guided_project", "portfolio_project"}
 
 

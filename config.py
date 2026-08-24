@@ -5,8 +5,8 @@ compatibility. This module provides a single documented settings boundary for
 new code and future app package extraction.
 """
 
-from dataclasses import dataclass
 import os
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)

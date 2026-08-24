@@ -11,9 +11,14 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 from flask_login import LoginManager
 
-from course_data import COURSE_CATALOG
-from learning_experiences import LEARNING_PATH_NODES, PROJECT_CATALOG, PRACTICE_CHALLENGES, get_challenge, get_project
 from backend.services.content_catalog import load_challenges
+from content.courses import COURSE_CATALOG
+from content.experiences import (
+    LEARNING_PATH_NODES,
+    PRACTICE_CHALLENGES,
+    PROJECT_CATALOG,
+    get_project,
+)
 
 
 class FlaskSessionUser:
@@ -111,8 +116,8 @@ def create_app(config_name='development'):
                 return None
             return FlaskSessionUser(record) if record else None
 
-        from backend.api.analytics import analytics_bp
         from backend.api.admin_content import admin_content_bp
+        from backend.api.analytics import analytics_bp
         from backend.api.auth import auth_bp
         from backend.api.courses import courses_bp
         from backend.api.learning import learning_bp
@@ -181,8 +186,19 @@ def create_app(config_name='development'):
         if page == 'workspace':
             challenge_catalog = load_challenges(db_gateway, PRACTICE_CHALLENGES) if db_gateway else PRACTICE_CHALLENGES
             selected_id = request.args.get('challenge', '')
-            selected_challenge = next((item for item in challenge_catalog if item.get('id') == selected_id), None)
-            return render_template('learning/workspace.html', page='workspace', course_catalog=COURSE_CATALOG, practice_challenges=challenge_catalog, selected_challenge=selected_challenge, backend_enabled=not frontend_only)
+            selected_course = request.args.get('course', 'all')
+            visible_challenges = [
+                item for item in challenge_catalog
+                if selected_course in {'all', item.get('course_id')}
+            ]
+            selected_challenge = next((item for item in visible_challenges if item.get('id') == selected_id), None)
+            if not selected_challenge and visible_challenges:
+                selected_challenge = visible_challenges[0]
+            return render_template(
+                'learning/workspace.html', page='workspace', course_catalog=COURSE_CATALOG,
+                practice_challenges=visible_challenges, selected_challenge=selected_challenge,
+                selected_course=selected_course, backend_enabled=not frontend_only,
+            )
         if page == 'practice':
             course_id = request.args.get('course', 'all')
             difficulty = request.args.get('difficulty', 'all')

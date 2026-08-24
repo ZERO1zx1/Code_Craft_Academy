@@ -4,13 +4,12 @@ import os
 import re
 import secrets
 from datetime import datetime, timedelta, timezone
+from functools import wraps
 from urllib.parse import urlencode
 
-import requests
-from functools import wraps
-
 import jwt
-from flask import Blueprint, current_app, make_response, redirect, request, url_for
+import requests
+from flask import Blueprint, current_app, make_response, redirect, request
 
 from backend.db import db
 from backend.email_service import (

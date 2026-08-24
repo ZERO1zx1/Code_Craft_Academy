@@ -64,7 +64,7 @@ Production smoke sequence нь нэг зөв Python challenge, нэг буруу
 
 ## 5. Content publishing policy
 
-Static `course_data.py` болон `learning_experiences.py` нь одоогийн built-in catalog-ийн fallback source хэвээр. Admin Content Studio-оор үүсгэсэн **published** DB content нь тухайн slug/type дээр learner API-д түрүүлж харагдах ёстой; DB content байхгүй үед static catalog харагдана. Draft болон archived content суралцагчийн catalog-д орохгүй.
+Static `content/courses.py` болон `content/experiences.py` нь одоогийн built-in catalog-ийн fallback source хэвээр. Admin Content Studio-оор үүсгэсэн **published** DB content нь тухайн slug/type дээр learner API-д түрүүлж харагдах ёстой; DB content байхгүй үед static catalog харагдана. Draft болон archived content суралцагчийн catalog-д орохгүй.
 
 Publish хийхийн өмнө title, slug, language, starter code, visible tests, hidden tests, hints, XP reward, expected runtime-ийг шалгана. Publish хийсний дараа `/practice`, `/workspace`, lesson detail болон submission API дээр тухайн content нэг ижил slug-аар resolve болж байгаа эсэхийг шалгана.
 

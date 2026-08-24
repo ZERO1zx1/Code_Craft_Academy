@@ -9,15 +9,24 @@
   const xp = document.querySelector('#challenge-xp');
   const hintPanel = document.querySelector('#hint-panel');
   const hintContent = document.querySelector('#hint-content');
-  const challenges = [...document.querySelectorAll('.challenge')];
+  const runButton = document.querySelector('#run-code');
+  const submitButton = document.querySelector('#submit-code');
+  const challenges = [...document.querySelectorAll('.challenge[data-kind="challenge"]')];
   if (!editor || !output || !status || !language) return;
 
+  const config = window.CODECRAFT_CONFIG || {};
   const initial = Object.fromEntries(challenges.map((challenge) => [challenge.dataset.id, challenge.dataset.starter || '']));
-  let active = document.querySelector('.challenge.is-active');
+  let active = document.querySelector('.challenge[data-kind="challenge"].is-active') || challenges[0] || null;
   const emptyOutput = 'Кодоо ажиллуулахад үр дүн энд харагдана.';
 
   const setFileName = (value) => {
     fileName.textContent = `challenge.${value === 'javascript' ? 'js' : value}`;
+  };
+
+  const setControls = (enabled) => {
+    [runButton, submitButton].forEach((button) => {
+      if (button) button.disabled = !enabled;
+    });
   };
 
   const resetOutput = () => {
@@ -26,18 +35,20 @@
   };
 
   const selectChallenge = (challenge) => {
+    if (!challenge || challenge.dataset.kind !== 'challenge') return;
     challenges.forEach((item) => {
       const selected = item === challenge;
       item.classList.toggle('is-active', selected);
       item.setAttribute('aria-pressed', selected ? 'true' : 'false');
     });
     active = challenge;
+    setControls(true);
     language.value = challenge.dataset.language || 'python';
     editor.value = challenge.dataset.starter || '';
     setFileName(language.value);
     title.textContent = challenge.dataset.title || 'Challenge';
     hook.textContent = challenge.dataset.hook || '';
-    xp.textContent = challenge.dataset.xp ? `+${challenge.dataset.xp} XP` : 'LESSON';
+    xp.textContent = challenge.dataset.xp ? `+${challenge.dataset.xp} XP` : 'PRACTICE';
     hintContent.textContent = challenge.dataset.hint || 'Өөрчлөлтөө жижиг хэсгээр хийж дахин ажиллуулаарай.';
     hintPanel.hidden = true;
     resetOutput();
@@ -52,50 +63,75 @@
     }
   };
 
+  const requireBackend = () => {
+    if (!config.backendEnabled || !config.apiBase || !active?.dataset.id) {
+      throw new Error('Бодит code check хийхийн тулд Login болон backend горим шаардлагатай.');
+    }
+  };
+
+  const redirectToLogin = () => {
+    window.location.assign('/auth?mode=login');
+  };
+
   challenges.forEach((challenge) => {
     challenge.setAttribute('aria-pressed', challenge.classList.contains('is-active') ? 'true' : 'false');
     challenge.addEventListener('click', () => selectChallenge(challenge));
   });
 
+  if (active) selectChallenge(active);
+  else {
+    setControls(false);
+    title.textContent = 'Challenge олдсонгүй';
+    hook.textContent = 'Practice хуудаснаас нэг challenge сонгож эхлээрэй.';
+    xp.textContent = 'PRACTICE';
+  }
+
   language.addEventListener('change', () => {
-    const sameLanguage = challenges.find((item) => item.dataset.language === language.value);
-    if (sameLanguage) selectChallenge(sameLanguage);
+    if (active && active.dataset.language !== language.value) {
+      const sameLanguage = challenges.find((item) => item.dataset.language === language.value);
+      if (sameLanguage) selectChallenge(sameLanguage);
+    }
     setFileName(language.value);
   });
 
   document.querySelector('#show-hint')?.addEventListener('click', () => {
-    hintPanel.hidden = !hintPanel.hidden;
+    if (active) hintPanel.hidden = !hintPanel.hidden;
   });
 
   document.querySelector('#reset-code')?.addEventListener('click', () => {
-    if (active) editor.value = initial[active.dataset.id] || '';
+    if (!active) return;
+    editor.value = initial[active.dataset.id] || '';
     resetOutput();
   });
 
-  document.querySelector('#run-code')?.addEventListener('click', async () => {
+  runButton?.addEventListener('click', async () => {
+    if (!active) return;
     status.textContent = 'Ажиллаж байна…';
     output.textContent = 'Түр хүлээнэ үү…';
     try {
-      if (window.CODECRAFT_CONFIG.backendEnabled && active?.dataset.id) {
-        const response = await fetch(`${window.CODECRAFT_CONFIG.apiBase}/api/submissions/run`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'same-origin',
-          body: JSON.stringify({
-            challenge_id: active?.dataset.id,
-            language: language.value,
-            code: editor.value,
-          }),
-        });
-        const payload = await readPayload(response);
-        if (!response.ok) throw new Error(payload.error?.message_mn || payload.error || 'Нэвтэрсний дараа ажиллуулна уу.');
-        const summary = payload.total_tests ? `${payload.passed_tests}/${payload.total_tests} test pass` : '';
-        output.textContent = summary ? `${summary}\n\n${payload.output || payload.stdout || JSON.stringify(payload, null, 2)}` : (payload.output || payload.stdout || JSON.stringify(payload, null, 2));
-      } else {
-        output.textContent = 'Demo output\n\nCodeCraft Academy-д тавтай морил!\n\nBackend холбогдсон үед энд бодит үр дүн гарна.';
+      requireBackend();
+      const response = await fetch(`${config.apiBase}/api/submissions/run`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          challenge_id: active.dataset.id,
+          language: language.value,
+          code: editor.value,
+        }),
+      });
+      const payload = await readPayload(response);
+      if (response.status === 401) {
+        redirectToLogin();
+        return;
       }
-      status.textContent = 'Дууслаа';
-      window.showToast?.('Код амжилттай ажиллалаа.');
+      if (!response.ok) throw new Error(payload.error?.message_mn || payload.error || 'Code check хийх боломжгүй байна.');
+      const summary = payload.total_tests ? `${payload.passed_tests}/${payload.total_tests} test pass` : '';
+      output.textContent = summary
+        ? `${summary}\n\n${payload.output || payload.stdout || JSON.stringify(payload, null, 2)}`
+        : (payload.output || payload.stdout || JSON.stringify(payload, null, 2));
+      status.textContent = payload.status === 'accepted' ? 'Accepted' : 'Дууслаа';
+      window.showToast?.(payload.status === 'accepted' ? 'Бүх test pass боллоо.' : 'Үр дүнг шалгаад дахин оролдоорой.');
     } catch (error) {
       output.textContent = error.message;
       status.textContent = 'Алдаа';
@@ -103,25 +139,29 @@
     }
   });
 
-  document.querySelector('#submit-code')?.addEventListener('click', async (event) => {
+  submitButton?.addEventListener('click', async (event) => {
     const button = event.currentTarget;
     const rewardStatus = document.querySelector('#reward-status');
-    if (!window.CODECRAFT_CONFIG.backendEnabled || !active?.dataset.id) {
+    if (!config.backendEnabled || !active) {
       status.textContent = 'Backend шаардлагатай';
-      output.textContent = 'Шалгуулахын тулд backend болон sandbox тохиргоотой орчинд ажиллана уу.';
+      output.textContent = 'Шалгуулахын тулд Login хийж, backend mode-д ажиллуулна уу.';
       return;
     }
     button.disabled = true;
     status.textContent = 'Шалгаж байна…';
     if (rewardStatus) rewardStatus.textContent = '';
     try {
-      const response = await fetch(`${window.CODECRAFT_CONFIG.apiBase}/api/submissions/catalog`, {
+      const response = await fetch(`${config.apiBase}/api/submissions/catalog`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'same-origin',
         body: JSON.stringify({ challenge_id: active.dataset.id, language: language.value, code: editor.value }),
       });
       const payload = await readPayload(response);
+      if (response.status === 401) {
+        redirectToLogin();
+        return;
+      }
       if (!response.ok) throw new Error(payload.error?.message_mn || payload.error || 'Шалгалт хийх боломжгүй байна.');
       const results = payload.results || {};
       const passed = Number(results.passed_tests) || 0;

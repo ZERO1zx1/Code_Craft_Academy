@@ -1,6 +1,8 @@
 # CodeCraft Academy Course Data
 # Contains the detailed curriculum for Python, HTML, CSS, and JavaScript based on the provided PDF materials.
 
+from content.curriculum_extensions import EXTRA_MODULES
+
 COURSE_CATALOG = {
     'python': {
         'id': 'python',
@@ -261,8 +263,6 @@ COURSE_CATALOG = {
         ]
     }
 }
-
-from curriculum_extensions import EXTRA_MODULES
 
 for _course_id, _modules in EXTRA_MODULES.items():
     COURSE_CATALOG[_course_id]['modules'].extend(_modules)

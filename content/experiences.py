@@ -1,5 +1,7 @@
 """Interactive learning experiences for the CodeCraft Academy MVP."""
 
+from content.experience_extensions import EXTRA_PRACTICE_CHALLENGES, EXTRA_PROJECTS
+
 PRACTICE_CHALLENGES = [
     {
         "id": "py-greeting",
@@ -252,8 +254,6 @@ PROJECT_CATALOG = [
     },
 ]
 
-
-from learning_experience_extensions import EXTRA_PRACTICE_CHALLENGES, EXTRA_PROJECTS
 
 PRACTICE_CHALLENGES.extend(EXTRA_PRACTICE_CHALLENGES)
 PROJECT_CATALOG.extend(EXTRA_PROJECTS)

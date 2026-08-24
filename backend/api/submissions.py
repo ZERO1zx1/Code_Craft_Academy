@@ -14,12 +14,15 @@ from backend.db import db
 from backend.services.code_executor import get_executor
 from backend.services.gamification import award_xp, record_activity
 from backend.services.submission_queue import enqueue_submission
-from learning_experiences import get_challenge
+from content.experiences import get_challenge
 
 submissions_bp = Blueprint('submissions', __name__)
 
 
-def _execution_enabled():
+def _execution_enabled(language=None):
+    """Static HTML/CSS checks are safe locally; Python/JS require isolation."""
+    if language in {'html', 'css'}:
+        return True
     return bool(os.getenv('SANDBOX_URL')) or os.getenv(
         'ALLOW_LOCAL_DOCKER_SANDBOX', 'false'
     ).lower() == 'true'
@@ -104,8 +107,6 @@ def run_code(current_user):
     """Execute a DB problem or a published/static catalog challenge without saving a submission."""
     if current_user['role'] != 'student':
         return {'error': 'Only students can run code'}, 403
-    if not _execution_enabled():
-        return {'error': 'Code execution is disabled until the sandbox is configured'}, 503
     data = request.get_json(silent=True) or {}
     if not isinstance(data.get('code'), str) or not data['code'].strip():
         return {'error': 'Missing required field: code'}, 400
@@ -115,7 +116,9 @@ def run_code(current_user):
             challenge = get_challenge(str(challenge_id))
             if not challenge:
                 return {'error': 'Challenge not found'}, 404
-            language = str(data.get('language') or challenge.get('course_id') or 'python').lower()
+            language = str(data.get('language') or challenge.get('language') or challenge.get('course_id') or 'python').lower()
+            if not _execution_enabled(language):
+                return {'error': 'Python/JavaScript code execution requires the sandbox service'}, 503
             test_cases = [item for item in challenge.get('tests', []) if not item.get('is_hidden')]
             if not test_cases and challenge.get('expected_output'):
                 test_cases = [{'input': '', 'expected_output': challenge['expected_output'], 'is_hidden': False}]
@@ -134,6 +137,8 @@ def run_code(current_user):
         language = str(data.get('language') or problem.get('language') or 'python').lower()
         if language not in {'python', 'javascript', 'html', 'css'}:
             return {'error': 'Unsupported language'}, 400
+        if not _execution_enabled(language):
+            return {'error': 'Python/JavaScript code execution requires the sandbox service'}, 503
         test_cases = db.get_test_cases(data['problem_id'], include_hidden=False)
         if not test_cases:
             return {'error': 'No visible test cases are available'}, 409
@@ -151,8 +156,6 @@ def submit_catalog_challenge(current_user):
     """Evaluate and persist a static/published catalog challenge attempt."""
     if current_user['role'] != 'student':
         return {'error': 'Only students can submit code'}, 403
-    if not _execution_enabled():
-        return {'error': 'Code execution is disabled until the sandbox is configured'}, 503
     data = request.get_json(silent=True) or {}
     challenge_id = str(data.get('challenge_id') or '')
     code = data.get('code')
@@ -164,9 +167,11 @@ def submit_catalog_challenge(current_user):
     app_user_id = current_user.get('auth_user_id')
     if not app_user_id:
         return {'error': 'Local app identity is required'}, 409
-    language = str(data.get('language') or challenge.get('course_id') or 'python').lower()
+    language = str(data.get('language') or challenge.get('language') or challenge.get('course_id') or 'python').lower()
     if language not in {'python', 'javascript', 'html', 'css'}:
         return {'error': 'Unsupported language'}, 400
+    if not _execution_enabled(language):
+        return {'error': 'Python/JavaScript code execution requires the sandbox service'}, 503
     test_cases = challenge.get('tests') or []
     if not test_cases and challenge.get('expected_output'):
         test_cases = [{'input': '', 'expected_output': challenge['expected_output'], 'is_hidden': False}]
