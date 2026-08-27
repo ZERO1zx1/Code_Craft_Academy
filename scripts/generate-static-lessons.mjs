@@ -1,10 +1,10 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { courses } from "../client/javascript/curriculum.js";
+import { courses } from "../client/javascript/data/curriculum.js";
 
 const root = new URL("../client/lessons/", import.meta.url).pathname;
 const escape = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
-const shell = (title, body, script = "") => `<!doctype html><html lang="mn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escape(title)} — CodeCraft Academy</title><link rel="stylesheet" href="../../css/styles.css"><link rel="stylesheet" href="../../css/lesson-pages.css"><link rel="stylesheet" href="../../css/ui-enhancements.css"><link rel="stylesheet" href="../../css/mini-project.css"></head><body><a class="skip-link" href="#main-content">Үндсэн агуулга руу алгасах</a><header class="site-header"><a class="brand" href="../../index.html"><span class="brand-mark">CC</span><span>CodeCraft Academy</span></a><span>Үнэгүй · Бүртгэлгүй · Нээлттэй</span></header><main id="main-content">${body}</main><footer>CodeCraft Academy · HTML · CSS · JavaScript · Python · GitHub</footer>${script ? `<script type="module" src="${script}"></script>` : ""}</body></html>`;
+const shell = (title, body, script = "") => `<!doctype html><html lang="mn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escape(title)} — CodeCraft Academy</title><link rel="stylesheet" href="../../css/base.css"><link rel="stylesheet" href="../../css/components/lesson-pages.css"><link rel="stylesheet" href="../../css/components/ui-enhancements.css"><link rel="stylesheet" href="../../css/components/mini-project.css"></head><body><a class="skip-link" href="#main-content">Үндсэн агуулга руу алгасах</a><header class="site-header"><a class="brand" href="../../index.html"><span class="brand-mark">CC</span><span>CodeCraft Academy</span></a><span>Үнэгүй · Бүртгэлгүй · Нээлттэй</span></header><main id="main-content">${body}</main><footer>CodeCraft Academy · HTML · CSS · JavaScript · Python · GitHub</footer>${script ? `<script type="module" src="${script}"></script>` : ""}</body></html>`;
 
 const visualContent = {
   html: { label: "Browser-ын бүтэц", copy: "Element нь document-ийн утгыг тодорхойлж, browser үүнийг уншигдах бүтэц болгон харуулна.", steps: ["Document", "HTML element", "Browser tree", "Харагдац"] },
@@ -58,7 +58,7 @@ for (const course of courses) {
       .replace(`<p class="lead">${escape(lesson.summary)}</p>`, `<p class="lead">${escape(lesson.summary)}</p>${visualMarkup(course, lesson)}`)
       .replace(`</section><aside class="practice-guide">`, `</section>${livePreviewMarkup(course, lesson)}<aside class="practice-guide">`)
       .replace(`<section class="quiz physical-quiz">`, `${miniProjectMarkup(course, lesson)}<section class="quiz physical-quiz">`);
-    writeFileSync(join(courseDir, filename), shell(lesson.term, enhancedBody, "../../javascript/lesson-page.js"));
+    writeFileSync(join(courseDir, filename), shell(lesson.term, enhancedBody, "../../javascript/pages/lesson-page.js"));
   });
 }
 console.log(`Generated ${courses.reduce((sum, course) => sum + course.lessons.length, 0)} physical lesson pages.`);
