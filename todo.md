@@ -140,4 +140,4 @@
 - [x] HTML, CSS, JavaScript, Python, GitHub lesson бүрт beginner/core/stretch шаталсан mini-project content contract нэмэх.
 - [x] 120 physical lesson page-д Figma-inspired mini-project card, deliverable checklist, browser-local practice action болон feedback нэмэх.
 - [x] Mini-project coverage, interaction, responsive accessibility болон multi-page build-ийг шалгах.
-- [ ] Figma-inspired mini-project source-ийг GitHub repository руу push хийх.
+- [x] Figma-inspired mini-project source-ийг GitHub repository руу push хийх.
