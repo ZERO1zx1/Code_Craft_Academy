@@ -1,30 +1,44 @@
 # CodeCraft Academy
 
-CodeCraft Academy нь **backend, database, нэвтрэлт шаарддаггүй**, цэвэр vanilla HTML, CSS, ES-module JavaScript бүтэцтэй нээлттэй сургалтын вебсайт юм. HTML, CSS, JavaScript, Python, GitHub гэсэн таван тусдаа сургалтын зам тус бүр **24 бодит `.html` lesson file**-тэй; нийт 120 lesson бүгд шууд нээгдэнэ.
+CodeCraft Academy нь **backend, database, нэвтрэлт шаарддаггүй** vanilla HTML, CSS, ES-module JavaScript сургалтын вебсайт юм. HTML, CSS, JavaScript, Python, GitHub таван зам тус бүр **24 бодит `.html` lesson file**-тэй; нийт 120 lesson бүгд шууд нээгдэнэ.
 
-## Physical source бүтэц
+## Source map
 
-| Хавтас / файл | Үүрэг |
-|---|---|
-| `client/index.html` | Нүүр хуудас; search/filter ба таван course-ийн шууд link |
-| `client/lessons/html/` | 24 HTML lesson болон `index.html` жагсаалт |
-| `client/lessons/css/` | 24 CSS lesson болон `index.html` жагсаалт |
-| `client/lessons/javascript/` | 24 JavaScript lesson болон `index.html` жагсаалт |
-| `client/lessons/python/` | 24 Python lesson болон `index.html` жагсаалт |
-| `client/lessons/github/` | 24 GitHub lesson болон `index.html` жагсаалт |
-| `client/javascript/lesson-page.js` | Static lesson page-ийн quiz, HTML/CSS/JS live preview, Python browser terminal, GitHub simulator interaction |
-| `client/javascript/curriculum.js` | Source curriculum data; generator шинэчлэхэд хэрэглэнэ |
-| `scripts/generate-static-lessons.mjs` | 120 physical lesson page-ийг дахин deterministic үүсгэнэ |
-| `client/css/styles.css`, `client/css/lesson-pages.css`, `client/css/ui-enhancements.css` | Responsive layout, typography, visual explainer, diagram, live lab болон modern UI/UX design system |
-| `learning-examples/`, `python/lesson_tools.py` | HTML/CSS/JavaScript/Python тусдаа source example |
+```text
+Code_Craft_Academy/
+├── .github/workflows/verify.yml      # Node 22 CI: test + static build
+├── client/
+│   ├── index.html                    # Search/filter бүхий нүүр хуудас
+│   ├── css/
+│   │   ├── base.css                  # Typography, layout, shared tokens
+│   │   └── components/               # Lesson, UI, mini-project styles
+│   ├── javascript/
+│   │   ├── data/curriculum.js        # 5 × 24 lesson source data
+│   │   └── pages/                    # Home ба lesson page interactions
+│   └── lessons/                      # 120 шууд нээгдэх physical HTML file
+│       ├── html/  ├── css/  ├── javascript/
+│       ├── python/ └── github/
+├── docs/                             # Curriculum audit, Figma design notes
+├── learning-examples/                # Тусдаа language source example
+├── python/lesson_tools.py            # Python helper/example source
+├── scripts/generate-static-lessons.mjs
+└── tests/curriculum.test.js          # Physical-page source contract
+```
 
-Жишээ нь `client/lessons/html/05-html-h1-heading.html` нь GitHub tree-д бодитоор харагдах, шууд нээгдэх HTML хуудас юм. Page бүр өөрийн гарчиг, keyword, монгол тайлбар, **зурагт тайлбар, flow diagram**, кодын жишээ, exercise, Practice Guide, албан эх сурвалжийн link, **10 асуултын quiz markup** агуулна.
+## Folder бүрийн үүрэг
 
-## Live lab ба terminal
+| Байршил | Агуулга | Яагаад тусдаа вэ? |
+|---|---|---|
+| `client/lessons/` | 5 course, 120 physical lesson page | GitHub tree болон browser URL-д хичээл бүр ил харагдана. |
+| `client/javascript/data/` | Curriculum-ийн structured source | Content нэмэх болон generator input нэг дор байна. |
+| `client/javascript/pages/` | Home search/filter, lesson lab/quiz | Data болон page interaction холилдохгүй. |
+| `client/css/components/` | Lesson, UI, mini-project styles | Component-specific style-уудыг base rule-ээс салгана. |
+| `docs/` | Content audit, design notes | Runtime source-оос тусдаа project documentation байна. |
+| `scripts/`, `tests/` | Generation ба source contract | Build-time process болон verification тусгаарлагдана. |
 
-HTML, CSS, JavaScript lesson бүр editor-ийн кодыг sandboxed iframe-д **шууд preview** хэлбэрээр харуулна. Python lesson нь server шаардалгүй Pyodide ашиглан browser дотор ажиллаж, output-оо local terminal panel-д харуулна. GitHub lesson-ийн terminal нь зөвхөн command structure таних simulation бөгөөд ямар ч repository, token, network, file system ашиглахгүй.
+Жишээ нь `client/lessons/html/05-html-h1-heading.html` нь шууд нээгдэх, GitHub дээр бодитоор харагдах HTML page юм. Lesson бүр keyword, монгол тайлбар, зурагт тайлбар, flow diagram, code example, exercise, Practice Guide, mini-project, 10 асуултын quiz болон navigation-тэй.
 
-## Ажиллуулах ба үүсгэх
+## Ажиллуулах
 
 ```bash
 pnpm install
@@ -32,12 +46,14 @@ pnpm generate:lessons
 pnpm dev
 ```
 
-`http://localhost:3000` хаягаар нээнэ. Python дасгал нь browser дотор Pyodide runtime ашигладаг; website өөрөө Python server ажиллуулахгүй.
-
 ## Шалгах
 
 ```bash
 pnpm run validate
 ```
 
-Энэ command нь 120 source page-ийн physical structure, lesson бүрийн 10 quiz question markup, TypeScript source байхгүйг test-ээр шалгаад, Vite multi-page build-д бүх course болон lesson HTML page-ийг оруулна.
+Энэ command 120 physical source page, course бүрийн 24 lesson, lesson бүрийн 10 quiz marker, TypeScript source байхгүйг шалгаад Vite multi-page build ажиллуулна. GitHub Actions нь Node 22, pinned pnpm болон энэ validation command-ийг `main` push, pull request бүрд ажиллуулна.
+
+## Browser-local live lab
+
+HTML, CSS, JavaScript нь sandboxed iframe preview ашиглана. Python нь Pyodide runtime-д browser дотор ажиллаж local terminal output харуулна. GitHub command simulator нь зөвхөн command syntax танина; repository, token, network болон file system-д ханддаггүй.

@@ -144,6 +144,11 @@
 - [x] CodeCraft Academy-ийн HTML/CSS/JavaScript/Python source structure, physical lesson generation болон interactive feature-үүдийн баталгаатай slide content боловсруулах.
 - [x] Website хэрхэн бүтээгдсэнийг тайлбарласан Монгол хэлний editable presentation deck үүсгэх.
 - [x] Slide deck-ийн code snippet, architecture diagram, visual consistency болон render quality-г шалгаж хүргэх.
-- [ ] Git push болон test failure-ийн бодит log, repository divergence, source contract алдааг оношлох.
-- [ ] Илэрсэн test эсвэл Git workflow-ийн алдааг засаж full validation ажиллуулах.
-- [ ] Засварыг GitHub main branch руу push хийж remote state-г батлах.
+- [x] Git push болон test failure-ийн бодит log, repository divergence, source contract алдааг оношлох.
+- [x] Илэрсэн test эсвэл Git workflow-ийн алдааг засаж full validation ажиллуулах.
+- [x] Засварыг GitHub main branch руу push хийж remote state-г батлах.
+- [x] Одоогийн vanilla source tree, давхардсан runtime/source folder болон root-level documentation-г аудитлах.
+- [x] Course content, shared JavaScript, CSS design system, build scripts, test, documentation-д зориулсан цэгцтэй folder convention тодорхойлох.
+- [x] Файл, import/reference болон README source map-ийг шинэ convention-д шилжүүлж physical lesson URL-г хадгалах.
+- [x] Source contract, Vite multi-page build, GitHub CI болон remote tree-г цэгцэлсний дараа шалгах.
+- [ ] Цэгцэлсэн source tree-г GitHub main branch руу push хийх.

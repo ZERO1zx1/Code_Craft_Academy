@@ -1,4 +1,4 @@
-import { courses, findCourse, findLesson } from "./curriculum.js";
+import { courses, findCourse, findLesson } from "../data/curriculum.js";
 
 const app = document.querySelector("#main-content");
 const portfolioKey = "codecraft-portfolio-checklist";
