@@ -160,4 +160,8 @@
 - [x] About page-ийн summer_course_2026 эхлэх огноог 2026-06-24 болгон засаж, frontend focus болон Python Discord bot хөгжүүлэлтийн бодит туршлагыг тусгах.
 - [x] Хангайхүү багшийн чиглүүлэгт зориулсан онцгой талархлын copy, quote, visual hierarchy болон responsive section design нэмэх.
 - [x] About profile/timeline, gratitude section, accessibility, responsive render, source contract болон multi-page build-ийг шалгах.
-- [ ] About page-ийн засварыг GitHub main branch руу push хийх.
+- [x] About page-ийн засварыг GitHub main branch руу push хийх.
+- [x] Shared static header болон generated page-д light/dark theme toggle-ийн accessible markup, label болон state contract тодорхойлох.
+- [x] Light/dark design token, browser-local preference persistence, system preference fallback болон all-page shared theme runtime хэрэгжүүлэх.
+- [x] Root, course, lesson, About page-ийн theme toggle, keyboard accessibility, light/dark visual render, source contract болон multi-page build-ийг шалгах.
+- [ ] Theme source-ийг GitHub main branch руу push хийх.

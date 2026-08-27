@@ -66,9 +66,11 @@ test("source tree нь data, page runtime, component style болон documentat
     "client/css/components/ui-enhancements.css",
     "client/css/components/mini-project.css",
     "client/css/components/about.css",
+    "client/css/components/theme.css",
     "client/javascript/data/curriculum.js",
     "client/javascript/pages/home.js",
     "client/javascript/pages/lesson-page.js",
+    "client/javascript/pages/theme.js",
     "client/lessons/html/index.html",
     "client/lessons/css/index.html",
     "client/lessons/javascript/index.html",
@@ -101,5 +103,33 @@ test("course бүр дэлгэрэнгүй README, About page болон шуу�
     assert.match(readme, /## Эх сурвалж/);
     assert.match(courseIndex, /README/);
     assert.match(courseIndex, /Танилцуулга/);
+  });
+});
+
+test("root, course, lesson болон About page нь хадгалагддаг accessible light/dark theme-тэй", () => {
+  const projectRoot = new URL("../", import.meta.url).pathname;
+  const themeRuntime = readFileSync(join(projectRoot, "client/javascript/pages/theme.js"), "utf8");
+  assert.match(themeRuntime, /codecraft-academy-theme/);
+  assert.match(themeRuntime, /localStorage/);
+  assert.match(themeRuntime, /prefers-color-scheme/);
+
+  ["client/index.html", "client/about.html"].forEach((path) => {
+    const markup = readFileSync(join(projectRoot, path), "utf8");
+    assert.match(markup, /data-theme-toggle/);
+    assert.match(markup, /theme\.js/);
+    assert.match(markup, /theme\.css/);
+  });
+
+  courses.forEach((course) => {
+    const courseDirectory = join(lessonRoot, course.id);
+    const courseIndex = readFileSync(join(courseDirectory, "index.html"), "utf8");
+    assert.match(courseIndex, /data-theme-toggle/);
+    assert.match(courseIndex, /theme\.js/);
+    readdirSync(courseDirectory).filter((name) => /^\d{2}-.*\.html$/.test(name)).forEach((page) => {
+      const markup = readFileSync(join(courseDirectory, page), "utf8");
+      assert.match(markup, /data-theme-toggle/);
+      assert.match(markup, /aria-pressed/);
+      assert.match(markup, /theme\.js/);
+    });
   });
 });

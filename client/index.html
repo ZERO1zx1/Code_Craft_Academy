@@ -13,15 +13,18 @@
     <link rel="stylesheet" href="/css/components/ui-enhancements.css" />
     <link rel="stylesheet" href="/css/components/mini-project.css" />
     <link rel="stylesheet" href="/css/components/about.css" />
+    <link rel="stylesheet" href="/css/components/theme.css" />
+    <script>try{const theme=localStorage.getItem("codecraft-academy-theme");document.documentElement.dataset.theme=theme==="dark"||theme==="light"?theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}catch{}</script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Үндсэн агуулга руу алгасах</a>
     <header class="site-header">
       <a class="brand" href="/index.html"><span class="brand-mark">CC</span><span>CodeCraft Academy</span></a>
-      <nav class="site-actions" aria-label="Үндсэн navigation"><a class="nav-link" href="/about.html">Танилцуулга</a><p class="header-note">Үнэгүй · Бүртгэлгүй · Нээлттэй</p></nav>
+      <nav class="site-actions" aria-label="Үндсэн navigation"><a class="nav-link" href="/about.html">Танилцуулга</a><p class="header-note">Үнэгүй · Бүртгэлгүй · Нээлттэй</p><button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Харанхуй горимд шилжих"><span class="theme-symbol" aria-hidden="true">◐</span><span class="theme-label">Харанхуй</span></button></nav>
     </header>
     <main id="main-content" tabindex="-1"></main>
     <footer class="site-footer">CodeCraft Academy · 2026 · <a href="/about.html">Танилцуулга</a> · HTML · CSS · JavaScript · Python · GitHub</footer>
     <script type="module" src="/javascript/pages/home.js"></script>
+    <script type="module" src="/javascript/pages/theme.js"></script>
   </body>
 </html>
