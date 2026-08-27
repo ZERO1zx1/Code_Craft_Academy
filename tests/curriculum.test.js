@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { courses } from "../client/javascript/curriculum.js";
+import { courses } from "../client/javascript/data/curriculum.js";
 
 const clientRoot = new URL("../client/", import.meta.url).pathname;
 const lessonRoot = join(clientRoot, "lessons");
@@ -56,4 +56,25 @@ test("repository source нь TypeScript файлгүй, vanilla HTML/CSS/ES-modu
   });
   scan(new URL("../", import.meta.url).pathname);
   assert.deepEqual(findings, []);
+});
+
+test("source tree нь data, page runtime, component style болон documentation-ийг purpose-based folder-т цэгцэлсэн", () => {
+  const projectRoot = new URL("../", import.meta.url).pathname;
+  const requiredPaths = [
+    "client/css/base.css",
+    "client/css/components/lesson-pages.css",
+    "client/css/components/ui-enhancements.css",
+    "client/css/components/mini-project.css",
+    "client/javascript/data/curriculum.js",
+    "client/javascript/pages/home.js",
+    "client/javascript/pages/lesson-page.js",
+    "client/lessons/html/index.html",
+    "client/lessons/css/index.html",
+    "client/lessons/javascript/index.html",
+    "client/lessons/python/index.html",
+    "client/lessons/github/index.html",
+    "docs/curriculum-inventory.md",
+    "docs/figma-design-notes.md",
+  ];
+  requiredPaths.forEach((path) => assert.doesNotThrow(() => readFileSync(join(projectRoot, path), "utf8"), `${path} байх ёстой`));
 });
