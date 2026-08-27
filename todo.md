@@ -111,7 +111,13 @@
 - [x] Олон сонголт, output prediction, debug diagnosis, build requirement гэсэн асуултын төрөл бүрийн lesson-aware generator нэмэх.
 - [x] Нэг асуулт-алхамтай quiz navigation, 10 асуултын дүн, дэлгэрэнгүй тайлбар, дахин оролдох UI-г хэрэгжүүлэх.
 - [x] Таван path-ийн 10-question coverage, multiple question kind, quiz interaction, mobile layout болон production validation-ыг батлах.
-- [ ] CodeCraft Academy architecture presentation-ийн бүх slide-ийн монгол хэл, зөв бичих дүрэм, техникийн нэр томьёог хянаж засах.
-- [ ] User-ийн өөрчилсөн cover болон closing slide-ийг хадгалж, presentation-ийг Canva-д импортлох шинэчилсэн хэлбэрээр дахин гаргах.
-- [ ] ZERO1zx1/Code_Craft_Academy repository-ийн одоогийн tracked content-ийг CodeCraft Academy-ийн export-д тохирох source-оор бүрэн солих.
-- [ ] Шинэ source replacement commit үүсгэж, default branch руу push хийсний дараа remote content болон commit reference-ийг батлах.
+- [x] CodeCraft Academy architecture presentation-ийн бүх slide-ийн монгол хэл, зөв бичих дүрэм, техникийн нэр томьёог хянаж засах.
+- [x] User-ийн өөрчилсөн cover болон closing slide-ийг хадгалж, presentation-ийг Canva-д импортлох шинэчилсэн хэлбэрээр дахин гаргах.
+- [x] ZERO1zx1/Code_Craft_Academy repository-ийн одоогийн tracked content-ийг CodeCraft Academy-ийн export-д тохирох source-оор бүрэн солих.
+- [x] Шинэ source replacement commit үүсгэж, default branch руу push хийсний дараа remote content болон commit reference-ийг батлах.
+- [x] React/TypeScript сургалтын UI, lesson data, quiz, sandbox flow-г vanilla HTML/CSS/JavaScript бүтэц рүү шилжүүлэх source map гаргах.
+- [x] HTML, CSS, JavaScript, Python гэсэн тусдаа example/source folders болон lesson asset contract бэлтгэх.
+- [x] Нүүр хуудас, language path, lesson detail, search/filter, Practice Guide, 10-question quiz-ийг vanilla DOM/ES module-оор хэрэгжүүлэх.
+- [x] Python lesson code-г тусдаа `.py` source file-аар гаргаж, Pyodide browser lab-ийг server-гүй ажиллуулах.
+- [x] Vanilla source-ийн desktop/mobile, quiz, search/filter, JS/Python lab болон static production build-ийг шалгах.
+- [ ] ZERO1zx1/Code_Craft_Academy repository-ийг vanilla HTML/CSS/JavaScript/Python source-оор шинэчилж push хийх.
