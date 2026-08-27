@@ -141,3 +141,9 @@
 - [x] 120 physical lesson page-д Figma-inspired mini-project card, deliverable checklist, browser-local practice action болон feedback нэмэх.
 - [x] Mini-project coverage, interaction, responsive accessibility болон multi-page build-ийг шалгах.
 - [x] Figma-inspired mini-project source-ийг GitHub repository руу push хийх.
+- [x] CodeCraft Academy-ийн HTML/CSS/JavaScript/Python source structure, physical lesson generation болон interactive feature-үүдийн баталгаатай slide content боловсруулах.
+- [x] Website хэрхэн бүтээгдсэнийг тайлбарласан Монгол хэлний editable presentation deck үүсгэх.
+- [x] Slide deck-ийн code snippet, architecture diagram, visual consistency болон render quality-г шалгаж хүргэх.
+- [ ] Git push болон test failure-ийн бодит log, repository divergence, source contract алдааг оношлох.
+- [ ] Илэрсэн test эсвэл Git workflow-ийн алдааг засаж full validation ажиллуулах.
+- [ ] Засварыг GitHub main branch руу push хийж remote state-г батлах.
