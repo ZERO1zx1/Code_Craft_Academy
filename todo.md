@@ -129,4 +129,4 @@
 - [x] Таван course-ийн 24 lesson бүрийн тусдаа `.html` source file, жишээ код, дасгал, 10 асуулттай сорилын markup үүсгэх.
 - [x] Course landing page болон home page link-ийг dynamic hash route-оос physical lesson file route руу шилжүүлэх.
 - [x] 120 lesson file, HTML/CSS/JavaScript/Python source, exercise/quiz interaction, responsive build болон link coverage-г шалгах.
-- [ ] Physical static lesson page source-ийг ZERO1zx1/Code_Craft_Academy repository руу push хийх.
+- [x] Physical static lesson page source-ийг ZERO1zx1/Code_Craft_Academy repository руу push хийх.
