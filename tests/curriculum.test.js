@@ -112,6 +112,9 @@ test("root, course, lesson болон About page нь хадгалагддаг a
   assert.match(themeRuntime, /codecraft-academy-theme/);
   assert.match(themeRuntime, /localStorage/);
   assert.match(themeRuntime, /prefers-color-scheme/);
+  const themeCss = readFileSync(join(projectRoot, "client/css/components/theme.css"), "utf8");
+  assert.match(themeCss, /html\[data-theme="dark"\] \.about-cta\{background:#122e34;color:#f5fbf8\}/);
+  assert.match(themeCss, /html\[data-theme="dark"\] \.about-cta \.primary\{background:#5cd2c1/);
 
   ["client/index.html", "client/about.html"].forEach((path) => {
     const markup = readFileSync(join(projectRoot, path), "utf8");

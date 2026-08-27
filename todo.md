@@ -164,4 +164,8 @@
 - [x] Shared static header болон generated page-д light/dark theme toggle-ийн accessible markup, label болон state contract тодорхойлох.
 - [x] Light/dark design token, browser-local preference persistence, system preference fallback болон all-page shared theme runtime хэрэгжүүлэх.
 - [x] Root, course, lesson, About page-ийн theme toggle, keyboard accessibility, light/dark visual render, source contract болон multi-page build-ийг шалгах.
-- [ ] Theme source-ийг GitHub main branch руу push хийх.
+- [x] Theme source-ийг GitHub main branch руу push хийх.
+- [x] Dark theme CTA, button, hover state болон бусад contrast-sensitive surface-ийн color conflict-ийг аудитлах.
+- [x] Dark mode дээрх CTA text/button болон component contrast-safe style override-г хэрэгжүүлэх.
+- [x] Light/dark CTA render, mobile visual regression, source contract болон multi-page build-ийг шалгах.
+- [ ] Contrast засварыг GitHub main branch руу push хийх.
