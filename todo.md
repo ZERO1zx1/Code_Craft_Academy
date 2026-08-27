@@ -1,0 +1,132 @@
+# CodeCraft Academy — Бүрэн хөгжүүлэлтийн ажлын жагсаалт
+
+- [x] Static төслийг хэрэглэгч, өгөгдлийн сан, серверийн боломжтой бүтцэд өргөтгөх.
+- [x] Хэрэглэгчийн профайл, модулийн ахиц, сорилын оролдлого, асуулт-хариултын өгөгдлийн загварыг тодорхойлох.
+- [x] Нэвтрэх, бүртгүүлэх, гарах, хамгаалагдсан сургалтын самбарын урсгалыг хэрэгжүүлэх.
+- [x] Модуль болон хичээл дуусгах үйлдлийг өгөгдлийн санд хадгалж, ахицыг төхөөрөмж хооронд сэргээх.
+- [x] Хичээл тус бүрт олон шаттай мэдлэгийн сорил, тайлбартай хариу, үр дүнгийн дэлгэц нэмэх.
+- [x] Асуулт асуух, хариу оруулах, шийдэгдсэн төлөвтэй асуулт-хариултын хэсэг нэмэх.
+- [x] JavaScript болон Python кодыг тусгаарлагдсан интерактив орчинд ажиллуулах sandbox нэмэх.
+- [x] Аюулгүй байдлын хязгаарлалт, алдааны төлөв, ачааллын төлөвийг шалгах.
+- [x] Responsive урсгал, TypeScript, production build болон үндсэн хэрэглэгчийн замуудыг баталгаажуулах.
+- [x] Fullstack өргөтгөлийн merge зөрчлийг арилгаж, auth болон tRPC client bootstrap-ийг ажиллах төлөвт оруулах.
+- [x] Бүрэн платформын TypeScript, unit test, production build баталгаажуулалтыг давтан ажиллуулах.
+- [x] Сорилын үр дүнг зөвхөн ахиц амжилттай хадгалагдсаны дараа баталгаажуулж, алдаа гарвал retry төлөв үзүүлэх.
+- [x] Асуулт-хариултын list/create/reply урсгалд visible error, retry, амжилтын feedback нэмэх.
+- [x] Persistence алдааны үед сорил ба ахиц буруу баталгаажихгүйг шалгах.
+- [x] Reply хүсэлт бүтэлгүйтсэн үед ижил хариултаа дахин илгээх тодорхой retry үйлдэл нэмэх.
+- [x] Lesson progress хадгалалт бүтэлгүйтсэн үед visible error болон retry урсгал нэмэх.
+- [x] Сорил, хичээлийн ахицын хадгалалт бүтэлгүйтэхэд UI буруу баталгаажихгүйг unit test-ээр батлах.
+- [x] Багшийн admin role-т тулгуурласан хамгаалагдсан удирдлагын самбар, navigation болон эрхийн шалгалт нэмэх.
+- [x] Хичээлийн модуль, гарчиг, тайлбар, үргэлжлэх хугацааг багш засах өгөгдлийн загвар ба API нэмэх.
+- [x] Суралцагчийн ахиц, сорилын үр дүнг багшаас хайж харах, модуль тус бүрээр удирдах самбар нэмэх.
+- [x] Бүх модуль дууссан, шаардлагатай сорилын босго хангасан суралцагчид сертификат олгох серверийн шалгуур хэрэгжүүлэх.
+- [x] Сертификатын хуудас болон browser-оос PDF болгон татах урсгалыг хэрэгжүүлэх.
+- [x] Хичээл тус бүрт үндсэн сэтгэгдэл, хариу, шийдэгдсэн төлөв, асуулт-хариултын хэлэлцүүлгийг ялгаж хадгалах.
+- [x] Суралцагчийн хичээлийн дэлгэцэд хэлэлцүүлэг үүсгэх, хариулах, сэтгэгдэл харах урсгал нэмэх.
+- [x] Админ эрх, сертификатын шалгуур, хэлэлцүүлгийн CRUD, production build болон responsive layout-ийн тестүүд нэмэх.
+- [x] Хэлэлцүүлгийн list/create/reply/status урсгалын router түвшний unit test нэмэх.
+- [x] /learn, /admin, /certificate замуудын responsive visual regression шалгалтыг баримтжуулсан test checklist болгон хадгалах.
+- [x] Production build verification-ийг дахин ашиглах validation script болгон package script-д оруулах.
+- [x] Boov.dev-ийн хичээл → хийж турших → баталгаажуулах → дараагийн алхам гэсэн сургалтын урсгалаас хэрэгжихүйц санааг баримтжуулж, CodeCraft Academy-д тохируулах.
+- [x] Дадалд суурилсан дараагийн алхам, харагдах ахиц, даалгаврын feedback-г суралцагчийн сургалтын вебийн урсгалд нэвтрүүлэх.
+- [x] Багшийн самбарт суралцагчийн нэр, имэйл, модульд тулгуурласан хайлт ба filter нэмэх.
+- [x] Суралцагч, модуль, оноо, тэнцсэн төлөв, огноогоор сорилын дэлгэрэнгүй тайлан нэмэх.
+- [x] Багшийн ахицын удирдлагын mutation-д visible success/error/retry feedback нэмэх.
+- [x] Хичээлийн хэлэлцүүлгийн reply mutation-д visible error, retry, success feedback нэмэх.
+- [x] Хэлэлцүүлгийн төлөв өөрчлөх хүсэлт бүтэлгүйтэхэд error/retry feedback нэмэх.
+- [x] Багшийн даалгавар, шалгуур, хугацаа, нийтлэгдсэн төлөв болон хичээлтэй холбоосыг хадгалах өгөгдлийн загвар нэмэх.
+- [x] Суралцагч даалгаврын хариу, тайлбар, холбоос илгээж, илгээлтийн төлвөө харах урсгал нэмэх.
+- [x] Багш илгээлтийг шалгаж оноо, feedback, үнэлгээний төлөв өгөх хамгаалагдсан удирдлагын хэсэг нэмэх.
+- [x] Суралцагчийн самбарт хичээл, сорил, даалгавар, үнэлгээний бодит өгөгдөлд суурилсан ахицын график нэмэх.
+- [x] Багшийн самбарт даалгаврын илгээлт, үнэлгээний статистик, модуль тус бүрийн ахицын аналитик нэмэх.
+- [x] Даалгавар, үнэлгээ, аналитикийн эрх ба validation test, production build, responsive шалгалт нэмэх.
+- [x] MDN, Python Docs, WHATWG болон Boot.dev-ийн нийтэд нээлттэй эх сурвалжид тулгуурлан HTML, CSS, JavaScript, Python тус бүрийн бүрэн сургалтын стандарт, дарааллыг баримтжуулах.
+- [x] HTML-ийн semantic structure, text, media, link/form/table tag-уудын шаталсан тусдаа хичээл, жишээ, challenge хийх.
+- [x] CSS-ийн selector, cascade, box model, layout, responsive, animation property/keyword-уудын тусдаа хичээл, challenge хийх.
+- [x] JavaScript-ийн syntax, data, control flow, function, DOM, async, module keyword-уудын тусдаа хичээл, challenge хийх.
+- [x] Python-ийн syntax, collection, control flow, function, module, file, exception keyword-уудын тусдаа хичээл, challenge хийх.
+- [x] Нэгтгэсэн index маягийн хичээлийг хэл тус бүрийн тусдаа path, олон шаттай lesson detail route, keyword reference-тэй болгох.
+- [x] Хичээл бүрийн унших → кодлох → шалгах → hint → тайлбар авах → XP/түвшин/дараагийн challenge нээх тоглоомжуулсан урсгалыг хэрэгжүүлэх.
+- [x] Хөтөлбөрийн source attribution, progress persistence, challenge validation, responsive замуудын test ба production build шалгах.
+- [x] Суралцагчийн даалгаврын карт дээр submitted/revised/graded төлөв, илгээсэн огноо, сүүлийн үнэлгээний мэдээллийг ил тод харуулах.
+- [x] admin create/grade, learner assignments mine/submit, learning analytics route-ийн authorization behavior-д unit test нэмэх.
+- [x] HTML structure, CSS rule, JavaScript/Python execution result дээр суурилсан challenge validation хэрэгжүүлж, keyword substring-only шалгалтыг орлуулах.
+- [x] HTML challenge бүрт шаардлагатай element, attribute, hierarchy-г DOM assertion-оор шалгах.
+- [x] CSS challenge бүрт parsed CSSOM rule/property assertion ашиглаж substring шалгалтыг хасах.
+- [x] JavaScript ба Python challenge бүрт expected output/behavior assertion нэмэх.
+- [x] Python file lessonийг runtime behavior/output assertion-оор шалгаж, source string presence шалгалтыг хасах.
+- [x] JavaScript/Python challenge assertion contract бүр expected output эсвэл state change шалгаж буйг unit test-ээр батлах.
+- [x] JavaScript challenge бүрийн assertion нь зөв output эсвэл state change шалгаж байгааг validator-level unit test-ээр батлах.
+- [x] Python challenge бүрийн assertion нь runtime behavior/output шалгаж байгааг worker/validator-level unit test-ээр батлах.
+- [x] Python assertion-уудыг browser worker-тэй ижил Pyodide validator path-аар ажиллуулдаг worker-level test нэмэх.
+- [x] Python control-flow challenge-д loop болон printed output-ын бодит behavior assertion нэмэх.
+- [x] Python worker-ийн message handler success/error postMessage contract-ийг шууд шалгах worker-level test нэмэх.
+- [x] Worker handler-д mock Pyodide runtime ашиглан expected output missing болон assertion error case-ийг батлах.
+- [x] MDN, WHATWG, ECMAScript, Python Docs-ийн албан эх сурвалжаас HTML/CSS/JavaScript/Python-ийн tag, attribute, property, keyword-ийн нарийвчилсан lesson standard гаргах.
+- [x] HTML-ийн үндсэн tag, semantic tag, text, link/media, list/table, form/input, accessibility attribute-ийг нэг tag/attribute-нэг lesson зарчмаар 20+ тусдаа lesson болгох.
+- [x] CSS-ийн selector, value, color/unit, box, typography, flex, grid, responsive, motion property-уудыг 20+ тусдаа lesson болгох.
+- [x] JavaScript-ийн variable, operator, flow, function, array, object, DOM, event, async, error, module keyword-уудыг 20+ тусдаа lesson болгох.
+- [x] Python-ийн value, collection, control flow, function, comprehension, module, file, exception, class keyword-уудыг 20+ тусдаа lesson болгох.
+- [x] Lesson бүрийн бодитой нэг-сонголттой асуулт, code prediction, debug, build challenge, timed quest гэсэн олон төрлийн шалгалт/quest contract нэмэх.
+- [x] Багш–суралцагчийн шууд feedback thread, reply, read state, мэдэгдлийн өгөгдлийн загвар болон хамгаалагдсан API нэмэх.
+- [x] Feedback хариу, даалгаврын үнэлгээ, шинэ quest, сертификат зэрэг үйл явдлын in-app мэдэгдэл, unread count, read-all урсгал нэмэх.
+- [x] Суралцагч болон багшийн UI-д notification center, unread badge/count, mark-one/mark-all read урсгал нэмэх.
+- [x] Сертификат олгогдох үед certificate_issued notification үүсгэх серверийн логик нэмэх.
+- [x] Notifications query-д unread count-ийг ил тод буцааж, API болон UI integration test нэмэх.
+- [x] Суралцагч болон багшийн дэлгэцэд feedback inbox, мэдэгдлийн төв, нарийвчилсан 20+ lesson path болон quest интерфэйсийг нэгтгэх.
+- [x] Контентын эх сурвалжийн холбоос, feedback/notification authorization, quiz/quest validation, responsive урсгал, unit test, production build шалгах.
+- [x] Timed quest-д countdown, timeout/fail, retry урсгал нэмж; build/debug/predict quest-үүдэд ялгаатай instruction болон validation behavior хэрэгжүүлэх.
+- [x] notifications.list unreadCount contract болон mark-one/mark-all notification center behavior-ийг server/client test-ээр батлах.
+- [x] Path/Lesson UI дээр source attribution link-ийг ил тод харуулж, feedback болон notification center-ийн mobile responsive урсгалыг шалгах.
+- [x] Checkpoint асуултыг сонголт хийж, submit дараа тайлбар харагддаг бодит интерактив quiz болгох.
+- [x] Суралцагчийн бүх текстээс Boot.dev болон бусад гаднын платформын нэрийг хасаж, зөвхөн CodeCraft Academy-ийн сургалтын хэллэг ашиглах.
+- [x] NotificationCenter component-ийн mark-one/mark-all read interaction болон unread badge буурах behavior-ийг component test-ээр батлах.
+- [x] Суралцагчид харагдах бүх component, route, stylesheet дээр Boot.dev болон бусад гаднын платформын нэр үлдээгүйг search-based check-ээр батлах.
+- [x] Mobile lesson route дээрх урт path navigation-ийг эвхэгддэг болгож, active lesson-ийн агуулгыг эхний дэлгэцэд илүү хурдан хүргэх.
+- [x] Path navigation toggle-ийг зөвхөн mobile breakpoint-д харуулж, desktop болон mobile lesson view-ийн regression-ийг дахин батлах.
+- [x] Одоогийн auth, database, server болон tRPC хамаарлыг аудитлаж, backend-гүй frontend-only хувилбарт үлдэх ба хасагдах сургалтын урсгалыг тодорхойлох.
+- [x] Үнэгүй frontend-only сургалтын төвийн ахиц, quiz, quest, сертификатын локал хадгалалт болон privacy дүрмийг тодорхойлох.
+- [x] Нэвтрэлт шаардахгүй шинэ navigation, learner dashboard, багшийн тусгай server хамааралгүй мэдээллийн харагдацын UX саналыг батлах.
+- [x] Зөвшөөрөгдсөн frontend-only хөрвүүлэлтийг хэрэгжүүлж, интерактив sandbox болон localStorage-based progress урсгалыг шалгах.
+- [x] GitHub Docs-д суурилсан repository, commit, branch, pull request, issue, collaboration гэсэн 20+ atomic lesson бүхий тусдаа GitHub path төлөвлөх.
+- [x] GitHub path бүрт frontend-only command simulation, prediction/debug quiz, source attribution болон local XP/progress contract нэмэх.
+- [x] Нүүр хууданд lesson title, keyword, тайлбараар хайх search болон language/topic filter нэмэх.
+- [x] GitHub portfolio бүрдүүлэх localStorage-based checklist, completion count, дахин эхлүүлэх урсгал нэмэх.
+- [x] JavaScript challenge/lab-ийн learner-facing тайлбарыг бодитой, ойлгомжтой болгож server хамааралгүйг тодорхой болгох.
+- [x] Lesson бүрт beginner/core/stretch гэсэн шаталсан difficulty guidance, exercise progression ба харагдах тэмдэглэгээ нэмэх.
+- [x] Search/filter, portfolio checklist, difficulty guidance-ийн unit test, responsive UI болон production build-ийг батлах.
+- [x] HTML, CSS, JavaScript, Python, GitHub course тус бүрийн бүх lesson-д Practice Guide-ийн language-aware content contract тодорхойлох.
+- [x] Lesson detail бүрт аюулгүй local practice boundary, шалгагдах learning outcome, бодит орчинд үргэлжлүүлэх алхам болон албан эх сурвалжийн холбоос харуулах.
+- [x] Таван path-ийн Practice Guide coverage, accessibility, mobile layout болон production validation-ыг батлах.
+- [x] HTML, CSS, JavaScript, Python, GitHub-ийн бүх lesson route болон sidebar node-ийг prerequisite lock-гүйгээр шууд нээх.
+- [x] XP, quiz, quest completion нь optional browser-local тэмдэглэл бөгөөд хичээлийн access-г хязгаарлахгүйг learner-facing copy-д тодорхой болгох; дараагийн шаардлагаар XP/progress бүрэн хасагдсан.
+- [x] Unlocked navigation-ийн unit test, desktop/mobile visual check болон production validation хийх.
+- [x] Нүүр хуудас, lesson page, challenge болон certificate route-оос XP, lesson progress, checkpoint progress, unlock copy-г бүрэн хасах.
+- [x] XP/progress/local completion state contract болон certificate eligibility flow-г learner-facing runtime-аас салгах.
+- [x] XP/progress-free interface, all-lesson direct access, search/filter, portfolio checklist, Practice Guide-ийн test болон visual validation хийх.
+- [x] Нүүр хууданд language filter-ээс тусдаа keyword/topic chip filter нэмэж, lesson title, summary, keyword-оор path card-уудыг шүүх.
+- [x] Topic filter-ийн interaction test, desktop/mobile visual check болон production validation-ыг батлах.
+- [x] HTML, CSS, JavaScript, Python, GitHub-ийн lesson бүрт 10 асуулттай олон төрлийн checkpoint quiz data contract нэмэх.
+- [x] Олон сонголт, output prediction, debug diagnosis, build requirement гэсэн асуултын төрөл бүрийн lesson-aware generator нэмэх.
+- [x] Нэг асуулт-алхамтай quiz navigation, 10 асуултын дүн, дэлгэрэнгүй тайлбар, дахин оролдох UI-г хэрэгжүүлэх.
+- [x] Таван path-ийн 10-question coverage, multiple question kind, quiz interaction, mobile layout болон production validation-ыг батлах.
+- [x] CodeCraft Academy architecture presentation-ийн бүх slide-ийн монгол хэл, зөв бичих дүрэм, техникийн нэр томьёог хянаж засах.
+- [x] User-ийн өөрчилсөн cover болон closing slide-ийг хадгалж, presentation-ийг Canva-д импортлох шинэчилсэн хэлбэрээр дахин гаргах.
+- [x] ZERO1zx1/Code_Craft_Academy repository-ийн одоогийн tracked content-ийг CodeCraft Academy-ийн export-д тохирох source-оор бүрэн солих.
+- [x] Шинэ source replacement commit үүсгэж, default branch руу push хийсний дараа remote content болон commit reference-ийг батлах.
+- [x] React/TypeScript сургалтын UI, lesson data, quiz, sandbox flow-г vanilla HTML/CSS/JavaScript бүтэц рүү шилжүүлэх source map гаргах.
+- [x] HTML, CSS, JavaScript, Python гэсэн тусдаа example/source folders болон lesson asset contract бэлтгэх.
+- [x] Нүүр хуудас, language path, lesson detail, search/filter, Practice Guide, 10-question quiz-ийг vanilla DOM/ES module-оор хэрэгжүүлэх.
+- [x] Python lesson code-г тусдаа `.py` source file-аар гаргаж, Pyodide browser lab-ийг server-гүй ажиллуулах.
+- [x] Vanilla source-ийн desktop/mobile, quiz, search/filter, JS/Python lab болон static production build-ийг шалгах.
+- [x] ZERO1zx1/Code_Craft_Academy repository-ийг vanilla HTML/CSS/JavaScript/Python source-оор шинэчилж push хийх.
+- [x] Vanilla runtime-д ашиглагдахгүй build artifact, dependency cache, хуучин full-stack research/config болон давхардсан файлуудыг аудитлах.
+- [x] Website, lesson data, language examples, README, test, Vite config-оос бусад шаардлагагүй файлуудыг аюулгүй устгах.
+- [x] Цэвэрлэсний дараа static build/test, GitHub source tree болон remote update-ийг батлах.
+- [x] `curriculum.js` дэх 120 lesson-ийн language, keyword, difficulty, exercise бүтцийг аудитлаж тайлагнах.
+- [x] HTML, CSS, JavaScript, Python, GitHub-ийн 120 lesson-ийн physical static page folder ба URL contract-ийг тодорхойлох.
+- [x] Таван course-ийн 24 lesson бүрийн тусдаа `.html` source file, жишээ код, дасгал, 10 асуулттай сорилын markup үүсгэх.
+- [x] Course landing page болон home page link-ийг dynamic hash route-оос physical lesson file route руу шилжүүлэх.
+- [x] 120 lesson file, HTML/CSS/JavaScript/Python source, exercise/quiz interaction, responsive build болон link coverage-г шалгах.
+- [ ] Physical static lesson page source-ийг ZERO1zx1/Code_Craft_Academy repository руу push хийх.

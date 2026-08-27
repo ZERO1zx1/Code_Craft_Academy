@@ -1,33 +1,39 @@
 # CodeCraft Academy
 
-CodeCraft Academy нь **цэвэр HTML, CSS, JavaScript**-ээр бичсэн, backend болон бүртгэл шаарддаггүй нээлттэй сургалтын вебсайт юм. HTML, CSS, JavaScript, Python, GitHub гэсэн таван тусдаа сургалтын замтай бөгөөд зам бүр 24 хичээл, жишээ код, аюулгүй browser дасгал, Practice Guide, 10 асуулттай сорил агуулна.
+CodeCraft Academy нь **backend, database, нэвтрэлт шаарддаггүй**, цэвэр vanilla HTML, CSS, ES-module JavaScript бүтэцтэй нээлттэй сургалтын вебсайт юм. HTML, CSS, JavaScript, Python, GitHub гэсэн таван тусдаа сургалтын зам тус бүр **24 бодит `.html` lesson file**-тэй; нийт 120 lesson бүгд шууд нээгдэнэ.
 
-## Source бүтэц
+## Physical source бүтэц
 
 | Хавтас / файл | Үүрэг |
 |---|---|
-| `client/index.html` | Вебсайтын HTML entrypoint |
-| `client/css/styles.css` | Responsive харагдац, layout, өнгө, typography |
-| `client/javascript/app.js` | Route, search/filter, quiz, DOM interaction, JS/Python лаборатори |
-| `client/javascript/curriculum.js` | 5 course, 120 lesson, 10 асуулттай quiz data |
-| `learning-examples/html` | Тусдаа HTML source жишээ |
-| `learning-examples/css` | Тусдаа CSS source жишээ |
-| `learning-examples/javascript` | Тусдаа JavaScript source жишээ |
-| `learning-examples/python` | Тусдаа Python source жишээ |
-| `python/lesson_tools.py` | Python lesson content helper жишээ |
+| `client/index.html` | Нүүр хуудас; search/filter ба таван course-ийн шууд link |
+| `client/lessons/html/` | 24 HTML lesson болон `index.html` жагсаалт |
+| `client/lessons/css/` | 24 CSS lesson болон `index.html` жагсаалт |
+| `client/lessons/javascript/` | 24 JavaScript lesson болон `index.html` жагсаалт |
+| `client/lessons/python/` | 24 Python lesson болон `index.html` жагсаалт |
+| `client/lessons/github/` | 24 GitHub lesson болон `index.html` жагсаалт |
+| `client/javascript/lesson-page.js` | Static lesson page-ийн quiz, HTML/CSS/JS/Python/GitHub practice interaction |
+| `client/javascript/curriculum.js` | Source curriculum data; generator шинэчлэхэд хэрэглэнэ |
+| `scripts/generate-static-lessons.mjs` | 120 physical lesson page-ийг дахин deterministic үүсгэнэ |
+| `client/css/styles.css`, `client/css/lesson-pages.css` | Responsive layout, typography болон static lesson UI |
+| `learning-examples/`, `python/lesson_tools.py` | HTML/CSS/JavaScript/Python тусдаа source example |
 
-## Ажиллуулах
+Жишээ нь `client/lessons/html/05-html-h1-heading.html` нь GitHub tree-д бодитоор харагдах, шууд нээгдэх HTML хуудас юм. Page бүр өөрийн гарчиг, keyword, Mongolian тайлбар, кодын жишээ, exercise, Practice Guide, албан эх сурвалжийн link, **10 асуултын quiz markup** агуулна.
+
+## Ажиллуулах ба үүсгэх
 
 ```bash
 pnpm install
+pnpm generate:lessons
 pnpm dev
 ```
 
-`http://localhost:3000` хаягаар нээнэ. Python кодыг browser дотор Pyodide runtime ашиглан туршина; вэбсайт өөрөө Python server ажиллуулахгүй.
+`http://localhost:3000` хаягаар нээнэ. Python дасгал нь browser дотор Pyodide runtime ашигладаг; website өөрөө Python server ажиллуулахгүй.
 
 ## Шалгах
 
 ```bash
-pnpm test
-pnpm build
+pnpm run validate
 ```
+
+Энэ command нь 120 source page-ийн physical structure, lesson бүрийн 10 quiz question markup, TypeScript source байхгүйг test-ээр шалгаад, Vite multi-page build-д бүх course болон lesson HTML page-ийг оруулна.

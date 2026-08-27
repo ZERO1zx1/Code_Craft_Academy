@@ -5,7 +5,6 @@ const portfolioKey = "codecraft-portfolio-checklist";
 const portfolioItems = ["Profile зураг ба товч bio", "Profile README", "3 жижиг repository", "Repository README", "Тодорхой commit history", "Нэг pull request", "Pinned repositories", "Project link"];
 
 const esc = (value) => String(value).replace(/[&<>"]/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[char]);
-const navigate = (route) => { location.hash = route; };
 const getPortfolio = () => JSON.parse(localStorage.getItem(portfolioKey) || "[]");
 const setPortfolio = (items) => localStorage.setItem(portfolioKey, JSON.stringify(items));
 
@@ -29,15 +28,14 @@ function renderHome() {
     document.querySelector("#topic-filters").innerHTML = topicFilters.map((item) => `<button class="chip ${topic === item.id ? "selected" : ""}" data-topic="${item.id}">${item.name}</button>`).join("");
     const visible = courses.filter((course) => (language === "all" || course.id === language) && (topic === "all" || course.id === topic) && `${course.name} ${course.topic} ${course.intro} ${course.lessons.map((lesson) => `${lesson.term} ${lesson.keyword} ${lesson.summary}`).join(" ")}`.toLowerCase().includes(search.toLowerCase()));
     document.querySelector("#result-count").textContent = `${visible.length} сургалтын зам олдлоо`;
-    document.querySelector("#course-grid").innerHTML = visible.map((course) => `<article class="course-card" style="--accent:${course.accent}"><p>${course.topic}</p><h3>${course.name}</h3><span>${course.lessons.length} хичээл · ${course.intro}</span><button data-open-course="${course.id}">Замыг нээх →</button></article>`).join("") || `<p class="empty">Энэ хайлтад тохирох lesson олдсонгүй. Өөр keyword туршаарай.</p>`;
+    document.querySelector("#course-grid").innerHTML = visible.map((course) => `<article class="course-card" style="--accent:${course.accent}"><p>${course.topic}</p><h3>${course.name}</h3><span>${course.lessons.length} хичээл · ${course.intro}</span><a class="open-course" href="./lessons/${course.id}/index.html">Замыг нээх →</a></article>`).join("") || `<p class="empty">Энэ хайлтад тохирох lesson олдсонгүй. Өөр keyword туршаарай.</p>`;
   };
   draw();
   document.querySelector("#lesson-search").addEventListener("input", (event) => { search = event.target.value; draw(); });
   app.addEventListener("click", (event) => {
-    const lang = event.target.closest("[data-language]"); const top = event.target.closest("[data-topic]"); const course = event.target.closest("[data-open-course]");
+    const lang = event.target.closest("[data-language]"); const top = event.target.closest("[data-topic]");
     if (lang) { language = lang.dataset.language; draw(); }
     if (top) { topic = top.dataset.topic; draw(); }
-    if (course) navigate(`/learn/${course.dataset.openCourse}`);
     const check = event.target.closest("[data-portfolio]");
     if (check) { const values = new Set(getPortfolio()); check.checked ? values.add(check.dataset.portfolio) : values.delete(check.dataset.portfolio); setPortfolio([...values]); renderHome(); }
     if (event.target.closest("#reset-portfolio")) { setPortfolio([]); renderHome(); }
@@ -96,5 +94,4 @@ function bindQuiz(lesson) {
 }
 
 function renderNotFound() { app.innerHTML = `${headerMarkup("404", "Энэ хуудас олдсонгүй.", "Нүүр хуудас руу буцаад хичээлээ сонгоорой.")}<p class="center"><a class="primary link-button" href="#/learn">Хичээлүүдийг харах</a></p>`; }
-function router() { const parts = location.hash.replace(/^#\/?/, "").split("/").filter(Boolean); if (!parts.length || parts[0] === "learn" && parts.length === 1) return renderHome(); if (parts[0] === "learn" && parts.length === 2) { const course = findCourse(parts[1]); return course ? renderCourse(course) : renderNotFound(); } if (parts[0] === "learn" && parts.length === 3) { const course = findCourse(parts[1]); const lesson = findLesson(parts[1], parts[2]); return course && lesson ? renderLesson(course, lesson) : renderNotFound(); } renderNotFound(); }
-window.addEventListener("hashchange", router); window.addEventListener("DOMContentLoaded", router); router();
+renderHome();
