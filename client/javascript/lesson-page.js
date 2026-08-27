@@ -67,6 +67,18 @@ if (previewPanel && sandbox) {
   refreshPreview();
 }
 
+const miniProject = document.querySelector(".mini-project");
+
+if (miniProject && sandbox) {
+  miniProject.querySelector(".open-project-lab").onclick = () => {
+    const editor = sandbox.querySelector(".code-editor");
+    const feedback = miniProject.querySelector(".project-feedback");
+    sandbox.scrollIntoView({ behavior: "smooth", block: "center" });
+    editor.focus({ preventScroll: true });
+    feedback.textContent = "✓ Editor нээгдлээ. Жишээг өөрчилж, өөрийн mini-project хувилбарыг бүтээнэ үү.";
+  };
+}
+
 const questions = [...document.querySelectorAll(".static-question")];
 const dots = [...document.querySelectorAll(".quiz-dots span")];
 const count = document.querySelector(".quiz-count");

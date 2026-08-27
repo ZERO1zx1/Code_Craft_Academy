@@ -33,6 +33,10 @@ test("120 lesson нь таван тусдаа folder дахь бодит HTML so
       assert.match(markup, /Эх сурвалж/);
       assert.match(markup, /ЗУРАГТ ТАЙЛБАР/);
       assert.match(markup, /class="diagram-flow"/);
+      assert.match(markup, /class="mini-project"/);
+      assert.match(markup, /MINI PROJECT/);
+      assert.equal((markup.match(/<li><span>0[123]<\/span>/g) || []).length, 3, `${page} нь mini-project-ийн 3 шаттай байх ёстой`);
+      assert.match(markup, /open-project-lab/);
       if (courseId === "github") assert.match(markup, /SIMULATED TERMINAL/);
       else if (courseId === "python") assert.match(markup, /BROWSER PYTHON TERMINAL/);
       else assert.match(markup, /LIVE PREVIEW/);

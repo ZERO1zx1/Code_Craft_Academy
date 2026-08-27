@@ -4,7 +4,7 @@ import { courses } from "../client/javascript/curriculum.js";
 
 const root = new URL("../client/lessons/", import.meta.url).pathname;
 const escape = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
-const shell = (title, body, script = "") => `<!doctype html><html lang="mn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escape(title)} — CodeCraft Academy</title><link rel="stylesheet" href="../../css/styles.css"><link rel="stylesheet" href="../../css/lesson-pages.css"><link rel="stylesheet" href="../../css/ui-enhancements.css"></head><body><a class="skip-link" href="#main-content">Үндсэн агуулга руу алгасах</a><header class="site-header"><a class="brand" href="../../index.html"><span class="brand-mark">CC</span><span>CodeCraft Academy</span></a><span>Үнэгүй · Бүртгэлгүй · Нээлттэй</span></header><main id="main-content">${body}</main><footer>CodeCraft Academy · HTML · CSS · JavaScript · Python · GitHub</footer>${script ? `<script type="module" src="${script}"></script>` : ""}</body></html>`;
+const shell = (title, body, script = "") => `<!doctype html><html lang="mn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escape(title)} — CodeCraft Academy</title><link rel="stylesheet" href="../../css/styles.css"><link rel="stylesheet" href="../../css/lesson-pages.css"><link rel="stylesheet" href="../../css/ui-enhancements.css"><link rel="stylesheet" href="../../css/mini-project.css"></head><body><a class="skip-link" href="#main-content">Үндсэн агуулга руу алгасах</a><header class="site-header"><a class="brand" href="../../index.html"><span class="brand-mark">CC</span><span>CodeCraft Academy</span></a><span>Үнэгүй · Бүртгэлгүй · Нээлттэй</span></header><main id="main-content">${body}</main><footer>CodeCraft Academy · HTML · CSS · JavaScript · Python · GitHub</footer>${script ? `<script type="module" src="${script}"></script>` : ""}</body></html>`;
 
 const visualContent = {
   html: { label: "Browser-ын бүтэц", copy: "Element нь document-ийн утгыг тодорхойлж, browser үүнийг уншигдах бүтэц болгон харуулна.", steps: ["Document", "HTML element", "Browser tree", "Харагдац"] },
@@ -27,6 +27,20 @@ const livePreviewMarkup = (course, lesson) => {
   return `<section class="live-preview-panel" data-preview-language="${course.id}" aria-labelledby="preview-${lesson.id}"><div class="section-heading"><div><p class="eyebrow">LIVE PREVIEW</p><h2 id="preview-${lesson.id}">${title}</h2></div><button type="button" class="secondary refresh-preview">Preview шинэчлэх</button></div><p>${copy}</p><p class="preview-state" aria-live="polite">Preview бэлдэж байна…</p><iframe class="live-preview" title="${escape(lesson.term)} live preview" sandbox="allow-scripts"></iframe></section>`;
 };
 
+const projectTracks = {
+  html: { project: "Semantic profile page", action: "HTML element-үүдээр уншигдах нэг хуудас бүтэцлэ.", artifact: "`main`, `h1`, `p` ба тухайн хичээлийн keyword орсон HTML файл" },
+  css: { project: "Responsive component", action: "Нэг component-ийн харагдац, зай ба responsive төлвийг CSS-ээр зохио.", artifact: "Selector, property, тухайн keyword орсон CSS rule" },
+  javascript: { project: "Interactive browser widget", action: "Event эсвэл data ашиглан browser-д харагдах жижиг interaction хий.", artifact: "Тухайн keyword ашигласан JavaScript behavior ба console/preview result" },
+  python: { project: "Python utility", action: "Input авч, ойлгомжтой output буцаадаг жижиг Python program бич.", artifact: "Тухайн keyword ашигласан Python code ба terminal output" },
+  github: { project: "Repository workflow note", action: "Нэг repository workflow-г README болон command sequence хэлбэрээр төлөвлө.", artifact: "Тухайн command/keyword орсон README хэсэг ба local command plan" },
+};
+
+const miniProjectMarkup = (course, lesson) => {
+  const track = projectTracks[course.id];
+  const level = lesson.order <= 8 ? { name: "Эхлэгч", verb: "нэг санааг" } : lesson.order <= 16 ? { name: "Суурь", verb: "хоёр хэсгийг" } : { name: "Ахисан", verb: "жижиг урсгалыг" };
+  return `<section class="mini-project" data-project-language="${course.id}" aria-labelledby="project-${lesson.id}"><div class="project-heading"><div><p class="eyebrow">MINI PROJECT · ${level.name.toUpperCase()}</p><h2 id="project-${lesson.id}">${escape(track.project)}: ${escape(lesson.term)}</h2></div><span class="project-badge">3 шат</span></div><p class="project-intro">Энэ хичээлийн <strong>${escape(lesson.keyword)}</strong> keyword-ийг ашиглаад ${level.verb} бодит жижиг үр дүн болго.</p><ol class="project-steps"><li><span>01</span><div><b>Эхлэх</b><p>Кодын жишээг уншаад, <strong>${escape(lesson.keyword)}</strong> ямар үүрэгтэйг нэг өгүүлбэрээр тэмдэглэ.</p></div></li><li><span>02</span><div><b>Бүтээх</b><p>${escape(track.action)} Үүнийг одоогийн editor дотор өөрийн хувилбараар хий.</p></div></li><li><span>03</span><div><b>Шалгах</b><p>Кодоо ажиллуулж, дараах үр дүнг шалга: ${escape(track.artifact)}</p></div></li></ol><div class="project-deliverable"><p class="eyebrow">DELIVERABLE</p><p>${escape(track.artifact)}</p></div><div class="project-actions"><button type="button" class="primary open-project-lab">Mini-project-ээ эхлэх</button><p class="project-feedback" aria-live="polite">Төсөл хаалтгүй. Хүссэн үедээ эхлүүлж, өөрийн жишээгээр өргөтгөнө.</p></div></section>`;
+};
+
 rmSync(root, { recursive: true, force: true });
 for (const course of courses) {
   const courseDir = join(root, course.id); mkdirSync(courseDir, { recursive: true });
@@ -42,7 +56,8 @@ for (const course of courses) {
     const enhancedBody = body
       .replace(`<div class="lesson-layout">`, `<div class="lesson-layout" style="--course-accent:${course.accent}">`)
       .replace(`<p class="lead">${escape(lesson.summary)}</p>`, `<p class="lead">${escape(lesson.summary)}</p>${visualMarkup(course, lesson)}`)
-      .replace(`</section><aside class="practice-guide">`, `</section>${livePreviewMarkup(course, lesson)}<aside class="practice-guide">`);
+      .replace(`</section><aside class="practice-guide">`, `</section>${livePreviewMarkup(course, lesson)}<aside class="practice-guide">`)
+      .replace(`<section class="quiz physical-quiz">`, `${miniProjectMarkup(course, lesson)}<section class="quiz physical-quiz">`);
     writeFileSync(join(courseDir, filename), shell(lesson.term, enhancedBody, "../../javascript/lesson-page.js"));
   });
 }

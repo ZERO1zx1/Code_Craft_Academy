@@ -136,3 +136,8 @@
 - [x] Visual/live practice interaction, mobile accessibility, source contract болон multi-page build-ийг шалгах.
 - [x] Visual explanation болон live practice source-ийг GitHub repository руу push хийх.
 - [x] Lesson, course болон homepage-ийн visual hierarchy, component states, spacing, contrast, responsive navigation-г нэгтгэсэн modern UI/UX design system-ээр сайжруулах.
+- [x] Figma-ийн public learning interface design pattern-уудыг судалж, CodeCraft Academy-д тохирох reusable UI/UX шийдлийг тодорхойлох.
+- [x] HTML, CSS, JavaScript, Python, GitHub lesson бүрт beginner/core/stretch шаталсан mini-project content contract нэмэх.
+- [x] 120 physical lesson page-д Figma-inspired mini-project card, deliverable checklist, browser-local practice action болон feedback нэмэх.
+- [x] Mini-project coverage, interaction, responsive accessibility болон multi-page build-ийг шалгах.
+- [ ] Figma-inspired mini-project source-ийг GitHub repository руу push хийх.
