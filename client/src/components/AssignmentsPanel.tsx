@@ -1,0 +1,23 @@
+import { ClipboardPenLine, ExternalLink, Send, Star } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import type { CourseModule } from "@/lib/courseData";
+import { trpc } from "@/lib/trpc";
+import "./learning-extensions.css";
+import "./assignment-status.css";
+
+type Draft = { response: string; resourceUrl: string };
+const stateCopy = { submitted: "Илгээгдсэн · багш шалгана", revised: "Шинэчилж илгээсэн", graded: "Үнэлэгдсэн" } as const;
+
+export function AssignmentsPanel({ course }: { course: CourseModule }) {
+  const utils = trpc.useUtils();
+  const [drafts, setDrafts] = useState<Record<number, Draft>>({});
+  const [notice, setNotice] = useState<string | null>(null);
+  const [failedId, setFailedId] = useState<number | null>(null);
+  const assignments = trpc.assignments.mine.useQuery();
+  const submit = trpc.assignments.submit.useMutation({ onSuccess: async () => { setNotice("Даалгаврын илгээлт хадгалагдлаа."); setFailedId(null); await utils.assignments.mine.invalidate(); await utils.learning.analytics.invalidate(); } });
+  const rows = useMemo(() => (assignments.data ?? []).filter((item) => item.courseId === course.id), [assignments.data, course.id]);
+  const save = (assignmentId: number) => { const draft = drafts[assignmentId] ?? { response: "", resourceUrl: "" }; setNotice(null); setFailedId(null); submit.mutate({ assignmentId, response: draft.response, resourceUrl: draft.resourceUrl || null }, { onError: () => setFailedId(assignmentId) }); };
+  return <section className="assignments-panel"><div className="extension-head"><div><p className="section-kicker">ДАДЛАГЫН ДААЛГАВАР</p><h3>Кодоор баталж, багшийн feedback ав.</h3></div><ClipboardPenLine /></div>{notice && <p className="discussion-feedback" role="status">{notice}</p>}{assignments.isLoading ? <p className="extension-empty">Даалгавруудыг ачаалж байна...</p> : assignments.error ? <div className="persistence-error"><span>Даалгаврыг ачаалж чадсангүй.</span><button type="button" onClick={() => assignments.refetch()}>Дахин ачаалах</button></div> : rows.length === 0 ? <p className="extension-empty">Энэ модульд багшийн даалгавар хараахан нийтлэгдээгүй байна.</p> : <div className="assignment-list">{rows.map((assignment) => { const draft = drafts[assignment.id] ?? { response: assignment.submission?.response ?? "", resourceUrl: assignment.submission?.resourceUrl ?? "" }; const submission = assignment.submission; const graded = submission?.state === "graded"; return <article key={assignment.id} className="assignment-card"><div className="assignment-meta"><span>{assignment.courseId.toUpperCase()}</span><b>{assignment.maxScore} оноо</b>{assignment.dueAt && <small>Хугацаа: {new Date(assignment.dueAt).toLocaleDateString()}</small>}</div><h4>{assignment.title}</h4><p>{assignment.instructions}</p>{assignment.criteria && <div className="assignment-criteria"><b>Үнэлгээний шалгуур</b><p>{assignment.criteria}</p></div>}{submission && <div className={`submission-state ${submission.state}`}><b>{stateCopy[submission.state]}</b><span>Илгээсэн: {new Date(submission.submittedAt).toLocaleString()}</span>{submission.gradedAt && <span>Сүүлд үнэлсэн: {new Date(submission.gradedAt).toLocaleString()}</span>}</div>}{graded && <div className="assignment-grade"><Star size={16} /><div><b>{submission?.score} / {assignment.maxScore} оноо</b><p>{submission?.feedback}</p></div></div>}<label>Таны тайлбар<Textarea value={draft.response} onChange={(event) => setDrafts((current) => ({ ...current, [assignment.id]: { ...draft, response: event.target.value } }))} placeholder="Хийсэн ажлынхаа шийдэл, кодын сонголт, туршилтын үр дүнг тайлбарлаарай." /></label><label>Нэмэлт холбоос (сонголтоор)<input value={draft.resourceUrl} onChange={(event) => setDrafts((current) => ({ ...current, [assignment.id]: { ...draft, resourceUrl: event.target.value } }))} placeholder="https://..." /></label>{failedId === assignment.id && <div className="persistence-error"><span>Илгээлтийг хадгалж чадсангүй.</span><button type="button" onClick={() => save(assignment.id)}>Дахин оролдох</button></div>}<Button className="atlas-button" disabled={draft.response.trim().length < 20 || submit.isPending} onClick={() => save(assignment.id)}><Send size={15} /> {submission ? "Илгээлтийг шинэчлэх" : "Багш руу илгээх"}</Button>{submission?.resourceUrl && <a className="assignment-link" href={submission.resourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={14} /> Илгээлтийн холбоос</a>}</article>; })}</div>}</section>;
+}
