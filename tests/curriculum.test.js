@@ -84,9 +84,13 @@ test("course бүр дэлгэрэнгүй README, About page болон шуу�
   const projectRoot = new URL("../", import.meta.url).pathname;
   const aboutMarkup = readFileSync(join(projectRoot, "client/about.html"), "utf8");
   assert.match(aboutMarkup, /CodeCraft Academy-ийн тухай/);
-  assert.match(aboutMarkup, /2026/);
+  assert.match(aboutMarkup, /2026-06-24/);
   assert.match(aboutMarkup, /summer_course_2026/);
   assert.match(aboutMarkup, /Light/);
+  assert.match(aboutMarkup, /frontend/);
+  assert.match(aboutMarkup, /Discord bot/);
+  assert.match(aboutMarkup, /Хангайхүү багш/);
+  assert.match(aboutMarkup, /class="mentor-tribute"/);
 
   courses.forEach((course) => {
     const readme = readFileSync(join(lessonRoot, course.id, "README.md"), "utf8");

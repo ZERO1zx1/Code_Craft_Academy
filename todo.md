@@ -156,4 +156,8 @@
 - [x] Light-ийн 2026-08-24 summer course суралцсан замнал, 2026-08-28-нд дуусгасан ажил, ур чадвар болон багшийн чиглүүлгийг хүндэтгэлтэй About page copy болгон боловсруулах.
 - [x] Static About page, course README file-ууд, homepage/footer navigation болон responsive UI-г хэрэгжүүлэх.
 - [x] README coverage, About content, direct navigation, accessibility, source contract болон multi-page build-ийг шалгах.
-- [ ] Documentation болон About page source-ийг GitHub main branch руу push хийх.
+- [x] Documentation болон About page source-ийг GitHub main branch руу push хийх.
+- [x] About page-ийн summer_course_2026 эхлэх огноог 2026-06-24 болгон засаж, frontend focus болон Python Discord bot хөгжүүлэлтийн бодит туршлагыг тусгах.
+- [x] Хангайхүү багшийн чиглүүлэгт зориулсан онцгой талархлын copy, quote, visual hierarchy болон responsive section design нэмэх.
+- [x] About profile/timeline, gratitude section, accessibility, responsive render, source contract болон multi-page build-ийг шалгах.
+- [ ] About page-ийн засварыг GitHub main branch руу push хийх.
