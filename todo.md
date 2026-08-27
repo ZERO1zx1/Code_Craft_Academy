@@ -134,5 +134,5 @@
 - [x] 120 physical lesson page-д keyword-тай уялдсан visual explanation болон diagram markup үүсгэх.
 - [x] HTML/CSS/JavaScript/Python-д browser-based live preview, GitHub-д аюулгүй simulated terminal practice нэмэх.
 - [x] Visual/live practice interaction, mobile accessibility, source contract болон multi-page build-ийг шалгах.
-- [ ] Visual explanation болон live practice source-ийг GitHub repository руу push хийх.
+- [x] Visual explanation болон live practice source-ийг GitHub repository руу push хийх.
 - [x] Lesson, course болон homepage-ийн visual hierarchy, component states, spacing, contrast, responsive navigation-г нэгтгэсэн modern UI/UX design system-ээр сайжруулах.
