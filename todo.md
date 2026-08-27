@@ -120,4 +120,7 @@
 - [x] Нүүр хуудас, language path, lesson detail, search/filter, Practice Guide, 10-question quiz-ийг vanilla DOM/ES module-оор хэрэгжүүлэх.
 - [x] Python lesson code-г тусдаа `.py` source file-аар гаргаж, Pyodide browser lab-ийг server-гүй ажиллуулах.
 - [x] Vanilla source-ийн desktop/mobile, quiz, search/filter, JS/Python lab болон static production build-ийг шалгах.
-- [ ] ZERO1zx1/Code_Craft_Academy repository-ийг vanilla HTML/CSS/JavaScript/Python source-оор шинэчилж push хийх.
+- [x] ZERO1zx1/Code_Craft_Academy repository-ийг vanilla HTML/CSS/JavaScript/Python source-оор шинэчилж push хийх.
+- [x] Vanilla runtime-д ашиглагдахгүй build artifact, dependency cache, хуучин full-stack research/config болон давхардсан файлуудыг аудитлах.
+- [x] Website, lesson data, language examples, README, test, Vite config-оос бусад шаардлагагүй файлуудыг аюулгүй устгах.
+- [x] Цэвэрлэсний дараа static build/test, GitHub source tree болон remote update-ийг батлах.
