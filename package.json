@@ -9,7 +9,7 @@
     "generate:lessons": "node scripts/generate-static-lessons.mjs",
     "build": "pnpm generate:lessons && vite build",
     "test": "node --test tests/*.test.js",
-    "validate": "pnpm test && pnpm build"
+    "validate": "pnpm generate:lessons && pnpm test && vite build"
   },
   "devDependencies": {
     "vite": "^7.1.7"

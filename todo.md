@@ -151,4 +151,9 @@
 - [x] Course content, shared JavaScript, CSS design system, build scripts, test, documentation-д зориулсан цэгцтэй folder convention тодорхойлох.
 - [x] Файл, import/reference болон README source map-ийг шинэ convention-д шилжүүлж physical lesson URL-г хадгалах.
 - [x] Source contract, Vite multi-page build, GitHub CI болон remote tree-г цэгцэлсний дараа шалгах.
-- [ ] Цэгцэлсэн source tree-г GitHub main branch руу push хийх.
+- [x] Цэгцэлсэн source tree-г GitHub main branch руу push хийх.
+- [x] HTML, CSS, JavaScript, Python, GitHub course folder бүрийн content, objective, lesson map, local practice болон official source link-ийг README-д тодорхойлох.
+- [x] Light-ийн 2026-08-24 summer course суралцсан замнал, 2026-08-28-нд дуусгасан ажил, ур чадвар болон багшийн чиглүүлгийг хүндэтгэлтэй About page copy болгон боловсруулах.
+- [x] Static About page, course README file-ууд, homepage/footer navigation болон responsive UI-г хэрэгжүүлэх.
+- [x] README coverage, About content, direct navigation, accessibility, source contract болон multi-page build-ийг шалгах.
+- [ ] Documentation болон About page source-ийг GitHub main branch руу push хийх.

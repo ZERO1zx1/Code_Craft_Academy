@@ -65,6 +65,7 @@ test("source tree нь data, page runtime, component style болон documentat
     "client/css/components/lesson-pages.css",
     "client/css/components/ui-enhancements.css",
     "client/css/components/mini-project.css",
+    "client/css/components/about.css",
     "client/javascript/data/curriculum.js",
     "client/javascript/pages/home.js",
     "client/javascript/pages/lesson-page.js",
@@ -77,4 +78,24 @@ test("source tree нь data, page runtime, component style болон documentat
     "docs/figma-design-notes.md",
   ];
   requiredPaths.forEach((path) => assert.doesNotThrow(() => readFileSync(join(projectRoot, path), "utf8"), `${path} байх ёстой`));
+});
+
+test("course бүр дэлгэрэнгүй README, About page болон шууд navigation-тэй", () => {
+  const projectRoot = new URL("../", import.meta.url).pathname;
+  const aboutMarkup = readFileSync(join(projectRoot, "client/about.html"), "utf8");
+  assert.match(aboutMarkup, /CodeCraft Academy-ийн тухай/);
+  assert.match(aboutMarkup, /2026/);
+  assert.match(aboutMarkup, /summer_course_2026/);
+  assert.match(aboutMarkup, /Light/);
+
+  courses.forEach((course) => {
+    const readme = readFileSync(join(lessonRoot, course.id, "README.md"), "utf8");
+    const courseIndex = readFileSync(join(lessonRoot, course.id, "index.html"), "utf8");
+    assert.match(readme, /## Агуулгын зам/);
+    assert.match(readme, /## Суралцах үр дүн/);
+    assert.match(readme, /## Дадлага ба mini-project/);
+    assert.match(readme, /## Эх сурвалж/);
+    assert.match(courseIndex, /README/);
+    assert.match(courseIndex, /Танилцуулга/);
+  });
 });
