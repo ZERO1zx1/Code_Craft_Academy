@@ -130,3 +130,9 @@
 - [x] Course landing page болон home page link-ийг dynamic hash route-оос physical lesson file route руу шилжүүлэх.
 - [x] 120 lesson file, HTML/CSS/JavaScript/Python source, exercise/quiz interaction, responsive build болон link coverage-г шалгах.
 - [x] Physical static lesson page source-ийг ZERO1zx1/Code_Craft_Academy repository руу push хийх.
+- [x] Таван course-д тохирох ойлголтын зурагт тайлбар болон structured diagram component-ийн reusable contract боловсруулах.
+- [x] 120 physical lesson page-д keyword-тай уялдсан visual explanation болон diagram markup үүсгэх.
+- [x] HTML/CSS/JavaScript/Python-д browser-based live preview, GitHub-д аюулгүй simulated terminal practice нэмэх.
+- [x] Visual/live practice interaction, mobile accessibility, source contract болон multi-page build-ийг шалгах.
+- [ ] Visual explanation болон live practice source-ийг GitHub repository руу push хийх.
+- [x] Lesson, course болон homepage-ийн visual hierarchy, component states, spacing, contrast, responsive navigation-г нэгтгэсэн modern UI/UX design system-ээр сайжруулах.

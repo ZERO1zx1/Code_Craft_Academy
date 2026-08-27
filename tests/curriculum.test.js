@@ -31,6 +31,11 @@ test("120 lesson нь таван тусдаа folder дахь бодит HTML so
       assert.match(markup, /class="sandbox"/);
       assert.match(markup, /ДАДЛАГЫН ХӨТӨЧ/);
       assert.match(markup, /Эх сурвалж/);
+      assert.match(markup, /ЗУРАГТ ТАЙЛБАР/);
+      assert.match(markup, /class="diagram-flow"/);
+      if (courseId === "github") assert.match(markup, /SIMULATED TERMINAL/);
+      else if (courseId === "python") assert.match(markup, /BROWSER PYTHON TERMINAL/);
+      else assert.match(markup, /LIVE PREVIEW/);
       assert.equal((markup.match(/class="static-question/g) || []).length, 10, `${page} нь 10 quiz question markup-тэй байх ёстой`);
     });
   });

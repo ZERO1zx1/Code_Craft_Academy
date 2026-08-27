@@ -41,6 +41,32 @@ if (sandbox) {
   };
 }
 
+const previewPanel = document.querySelector(".live-preview-panel");
+
+if (previewPanel && sandbox) {
+  const preview = previewPanel.querySelector(".live-preview");
+  const previewState = previewPanel.querySelector(".preview-state");
+  const refreshPreview = () => {
+    const code = sandbox.querySelector(".code-editor").value;
+    const language = sandbox.dataset.language;
+    previewState.textContent = "Preview шинэчлэгдэж байна…";
+    preview.onload = () => { if (language !== "javascript") previewState.textContent = "✓ Preview browser дотор ачааллаа."; };
+    if (language === "html") {
+      preview.srcdoc = code;
+      return;
+    }
+    if (language === "css") {
+      preview.srcdoc = `<!doctype html><html><head><style>${code}</style></head><body><main><h1>CodeCraft Preview</h1><p>Энэ paragraph-д таны CSS rule үйлчилнэ.</p><button type="button">Турших товч</button></main></body></html>`;
+      return;
+    }
+    const safeCode = code.replace(/<\/script/gi, "<\\/script");
+    preview.srcdoc = `<!doctype html><html><head><style>body{margin:0;padding:20px;background:#f7fbfa;color:#173139;font:15px system-ui,sans-serif}h1{margin:0 0 10px;font-size:22px}pre{padding:10px;background:#163b42;color:#e8f2ef;border-radius:8px;white-space:pre-wrap}</style></head><body><main><h1>JavaScript preview</h1><p id="preview-status">Код ажиллаж байна…</p><pre id="preview-log"></pre></main><script>const log=document.querySelector('#preview-log');const old=console.log;console.log=(...args)=>{log.textContent+=args.join(' ')+'\\n';old(...args)};try{${safeCode};document.querySelector('#preview-status').textContent='✓ Код ажиллалаа';window.parent.postMessage({source:'codecraft-preview',status:'✓ JavaScript preview ажиллалаа'},'*')}catch(error){document.querySelector('#preview-status').textContent='Алдаа: '+error.message;window.parent.postMessage({source:'codecraft-preview',status:'Алдаа: '+error.message},'*')}<\/script></body></html>`;
+  };
+  window.addEventListener("message", (event) => { if (event.data?.source === "codecraft-preview") previewState.textContent = event.data.status; });
+  previewPanel.querySelector(".refresh-preview").onclick = refreshPreview;
+  refreshPreview();
+}
+
 const questions = [...document.querySelectorAll(".static-question")];
 const dots = [...document.querySelectorAll(".quiz-dots span")];
 const count = document.querySelector(".quiz-count");
